@@ -4,6 +4,10 @@ import com.badlogic.gdx.Screen;
 
 public class GameScreen implements Screen {
 
+    public GameScreen() {
+
+    }
+
     @Override
     public void show() {
 
