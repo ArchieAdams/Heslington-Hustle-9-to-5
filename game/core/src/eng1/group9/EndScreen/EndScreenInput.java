@@ -2,7 +2,7 @@ package eng1.group9.EndScreen;
 
 import eng1.group9.ScreenInput;
 
-class EndScreenInput extends ScreenInput {
+public class EndScreenInput extends ScreenInput {
     @Override
     public void Update() {
 

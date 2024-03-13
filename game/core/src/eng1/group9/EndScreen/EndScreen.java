@@ -2,52 +2,14 @@ package eng1.group9.EndScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import eng1.group9.BaseScreen;
 import eng1.group9.ScreenInput;
 import eng1.group9.ScreenUI;
 
-public class EndScreen implements Screen {
-    private Game game;
-    private ScreenUI ui;
-    private ScreenInput input;
+public class EndScreen extends BaseScreen {
 
-    public EndScreen(Game game) {
-        this.game = game;
-        ui = new EndScreenUI();
-        input = new EndScreenInput();
+    public EndScreen(Game game, ScreenUI ui, ScreenInput input) {
+        super(game, ui, input);
     }
 
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void render(float v) {
-
-    }
-
-    @Override
-    public void resize(int i, int i1) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }
