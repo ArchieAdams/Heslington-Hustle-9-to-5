@@ -36,7 +36,7 @@ public abstract class BaseScreen implements Screen {
     }
 
     @Override
-    public void resize(int i, int i1) {
+    public void resize(int width, int height) {
 
     }
 
