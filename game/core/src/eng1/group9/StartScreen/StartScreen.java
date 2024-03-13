@@ -1,8 +1,20 @@
 package eng1.group9.StartScreen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import eng1.group9.ScreenInput;
+import eng1.group9.ScreenUI;
 
 public class StartScreen implements Screen {
+    Game game;
+    ScreenUI ui;
+    ScreenInput input;
+
+    public StartScreen(Game game) {
+        this.game = game;
+        ui = new StartScreenUI();
+        input = new StartScreenInput();
+    }
 
     @Override
     public void show() {

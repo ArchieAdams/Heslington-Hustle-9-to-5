@@ -1,16 +1,27 @@
 package eng1.group9;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import eng1.group9.EndScreen.EndScreen;
 import eng1.group9.GameScreen.GameScreen;
+import eng1.group9.StartScreen.StartScreen;
 
 public class HustleGame extends Game {
-	
+	private Screen startScreen;
+	private Screen gameScreen;
+	private Screen endScreen;
+
+
 	@Override
 	public void create () {
-		this.setScreen(new GameScreen());
+		startScreen = new StartScreen(this);
+		gameScreen = new GameScreen(this);
+		endScreen = new EndScreen(this);
+
+		this.setScreen(gameScreen);
 	}
 
 	@Override
