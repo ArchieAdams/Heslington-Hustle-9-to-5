@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import eng1.group9.EndScreen.EndScreen;
-import eng1.group9.EndScreen.EndScreenInput;
-import eng1.group9.EndScreen.EndScreenUI;
 import eng1.group9.GameScreen.GameScreen;
 import eng1.group9.GameScreen.GameScreenInput;
 import eng1.group9.GameScreen.GameScreenUI;
@@ -23,9 +21,9 @@ public class HustleGame extends Game {
 
 	@Override
 	public void create () {
-		startScreen = new StartScreen(this, new StartScreenUI(), new StartScreenInput());
-		gameScreen = new GameScreen(this, new GameScreenUI(),	new GameScreenInput());
-		endScreen = new EndScreen(this, new EndScreenUI(), new EndScreenInput());
+		startScreen = new StartScreen(this);
+		gameScreen = new GameScreen(this);
+		endScreen = new EndScreen(this);
 
 		this.setScreen(gameScreen);
 	}

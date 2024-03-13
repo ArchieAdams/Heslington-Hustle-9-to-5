@@ -8,7 +8,7 @@ import eng1.group9.ScreenUI;
 
 public class StartScreen extends BaseScreen {
 
-    public StartScreen(Game game, ScreenUI ui, ScreenInput input) {
-        super(game, ui, input);
+    public StartScreen(Game game) {
+        super(game, new StartScreenUI(), new StartScreenInput());
     }
 }

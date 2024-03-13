@@ -8,8 +8,8 @@ import eng1.group9.ScreenUI;
 
 public class GameScreen extends BaseScreen {
 
-    public GameScreen(Game game, ScreenUI ui, ScreenInput input) {
-        super(game, ui, input);
+    public GameScreen(Game game) {
+        super(game, new GameScreenUI(), new GameScreenInput());
     }
 
 }
