@@ -52,10 +52,10 @@ public abstract class BaseScreen implements Screen {
     }
 
     public void updateInput() {
-        input.Update();
+        input.update();
     }
 
     public void updateUi() {
-        ui.Update();
+        ui.update();
     }
 }

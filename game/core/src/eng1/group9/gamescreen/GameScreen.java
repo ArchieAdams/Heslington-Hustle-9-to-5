@@ -1,10 +1,7 @@
-package eng1.group9.GameScreen;
+package eng1.group9.gamescreen;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 import eng1.group9.BaseScreen;
-import eng1.group9.ScreenInput;
-import eng1.group9.ScreenUI;
 
 public class GameScreen extends BaseScreen {
 

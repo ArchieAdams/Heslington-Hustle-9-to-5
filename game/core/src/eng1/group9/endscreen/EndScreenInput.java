@@ -1,10 +1,10 @@
-package eng1.group9.EndScreen;
+package eng1.group9.endscreen;
 
 import eng1.group9.ScreenInput;
 
 class EndScreenInput extends ScreenInput {
     @Override
-    public void Update() {
+    public void update() {
 
     }
 }
