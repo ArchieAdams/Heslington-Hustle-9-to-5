@@ -1,5 +1,12 @@
 package eng1.group9.Activities;
 
+
+/**
+ * This class is the abstract class for the eat, sleep, study, and recreation classes
+ *
+ * @param timeConsumption int, record of how much time is consumed for this activity
+ * @param energyConsumption int, record of how much energy is consumed
+ */
 abstract class Activity {
 
     private int timeConsumption;
@@ -24,14 +31,4 @@ abstract class Activity {
         return energyConsumption;
     }
 
-
-    //setters
-    public int setTimeConsumption(int value) {
-
-        timeConsumption = value;
-    }
-    public int setEnergyConsumption(int value) {
-
-        energyConsumption = value;
-    }
 }
