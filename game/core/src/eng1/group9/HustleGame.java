@@ -18,7 +18,17 @@ public class HustleGame extends Game {
 		gameScreen = new GameScreen(this);
 		endScreen = new EndScreen(this);
 
-		this.setScreen(gameScreen);
+		setGameScreen();
+	}
+
+	public void setStartScreen() {
+		setScreen(startScreen);
+	}
+	public void setGameScreen() {
+		setScreen(gameScreen);
+	}
+	public void setEndScreen() {
+		setScreen(endScreen);
 	}
 
 	@Override
