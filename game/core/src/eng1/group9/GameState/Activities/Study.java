@@ -1,11 +1,14 @@
-package eng1.group9.Activities;
+package eng1.group9.GameState.Activities;
 
 /**
  * The class for the activity sleep
  *
  */
 
-class Study extends Activity{
+public class Study extends Activity{
 
+    public  Study(int tim, int eng){
+        super(tim, eng);
+    }
 
 }
