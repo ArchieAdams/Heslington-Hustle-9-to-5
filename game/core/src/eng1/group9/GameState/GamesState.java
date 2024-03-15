@@ -4,6 +4,20 @@ import eng1.group9.GameState.Activities.*;
 
 import java.util.ArrayList;
 
+/*
+This class is the main game logic class. The 'game state', i.e. the record of the energy
+and time, etc of the player is kept and modified in this class.
+
+energy int, the remaining energy of the player
+maxEnergy int, the energy the player starts with in a day
+time int, the remaining time of the player
+timeInDay int, the total time in a day
+counter int, the counter of the days
+activityList, the list of activities taken place
+
+
+ */
+
 public class GamesState {
 
     private int energy;
@@ -14,6 +28,7 @@ public class GamesState {
     private ArrayList<Activity> activityList = new ArrayList<>();
 
 
+    //constructor
     public GamesState(int eng, int tim){
 
         this.energy = eng;
@@ -23,6 +38,7 @@ public class GamesState {
     }
 
 
+    //getters
     public int getEnergy(){
 
         return this.energy;
@@ -37,18 +53,13 @@ public class GamesState {
         return this.counter;
     }
 
-//    public setEnergy(int eng){
-//
-//        this.energy = eng;
-//    }
-//    public setTime(int tim){
-//
-//        this.time = tim;
-//    }
+    public ArrayList<Activity> getActivityList(){
+
+        return this.activityList;
+    }
 
 
-
-
+    //the function to update the player position
     public boolean move(String direction){
 
         if((direction.equals("up")) && (this.canMoveUp())){
@@ -79,6 +90,8 @@ public class GamesState {
     }
 
 
+    //the functions to check whether the player is capable of moving in
+    //that direction
     private boolean canMoveUp(){
 
 
@@ -103,8 +116,13 @@ public class GamesState {
         return false;
     }
 
+
+    //the function to perform an activity the user wants
     public boolean performActivity(Activity act){
 
+
+        //if the activity is Sleep, the time and energy is reset
+        //and the counter of the day increments
         if(act instanceof Sleep){
 
             this.counter = this.counter + 1;
@@ -115,6 +133,8 @@ public class GamesState {
         }
 
 
+        //if the activity is Eat, study or recreation, then the time and energy is decremented
+        //by the desired amount and the activity is recorded in the ArrayList
         if((act.getEnergyConsumption() < this.energy) && (act.getTimeConsumption() < this.time)) {
 
             int tempTime = act.getTimeConsumption();
@@ -130,8 +150,18 @@ public class GamesState {
 
             return false;
         }
+    }
 
 
+    public boolean getActivities(){
+
+
+        return true;
+    }
+
+    private boolean getPlayerPosition(){
+
+        return true;
     }
 
 }
