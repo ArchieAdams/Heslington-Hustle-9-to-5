@@ -1,15 +1,15 @@
 @startuml
 
 package "Game System" {
-    [User] 
+    [Player] 
     [UI]
     [GameState]
     [Input]
 
-    [User] --> [UI] : Interacts with
-    [User] --> [GameState] : Updates
-    [UI] --> [GameState] : Displays
-    [Input] --> [User] : Controls
+    [Player] --> [UI] : Interacts with \n Responds to
+    [Input] --> [GameState] : Updates
+    [GameState] --> [UI] : Displays
+    [Player] --> [Input] : Controls
 }
 
 @enduml

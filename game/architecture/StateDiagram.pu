@@ -2,12 +2,20 @@
 
 state StartScreen: Show the button to start the game
 
-state GameScreen: Perform game activities based on user input
+state GameScreen{
+    
+    GameScreen: Perform game activities based on user input
+    GameScreen: Update UI
+    entry: Wait for user input
+    loop: Handle user input
+
+}
 
 state EndScreen: Display final score and end game
 
 [*] --> StartScreen
-StartScreen --> GameScreen : startGame()
-GameScreen --> EndScreen : gameOver()
+StartScreen --> GameScreen: startGame()
+GameScreen --> GameScreen: Process user input
+GameScreen --> EndScreen: 7 days elapsed
 
 @enduml
