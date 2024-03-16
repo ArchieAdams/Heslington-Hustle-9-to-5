@@ -38,11 +38,6 @@ public class GameScreenInput extends InputAdapter {
             case Input.Keys.D:
                 valid = moveRight();
                 break;
-
-            case Input.Keys.ENTER:
-                nextScreen();
-                valid = true;
-                break;
         }
         return valid;
     }

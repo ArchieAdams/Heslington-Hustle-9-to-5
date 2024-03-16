@@ -18,17 +18,20 @@ public class HustleGame extends Game {
 		gameScreen = new GameScreen(this);
 		endScreen = new EndScreen(this);
 
-		setGameScreen();
+		setStartScreen();
 	}
 
 	public void setStartScreen() {
 		setScreen(startScreen);
+		System.out.println("Switched to start screen");
 	}
 	public void setGameScreen() {
 		setScreen(gameScreen);
+		System.out.println("Switched to game screen");
 	}
 	public void setEndScreen() {
 		setScreen(endScreen);
+		System.out.println("Switched to end screen");
 	}
 
 	@Override
