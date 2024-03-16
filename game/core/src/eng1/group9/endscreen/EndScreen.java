@@ -1,6 +1,5 @@
 package eng1.group9.endscreen;
 
-import com.badlogic.gdx.Game;
 import eng1.group9.BaseScreen;
 import eng1.group9.HustleGame;
 

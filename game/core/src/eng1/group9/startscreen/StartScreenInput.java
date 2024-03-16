@@ -3,7 +3,6 @@ package eng1.group9.startscreen;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import eng1.group9.HustleGame;
-//import eng1.group9.ScreenInput;
 
 /**
  * Input handler for StartScreen

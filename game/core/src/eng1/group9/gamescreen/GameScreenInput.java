@@ -1,14 +1,8 @@
 package eng1.group9.gamescreen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import eng1.group9.BaseScreen;
 import eng1.group9.HustleGame;
-import eng1.group9.endscreen.EndScreen;
-
-import java.io.Console;
-//import eng1.group9.ScreenInput;
 
 /**
  * Input handler for GameScreen

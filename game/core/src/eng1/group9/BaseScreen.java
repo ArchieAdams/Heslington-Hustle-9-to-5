@@ -49,12 +49,6 @@ public abstract class BaseScreen implements Screen {
     @Override
     public void dispose() { }
 
-//    /**
-//     * Handle user input
-//     */
-//    public void updateInput() {
-//        input.update();
-//    }
 
     /**
      * Update the UI
