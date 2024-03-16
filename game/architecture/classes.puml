@@ -1,0 +1,120 @@
+@startuml
+
+package FrontEnd{
+    class Hustle{
+
+    }
+
+    class StartScreen{
+    + Game hustle
+    }
+    class GameScreen{
+    + Game hustle
+    + gameScreen()
+    + render()
+    + dispose()
+    }
+
+    class EndScreen{
+    + Game hustle
+    }
+
+    class GameScreenInput{
+    +Dict field
+    + update()
+    }
+
+    class GameScreenUi{
+        - colouredBackground()
+        - showMap()
+        - showPlayer()
+        - showHud()
+        + update()
+        }
+    class StartScreenInput{
+        +Dict field
+        + update()
+        }
+
+    class StartScreenUi{
+            + update()
+            }
+    class EndScreenInput{
+            +Dict field
+            + update()
+            }
+    class EndScreenUi{
+            + update()
+            }
+
+    Hustle <|-- GameScreen
+    Hustle <|-- StartScreen
+    Hustle <|-- EndScreen
+    GameScreenUi *-- GameScreen
+    GameScreenInput *-- GameScreen
+    StartScreenUi *-- StartScreen
+    StartScreenInput *-- StartScreen
+    EndScreenUi *-- EndScreen
+    EndScreenInput *-- EndScreen
+}
+
+package BackEnd{
+    class Map{
+    +Hashmap<TilePosition,Node> map
+    +getNode(Position)
+    }
+    
+    
+    class Player
+    
+    class Node{
+    - List listOfActivities
+    - path boolean
+    + getActivities()
+    }
+    
+    class TilePosition{
+    int i
+    int j
+    }
+    
+
+    
+    class GameState{
+
+    + int energy
+    + int time
+    + int maxEnergy
+    + int timeInDay
+    + ArrayList activityList
+    + performActivity()
+    + getActivities()
+    - getPlayerPosition()
+    - canMoveUp()
+    - canMoveDown()
+    - canMoveLeft()
+    - canMoveRight()
+    + calculateScore()
+    }
+    
+    abstract Activity{
+    + timeConsumption int
+    + energyConsumption int
+    }
+    Class Study
+    Class Eat
+    Class Recreation
+    Class Sleep
+    
+    Activity <|-- Study
+    Activity <|-- Eat
+    Activity <|-- Recreation
+    Activity <|-- Sleep
+
+    Player "1..1" -- "1..1"GameState
+    Player "1..1" -- "1..1" TilePosition
+    Node *--"0..M" Activity
+    Map "1..M"-- GameState
+}
+
+@enduml
