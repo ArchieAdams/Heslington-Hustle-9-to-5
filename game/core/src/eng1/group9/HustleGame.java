@@ -21,14 +21,23 @@ public class HustleGame extends Game {
 		setStartScreen();
 	}
 
+	/**
+	 * Switch to the start screen
+	 */
 	public void setStartScreen() {
 		setScreen(startScreen);
 		System.out.println("Switched to start screen");
 	}
+	/**
+	 * Switch to the game screen
+	 */
 	public void setGameScreen() {
 		setScreen(gameScreen);
 		System.out.println("Switched to game screen");
 	}
+	/**
+	 * Switch to the end screen
+	 */
 	public void setEndScreen() {
 		setScreen(endScreen);
 		System.out.println("Switched to end screen");

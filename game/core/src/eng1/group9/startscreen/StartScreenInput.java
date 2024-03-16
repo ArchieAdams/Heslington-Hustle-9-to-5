@@ -10,10 +10,19 @@ import eng1.group9.HustleGame;
 public class StartScreenInput extends InputAdapter {
     HustleGame game;
 
+    /**
+     *
+     * @param game HustleGame object that controls the application
+     */
     public StartScreenInput(HustleGame game) {
         this.game = game;
     }
 
+    /**
+     * Handle user keyboard input
+     * @param keycode the key pressed
+     * @return true if handled, false otherwise
+     */
     @Override
     public boolean keyDown (int keycode) {
         if (keycode == Input.Keys.ENTER) {
@@ -25,6 +34,9 @@ public class StartScreenInput extends InputAdapter {
         }
     }
 
+    /**
+     * Switch to the main game screen
+     */
     private void nextScreen() {
         game.setGameScreen();
     }

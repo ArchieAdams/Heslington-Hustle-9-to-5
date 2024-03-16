@@ -7,7 +7,7 @@ public class GameScreen extends BaseScreen {
 
     /**
      *
-     * @param game Game object that controls the application
+     * @param game HustleGame object that controls the application
      */
     public GameScreen(HustleGame game) {
         super(game, new GameScreenUI(), new GameScreenInput(game));
