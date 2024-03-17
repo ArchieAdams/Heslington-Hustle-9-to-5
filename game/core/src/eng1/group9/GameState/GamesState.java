@@ -78,25 +78,37 @@ public class GamesState {
 
         if((direction.equals("up")) && (this.canMoveUp())){
 
-            //TODO;implement this
+            getPlayerPosition();
+
+            playerPosition.setI(playerPosition.getI() + 1);
+
             return true;
         }
 
         if((direction.equals("down")) && (this.canMoveDown())){
 
-            //TODO;implement this
+            getPlayerPosition();
+
+            playerPosition.setI(playerPosition.getI() - 1);
+
             return true;
         }
 
         if((direction.equals("left")) && (this.canMoveLeft())){
 
-            //TODO;implement this
+            getPlayerPosition();
+
+            playerPosition.setJ(playerPosition.getJ() - 1);
+
             return true;
         }
 
         if((direction.equals("right")) && (this.canMoveRight())){
 
-            //TODO;implement this
+            getPlayerPosition();
+
+            playerPosition.setJ(playerPosition.getJ() - 1);
+
             return true;
         }
 
