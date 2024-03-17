@@ -1,8 +1,14 @@
 package eng1.group9.GameState;
 
 import eng1.group9.GameState.Activities.*;
+import eng1.group9.GameState.MapGraph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import static jdk.vm.ci.meta.MetaUtil.getSimpleName;
 
 /*
 This class is the main game logic class. The 'game state', i.e. the record of the energy
@@ -28,7 +34,10 @@ public class GamesState {
     private ArrayList<Activity> activityList = new ArrayList<>();
 
     private MapGraph map = new MapGraph();
-    map.createMap();
+
+    private TilePosition playerPosition;
+
+
 
 
     //constructor
@@ -38,6 +47,8 @@ public class GamesState {
         this.maxEnergy = eng;
         this.time = tim;
         this.timeInDay = tim;
+
+
     }
 
 
@@ -96,6 +107,11 @@ public class GamesState {
     //the functions to check whether the player is capable of moving in
     //that direction
     private boolean canMoveUp(){
+
+        getPlayerPosition();
+
+        HashMap<MapGraph.Tile, List<MapGraph.Tile>> tempMap = new HashMap<>();
+        //tempMap = map.getFullMap();
 
 
 
@@ -157,15 +173,52 @@ public class GamesState {
     }
 
 
-    public boolean getActivities(){
+    public ArrayList<Activity> getActivities(){
 
 
-        return true;
+        return Node.getActivities();
     }
 
     private boolean getPlayerPosition(){
 
+        playerPosition = player.getPlayerPosition();
+
         return true;
     }
 
+    public ArrayList<?> scoreCalculation(){
+
+        Integer sleepCounter = 0;
+        Integer eatCounter = 0;
+        Integer studyCounter = 0;
+        Integer recreationalCounter = 0;
+        ArrayList<Integer> counterList = new ArrayList<>();
+
+        for(int i = 0; i < activityList.size(); i++){
+
+            Activity acti = activityList.get(i);
+
+            switch (acti.getClass().getSimpleName()) {
+
+                case "Sleep":
+                    sleepCounter = sleepCounter + 1;
+                    break;
+                case "Eat":
+                    eatCounter = eatCounter + 1;
+                    break;
+                case "Study":
+                    studyCounter = studyCounter + 1;
+                    break;
+                case "Recreational":
+                    recreationalCounter = recreationalCounter + 1;
+            }
+        }
+
+        counterList.add(sleepCounter);
+        counterList.add(eatCounter);
+        counterList.add(studyCounter);
+        counterList.add(recreationalCounter);
+
+        return counterList;
+    }
 }
