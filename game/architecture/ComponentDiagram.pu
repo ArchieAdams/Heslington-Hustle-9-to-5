@@ -6,9 +6,9 @@ package "Game System" {
     [GameState]
     [Input]
 
-    [Player] --> [UI] : Interacts with \n Responds to
+    [Player] --> [UI] : Interacts with & \n Responds to
     [Input] --> [GameState] : Updates
-    [GameState] --> [UI] : Displays
+    [UI] --> GameState : Displays
     [Player] --> [Input] : Controls
 }
 

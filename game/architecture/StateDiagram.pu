@@ -6,8 +6,11 @@ state GameScreen{
     
     GameScreen: Perform game activities based on user input
     GameScreen: Update UI
-    entry: Wait for user input
-    loop: Handle user input
+    Input: Update game state based on user input
+    UI: Update user interface based on game state
+
+    Input --> UI
+    UI --> Input
 
 }
 
@@ -15,7 +18,6 @@ state EndScreen: Display final score and end game
 
 [*] --> StartScreen
 StartScreen --> GameScreen: startGame()
-GameScreen --> GameScreen: Process user input
 GameScreen --> EndScreen: 7 days elapsed
 
 @enduml
