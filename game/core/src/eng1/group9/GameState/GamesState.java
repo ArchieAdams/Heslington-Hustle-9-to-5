@@ -24,8 +24,11 @@ public class GamesState {
     private int maxEnergy;
     private int time;
     private int timeInDay;
-    private int counter;
+    private int day;
     private ArrayList<Activity> activityList = new ArrayList<>();
+
+    private MapGraph map = new MapGraph();
+    map.createMap();
 
 
     //constructor
@@ -48,9 +51,9 @@ public class GamesState {
         return this.time;
     }
 
-    public int getCounter(){
+    public int getDay(){
 
-        return this.counter;
+        return this.day;
     }
 
     public ArrayList<Activity> getActivityList(){
@@ -95,6 +98,7 @@ public class GamesState {
     private boolean canMoveUp(){
 
 
+
         return false;
     }
 
@@ -125,7 +129,7 @@ public class GamesState {
         //and the counter of the day increments
         if(act instanceof Sleep){
 
-            this.counter = this.counter + 1;
+            this.day = this.day + 1;
             this.energy = this.maxEnergy;
             this.time = this.timeInDay;
 
