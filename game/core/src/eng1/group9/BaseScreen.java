@@ -1,7 +1,6 @@
 package eng1.group9;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 
 /**
  * Base class which handles stuff common to all screens in the game
@@ -10,7 +9,7 @@ public abstract class BaseScreen implements Screen {
 
     private Game game;
     private ScreenUI ui;
-    private ScreenInput input;
+    private InputAdapter input;
 
     /**
      *
@@ -18,7 +17,7 @@ public abstract class BaseScreen implements Screen {
      * @param ui ScreenUI that handles UI updates
      * @param input ScreenInput that handles user input
      */
-    public BaseScreen(Game game, ScreenUI ui, ScreenInput input) {
+    public BaseScreen(Game game, ScreenUI ui, InputAdapter input) {
         this.game = game;
         this.ui = ui;
         this.input = input;
@@ -26,46 +25,30 @@ public abstract class BaseScreen implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(input);
     }
 
     @Override
     public void render(float v) {
-        updateInput();
+        //updateInput();
         updateUi();
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
+    public void resize(int width, int height) { }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() { }
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() { }
 
     @Override
-    public void hide() {
-
-    }
+    public void hide() { }
 
     @Override
-    public void dispose() {
+    public void dispose() { }
 
-    }
-
-    /**
-     * Handle user input
-     */
-    public void updateInput() {
-        input.update();
-    }
 
     /**
      * Update the UI

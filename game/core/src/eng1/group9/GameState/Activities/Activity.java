@@ -1,4 +1,4 @@
-package eng1.group9.Activities;
+package eng1.group9.gamestate.Activities;
 
 
 /**
@@ -9,12 +9,12 @@ package eng1.group9.Activities;
  */
 abstract class Activity {
 
-    private int timeConsumption;
-    private int energyConsumption;
+    private final int timeConsumption;
+    private final int energyConsumption;
 
 
     //Constructor
-    public Activity(time, energy){
+    public Activity(int time, int energy){
 
         this.timeConsumption = time;
         this.energyConsumption = energy;
