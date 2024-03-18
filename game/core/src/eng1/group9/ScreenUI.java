@@ -9,4 +9,6 @@ public abstract class ScreenUI {
      * Update the UI
      */
     public abstract void update();
+
+    public abstract void resize(int width, int height);
 }
