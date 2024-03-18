@@ -1,4 +1,4 @@
-package eng1.group9.gamestate;
+package eng1.group9.GameState;
 
 /**
  * This class is for the row and column of a certain tile
