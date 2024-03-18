@@ -1,11 +1,11 @@
-package eng1.group9.gamestate.Activities;
+package eng1.group9.GameState.Activities;
 
 
 /**
  * The class for the activity eat
  *
  */
-class Eat extends Activity {
+public class Eat extends Activity {
 
 
     public Eat(int time, int energy) {
