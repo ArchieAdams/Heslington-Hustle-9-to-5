@@ -1,13 +1,14 @@
 @startuml
 GameScreen -> GameScreenUI
-GameScreenUI ->> GameScreenUI: Updates
-GameScreenUI ->> GameScreenUI: Show Backgrounds()
-GameScreenUI ->> GameScreenUI: Show map()
-GameScreenUI ->> GameState: Check Player Position
-GameState -->> GameScreenUI: Return Player Position
-GameScreenUI ->> GameScreenUI: Show Player Position
-GameScreenUI ->> GameState: Check Energy, Time, Day, Activity
-GameState -->> GameScreenUI: Return Energy, Time, Day, Activity
-GameScreenUI ->> GameScreenUI: Show Energy, Time, Day, Activity
+group Update()
+ GameScreenUI ->> GameScreenUI: Show Backgrounds()
+ GameScreenUI ->> GameScreenUI: Show map()
+ GameScreenUI ->> GameState: Check Player Position
+ GameState -->> GameScreenUI: Return Player Position
+ GameScreenUI ->> GameScreenUI: Show Player Position
+ GameScreenUI ->> GameState: Check Energy, Time, Day, Activity
+ GameState -->> GameScreenUI: Return Energy, Time, Day, Activity
+ GameScreenUI ->> GameScreenUI: Show Energy, Time, Day, Activity
+end
 GameScreenUI -> GameScreen
 @enduml
