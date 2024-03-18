@@ -1,0 +1,30 @@
+@startuml
+GameScreen -> GameScreenInput
+GameScreenInput ->> GameScreenInput: Check Movement key pressed
+GameScreenInput ->> GameState: Move()
+GameState ->> GameState: Can Move()
+alt #LightGreen Valid
+    GameState ->> GameState: Check Movement key pressed
+    GameState -->> GameScreenInput: Success
+    GameScreenInput ->> Sound: Play Valid Sound
+    Sound -->> GameScreenInput
+else #Pink Invalid
+    GameState -->> GameScreenInput: Fail
+    GameScreenInput ->> Sound: Play Invalid Sound
+    Sound -->> GameScreenInput
+end
+GameScreenInput ->> GameState: Perform Activity
+GameState ->> GameState: Check Valid
+
+alt #LightGreen Valid
+    GameState ->> GameState: Update GameState
+    GameState -->> GameScreenInput: Success
+    GameScreenInput ->> Sound: Play Success Sound
+    Sound -->> GameScreenInput
+else #Pink Invalid
+    GameState -->> GameScreenInput: Fail
+    GameScreenInput ->> Sound: Play Fail Sound
+    Sound -->> GameScreenInput
+end
+GameScreenInput -> GameScreen
+@enduml
