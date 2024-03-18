@@ -4,7 +4,7 @@ GameScreenInput ->> GameScreenInput: Check Movement key pressed
 GameScreenInput ->> GameState: Move()
 GameState ->> GameState: Can Move()
 alt #LightGreen Valid
-    GameState ->> GameState: Check Movement key pressed
+    GameState ->> GameState: Update Player Position
     GameState -->> GameScreenInput: Success
     GameScreenInput ->> Sound: Play Valid Sound
     Sound -->> GameScreenInput
@@ -26,5 +26,7 @@ else #Pink Invalid
     GameScreenInput ->> Sound: Play Fail Sound
     Sound -->> GameScreenInput
 end
+
 GameScreenInput -> GameScreen
+
 @enduml
