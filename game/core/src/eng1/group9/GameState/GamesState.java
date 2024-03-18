@@ -1,6 +1,9 @@
-package eng1.group9.gamestate;
+package eng1.group9.GameState;
 
-import eng1.group9.gamestate.Activities.*;
+import eng1.group9.GameState.Activities.Activity;
+import eng1.group9.GameState.Activities.Sleep;
+import eng1.group9.MapGraph;
+import eng1.group9.GameState.TilePosition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +37,8 @@ public class GamesState {
     private MapGraph map = new MapGraph();
 
     private TilePosition playerPosition;
+
+    private Player character = new Player();
 
 
 
@@ -73,36 +78,44 @@ public class GamesState {
 
         if((direction.equals("up")) && (this.canMoveUp())){
 
-            getPlayerPosition();
+            playerPosition = character.getPlayerPosition();
 
-            playerPosition.setI(playerPosition.getI() + 1);
+            playerPosition.setRow(playerPosition.getRow() + 1);
+
+            character.setPlayerPosition(playerPosition);
 
             return true;
         }
 
         if((direction.equals("down")) && (this.canMoveDown())){
 
-            getPlayerPosition();
+            playerPosition = character.getPlayerPosition();
 
-            playerPosition.setI(playerPosition.getI() - 1);
+            playerPosition.setRow(playerPosition.getRow() - 1);
+
+            character.setPlayerPosition(playerPosition);
 
             return true;
         }
 
         if((direction.equals("left")) && (this.canMoveLeft())){
 
-            getPlayerPosition();
+            playerPosition = character.getPlayerPosition();
 
-            playerPosition.setJ(playerPosition.getJ() - 1);
+            playerPosition.setRow(playerPosition.getColumn() - 1);
+
+            character.setPlayerPosition(playerPosition);
 
             return true;
         }
 
         if((direction.equals("right")) && (this.canMoveRight())){
 
-            getPlayerPosition();
+            playerPosition = character.getPlayerPosition();
 
-            playerPosition.setJ(playerPosition.getJ() - 1);
+            playerPosition.setRow(playerPosition.getColumn() + 1);
+
+            character.setPlayerPosition(playerPosition);
 
             return true;
         }
@@ -115,9 +128,9 @@ public class GamesState {
     //that direction
     private boolean canMoveUp(){
 
-        getPlayerPosition();
+       character.getPlayerPosition();
 
-        HashMap<MapGraph.Tile, List<MapGraph.Tile>> tempMap = new HashMap<>();
+        HashMap<TilePosition, List<TilePosition>> tempMap = new HashMap<>();
         //tempMap = map.getFullMap();
 
 
@@ -180,10 +193,10 @@ public class GamesState {
     }
 
 
-    public ArrayList<Activity> getActivities(){
+    public ArrayList<Activity> getActivity(Node nod){
 
 
-        return Node.getActivities();
+        return nod.getActivities();
     }
 
     private boolean getPlayerPosition(){

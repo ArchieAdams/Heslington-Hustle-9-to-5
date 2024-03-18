@@ -1,8 +1,9 @@
-package eng1.group9.GameState
+package eng1.group9.GameState;
 public class Main {
     public static void main(String[] args) {
 
-        Games
+        GamesState game = new GamesState(100, 100);
 
 
     }
+}
