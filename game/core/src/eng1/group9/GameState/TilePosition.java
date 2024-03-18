@@ -10,13 +10,13 @@ public class TilePosition{
     //Constructor
     /**
      * @param row int, row position on map grid of tile
-     * @param column int, columh position on map grid of tile
+     * @param column int, column position on map grid of tile
      */
     public TilePosition(int row, int column){
         this.row = row;
         this.column = column;
     }
-    //Getters
+
     public int getRow(){
         return row;
     }
@@ -24,7 +24,6 @@ public class TilePosition{
         return column;
     }
 
-    //Setters
     public void setRow(int row){
         this.row = row;
     }
