@@ -1,4 +1,4 @@
-package eng1.group9.GameState;
+package eng1.group9.gamestate;
 
 /**
  * Class that holds the current position of the player on the grid
