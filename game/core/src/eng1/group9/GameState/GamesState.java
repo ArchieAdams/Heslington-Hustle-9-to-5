@@ -77,7 +77,7 @@ public class GamesState {
 
             playerPosition = character.getPlayerPosition();
 
-            playerPosition.setRow(playerPosition.getRow() + 1);
+            playerPosition.setColumn(playerPosition.getColumn() + 1);
 
             character.setPlayerPosition(playerPosition);
 
@@ -88,7 +88,7 @@ public class GamesState {
 
             playerPosition = character.getPlayerPosition();
 
-            playerPosition.setRow(playerPosition.getRow() - 1);
+            playerPosition.setColumn(playerPosition.getColumn() - 1);
 
             character.setPlayerPosition(playerPosition);
 
@@ -134,13 +134,13 @@ public class GamesState {
 
 
 
-        return false;
+        return true;
     }
 
     private boolean canMoveDown(){
 
 
-        return false;
+        return true;
     }
 
     private boolean canMoveLeft(){

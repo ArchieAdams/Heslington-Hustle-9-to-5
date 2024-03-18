@@ -18,7 +18,7 @@ public class Player {
      * The player's initial starting position is at row 9, column 5
      */
     public Player() {
-        this(new TilePosition(9, 5));
+        this(new TilePosition(2, 1));
     }
     /**
      * returns the current player position when called
