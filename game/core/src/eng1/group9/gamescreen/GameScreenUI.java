@@ -8,6 +8,25 @@ import eng1.group9.ScreenUI;
 public class GameScreenUI extends ScreenUI {
     @Override
     public void update() {
+        showBackground();
+        showMap();
+        showPlayer();
+        showHud();
+    }
+
+    private void showBackground() {
+
+    }
+
+    private void showMap() {
+
+    }
+
+    private void showPlayer() {
+
+    }
+
+    private void showHud() {
 
     }
 }
