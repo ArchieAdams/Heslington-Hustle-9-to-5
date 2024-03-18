@@ -1,10 +1,15 @@
 package eng1.group9;
+
 import java.util.*;
+
 public class MapGraph {
+
+
     private Map<Tile, List<Tile>> FullMap;
 
-    MapGraph() {
+    public MapGraph() {
         this.FullMap = new HashMap<Tile, List<Tile>>();
+        CreateMap();
         /*
         a hash map is used to contain the map data with the structure where each Tile has a list of what Tiles that it is connected to
          */
@@ -14,11 +19,20 @@ public class MapGraph {
         FullMap.putIfAbsent(new Tile(X, Y), new ArrayList<>());
     }
 
-    void addEdge(int X1, int Y1, int X2, int Y2) {
-        Tile T1 = new Tile(X1, Y1);
-        Tile T2 = new Tile(X2, Y2);
+    void addEdge(int X1, int Y1, int X2, int Y2){
+
+        for(Map.Entry<Tile, List<Tile>> entry : FullMap.entrySet()){
+
+            Tile tempTile = entry.getKey();
+            List<Tile> tempTileList = entry.getValue();
+
+            if((tempTile.XCord == X1) && (tempTile.YCord == Y1)) {
+                Tile T1 = tempTile;
+            }
+        }
+
         FullMap.get(T1).add(T2);
-        FullMap.get(T1).add(T2);
+        FullMap.get(T2).add(T1);
     }
 
     class Tile {
@@ -35,7 +49,7 @@ public class MapGraph {
 
     }
 
-    public  void CreateMap(){
+    public void CreateMap(){
         /*
             Code for all Tiles within our game each Tile is giving an X and Y coordinate that responds to its position on the map
          */
@@ -177,11 +191,4 @@ public class MapGraph {
         addEdge(15,6,15,7);
 
     }
-
-
-
-
-
-
-
 }
