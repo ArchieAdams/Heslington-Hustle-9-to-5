@@ -1,0 +1,23 @@
+@startuml
+
+state StartScreen: Show the button to start the game
+
+state GameScreen{
+    
+    GameScreen: Perform game activities based on user input
+    GameScreen: Update UI
+    Input: Update game state based on user input
+    UI: Update user interface based on game state
+
+    Input --> UI
+    UI --> Input
+
+}
+
+state EndScreen: Display final score and end game
+
+[*] --> StartScreen
+StartScreen --> GameScreen: startGame()
+GameScreen --> EndScreen: 7 days elapsed
+
+@enduml
