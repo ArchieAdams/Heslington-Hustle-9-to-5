@@ -4,6 +4,8 @@ public class Main {
 
         GamesState game = new GamesState(100, 100);
 
+        System.out.println(game.getActivities());
+
 
     }
 }

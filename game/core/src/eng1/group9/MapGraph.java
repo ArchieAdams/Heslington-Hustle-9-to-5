@@ -10,8 +10,16 @@ import java.util.*;
 public class MapGraph {
 
 
-    private Map<TilePosition, List<TilePosition>> FullMap;
-    private Map<TilePosition, Node> nodeMap;
+    private HashMap<TilePosition, List<TilePosition>> FullMap;
+    private HashMap<TilePosition, Node> nodeMap;
+
+    public HashMap<TilePosition, List<TilePosition>> getFullMap(){
+        return this.FullMap;
+    }
+
+    public HashMap<TilePosition, Node> getNodeMap(){
+        return this.nodeMap;
+    }
 
     public MapGraph() {
         this.FullMap = new HashMap<TilePosition, List<TilePosition>>();
@@ -98,72 +106,72 @@ public class MapGraph {
         recreationNode.setActivities(recreationArray);
 
 
-        addTile(2,1);
-        addTile(2,2);
-        addTile(2,3);
-        addTile(2,4);
-        addTile(2,7);
+        addTile(2,1, eatNode);
+        addTile(2,2, empty);
+        addTile(2,3, empty);
+        addTile(2,4, empty);
+        addTile(2,7, studyNode);
 
-        addTile(3,3);
-        addTile(3,4);
-        addTile(3,5);
-        addTile(3,6);
-        addTile(3,7);
+        addTile(3,3, empty);
+        addTile(3,4, empty);
+        addTile(3,5, empty);
+        addTile(3,6, empty);
+        addTile(3,7, empty);
 
-        addTile(4,2);
-        addTile(4,3);
-        addTile(4,5);
-        addTile(4,7);
+        addTile(4,2, empty);
+        addTile(4,3, empty);
+        addTile(4,5, empty);
+        addTile(4,7, empty);
 
-        addTile(5,2);
-        addTile(5,4);
-        addTile(5,5);
-        addTile(5,7);
+        addTile(5,2, empty);
+        addTile(5,4, empty);
+        addTile(5,5, empty);
+        addTile(5,7, empty);
 
-        addTile(6,2);
-        addTile(6,3);
-        addTile(6,4);
-        addTile(6,6);
-        addTile(6,7);
-        addTile(6,8);
+        addTile(6,2, empty);
+        addTile(6,3, empty);
+        addTile(6,4, empty);
+        addTile(6,6, empty);
+        addTile(6,7, empty);
+        addTile(6,8, empty);
 
-        addTile(7,4);
-        addTile(7,6);
-        addTile(7,8);
+        addTile(7,4, empty);
+        addTile(7,6, empty);
+        addTile(7,8, empty);
 
-        addTile(8,4);
-        addTile(8,6);
-        addTile(8,8);
+        addTile(8,4, empty);
+        addTile(8,6, empty);
+        addTile(8,8, empty);
 
-        addTile(9,4);
-        addTile(9,5);
-        addTile(9,6);
-        addTile(9,8);
+        addTile(9,4, empty);
+        addTile(9,5, empty);
+        addTile(9,6, empty);
+        addTile(9,8, empty);
 
-        addTile(10,5);
-        addTile(10,8);
+        addTile(10,5, empty);
+        addTile(10,8, empty);
 
-        addTile(11,5);
-        addTile(11,6);
-        addTile(11,7);
-        addTile(11,8);
+        addTile(11,5, empty);
+        addTile(11,6, empty);
+        addTile(11,7, empty);
+        addTile(11,8, empty);
 
-        addTile(12,1);
-        addTile(12,2);
-        addTile(12,3);
-        addTile(12,4);
-        addTile(12,5);
-        addTile(12,6);
+        addTile(12,1, empty);
+        addTile(12,2, empty);
+        addTile(12,3, empty);
+        addTile(12,4, empty);
+        addTile(12,5, empty);
+        addTile(12,6, empty);
 
-        addTile(13,1);
-        addTile(13,2);
-        addTile(13,6);
+        addTile(13,1, sleepNode);
+        addTile(13,2, empty);
+        addTile(13,6, empty);
 
-        addTile(14,2);
-        addTile(14,3);
-        addTile(14,4);
-        addTile(14,5);
-        addTile(14,6);
+        addTile(14,2, empty);
+        addTile(14,3, empty);
+        addTile(14,4, empty);
+        addTile(14,5, empty);
+        addTile(14,6, recreationNode);
 
 
         addEdge(2,1,2,2);

@@ -3,22 +3,19 @@ package eng1.group9.GameState;
 import eng1.group9.GameState.Activities.Activity;
 import eng1.group9.GameState.Activities.Sleep;
 import eng1.group9.MapGraph;
-import eng1.group9.GameState.TilePosition;
+//import eng1.group9.GameState.TilePosition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-
-
-
+import java.util.Map;
 
 
 public class GamesState {
 
     /**
      * This class is the main game logic class. The 'game state', i.e. the record of the energy
-     * and time, etc of the player is kept and modified in this class.
+     * and time, etc. of the player is kept and modified in this class.
      * @param energy int, the remaining energy of the player
      * @param maxEnergy int the energy the player starts with in a day
      * @param time int the remaining time of the player
@@ -128,10 +125,12 @@ public class GamesState {
     //that direction
     private boolean canMoveUp(){
 
-       character.getPlayerPosition();
+       playerPosition = character.getPlayerPosition();
 
-        HashMap<TilePosition, List<TilePosition>> tempMap = new HashMap<>();
-        //tempMap = map.getFullMap();
+        HashMap<TilePosition, List<TilePosition>> tempMap = new HashMap<TilePosition, List<TilePosition>>();
+        tempMap = map.getFullMap();
+
+
 
 
 
@@ -193,15 +192,30 @@ public class GamesState {
     }
 
 
-    public ArrayList<Activity> getActivity(Node nod){
+    public ArrayList<Activity> getActivities() {
 
+        playerPosition = character.getPlayerPosition();
 
-        return nod.getActivities();
+        Map<TilePosition, Node> tempNodeMap = map.getNodeMap();
+
+        for (Map.Entry<TilePosition, Node> entry : tempNodeMap.entrySet()) {
+
+            TilePosition tempTile = entry.getKey();
+            Node tempNode = entry.getValue();
+
+            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
+                return tempNode.getActivities();
+            }
+        }
+
+        ArrayList<Activity> emptyList = new ArrayList<>();
+
+        return emptyList;
     }
 
     private boolean getPlayerPosition(){
 
-        playerPosition = player.getPlayerPosition();
+        playerPosition = character.getPlayerPosition();
 
         return true;
     }
