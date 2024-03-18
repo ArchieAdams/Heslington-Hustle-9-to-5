@@ -1,5 +1,6 @@
 package eng1.group9.gamescreen;
 
+import com.badlogic.gdx.utils.ScreenUtils;
 import eng1.group9.ScreenUI;
 
 /**
@@ -15,7 +16,7 @@ public class GameScreenUI extends ScreenUI {
     }
 
     private void showBackground() {
-
+        ScreenUtils.clear(0, 0, 100, 255);
     }
 
     private void showMap() {
