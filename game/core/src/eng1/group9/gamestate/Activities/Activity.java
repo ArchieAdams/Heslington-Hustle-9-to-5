@@ -1,13 +1,15 @@
-package eng1.group9.GameState.Activities;
+package eng1.group9.gamestate.Activities;
 
 
-/**
- * This class is the abstract class for the eat, sleep, study, and recreation classes
- *
- *  timeConsumption int, record of how much time is consumed for this activity
- *  energyConsumption int, record of how much energy is consumed
- */
+
 public abstract class Activity {
+
+    /**
+     * This class is the abstract class for the eat, sleep, study, and recreation classes
+     *
+     *  @param timeConsumption int, record of how much time is consumed for this activity
+     *  @param energyConsumption int, record of how much energy is consumed
+     */
 
     private int timeConsumption;
     private int energyConsumption;

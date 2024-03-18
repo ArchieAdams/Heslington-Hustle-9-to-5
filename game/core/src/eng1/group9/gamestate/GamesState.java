@@ -1,30 +1,28 @@
-package eng1.group9.GameState;
+package eng1.group9.gamestate;
 
-import eng1.group9.GameState.Activities.*;
-import eng1.group9.GameState.MapGraph;
+import eng1.group9.gamestate.Activities.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
-import static jdk.vm.ci.meta.MetaUtil.getSimpleName;
-
-/*
-This class is the main game logic class. The 'game state', i.e. the record of the energy
-and time, etc of the player is kept and modified in this class.
-
-energy int, the remaining energy of the player
-maxEnergy int, the energy the player starts with in a day
-time int, the remaining time of the player
-timeInDay int, the total time in a day
-counter int, the counter of the days
-activityList, the list of activities taken place
 
 
- */
+
+
 
 public class GamesState {
+
+    /**
+     * This class is the main game logic class. The 'game state', i.e. the record of the energy
+     * and time, etc of the player is kept and modified in this class.
+     * @param energy int, the remaining energy of the player
+     * @param maxEnergy int the energy the player starts with in a day
+     * @param time int the remaining time of the player
+     * @param timeInDay int the total time in a day
+     * @param day int the counter of the days
+     * @param activityList int the list of activities taken place
+     */
 
     private int energy;
     private int maxEnergy;
@@ -39,7 +37,6 @@ public class GamesState {
 
 
 
-
     //constructor
     public GamesState(int eng, int tim){
 
@@ -47,8 +44,6 @@ public class GamesState {
         this.maxEnergy = eng;
         this.time = tim;
         this.timeInDay = tim;
-
-
     }
 
 
