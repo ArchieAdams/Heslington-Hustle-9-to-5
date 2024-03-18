@@ -19,18 +19,23 @@ public class MapGraph {
         FullMap.putIfAbsent(new Tile(X, Y), new ArrayList<>());
     }
 
-    void addEdge(int X1, int Y1, int X2, int Y2){
+    void addEdge(int X1, int Y1, int X2, int Y2) {
 
-        for(Map.Entry<Tile, List<Tile>> entry : FullMap.entrySet()){
+        Tile T1 = null;
+        Tile T2 = null;
+        for (Map.Entry<Tile, List<Tile>> entry : FullMap.entrySet()) {
 
             Tile tempTile = entry.getKey();
             List<Tile> tempTileList = entry.getValue();
 
-            if((tempTile.XCord == X1) && (tempTile.YCord == Y1)) {
-                Tile T1 = tempTile;
+            if ((tempTile.XCord == X1) && (tempTile.YCord == Y1)) {
+                T1 = tempTile;
+            }
+
+            if ((tempTile.XCord == X2) && (tempTile.YCord == Y2)){
+                T2 = tempTile;
             }
         }
-
         FullMap.get(T1).add(T2);
         FullMap.get(T2).add(T1);
     }
