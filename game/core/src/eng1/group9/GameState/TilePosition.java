@@ -1,32 +1,35 @@
+package eng1.group9.gamestate;
+
 /**
- * This class is for the i and j position of a certain tile
- *
- * @param i int, i position on map grid of tile
- * @param j int, j position on map grid of tile
+ * This class is for the row and column of a certain tile
  */
 public class TilePosition{
-    int i;
-    int j;
+    int row;
+    int column;
 
     //Constructor
-    public TilePosition(int i,int j){
-        this.i = i;
-        this.j = j;
+    /**
+     * @param row int, row position on map grid of tile
+     * @param column int, columh position on map grid of tile
+     */
+    public TilePosition(int row, int column){
+        this.row = row;
+        this.column = column;
     }
     //Getters
-    public int getI(){
-        return i;
+    public int getRow(){
+        return row;
     }
-    public int getJ(){
-        return j;
+    public int getColumn(){
+        return column;
     }
 
     //Setters
-    public void setI(int i){
-        this.i = i;
+    public void setRow(int row){
+        this.row = row;
     }
-    public void setJ(int J){
-        this.j = j;
+    public void setColumn(int column){
+        this.column = column;
     }
 
 }
