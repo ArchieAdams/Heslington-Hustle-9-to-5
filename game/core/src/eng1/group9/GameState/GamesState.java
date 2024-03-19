@@ -22,6 +22,9 @@ public class GamesState {
      * @param timeInDay int the total time in a day
      * @param day int the counter of the days
      * @param activityList int the list of activities taken place
+     * @param map MapGraph the graph of all the tiles, and then the associated edges that connect each connected tile
+     * @param playerPosition TilePosition, the location of the player
+     * @param character Player, the local instance of the Player class, used to call getters/setters
      */
 
     private int energy;
@@ -33,6 +36,7 @@ public class GamesState {
     private MapGraph map;
     private TilePosition playerPosition;
     private Player character;
+    private boolean gameOver = false;
 
 
 
@@ -45,6 +49,7 @@ public class GamesState {
         this.timeInDay = tim;
         this.character = play;
         this.map = gameMap;
+        this.day = 0;
     }
 
 
@@ -63,13 +68,28 @@ public class GamesState {
         return this.day;
     }
 
+    public boolean getGameOver(){
+        return this.gameOver;
+    }
+
     public ArrayList<Activity> getActivityList(){
 
         return this.activityList;
     }
 
+    private boolean getPlayerPosition(){
 
-    //the function to update the player position
+        playerPosition = character.getPlayerPosition();
+
+        return true;
+    }
+
+
+    /**
+     * The function to update the player position
+     * @param direction String, the input to determine what direction to move
+     * @return boolean if the move has taken place or not
+     */
     public boolean move(String direction){
 
         if((direction.equals("up")) && (this.canMoveUp())){
@@ -122,6 +142,11 @@ public class GamesState {
 
     //the functions to check whether the player is capable of moving in
     //that direction
+
+    /**
+     * Checks the current map to see if the player can move to the desired tile that is inputted
+     * @return boolean if the player can move in that direction or not
+     */
     private boolean canMoveUp(){
 
         //gets player position and stores in locally
@@ -143,6 +168,7 @@ public class GamesState {
             //If the current node is connected to the node above, return true
             if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
                 for(TilePosition T1 : tempEdges){
+                    //returns true if the tile to move to is a valid path to move to
                     if(((T1.getRow() == playerPosition.getRow()) && (T1.getColumn() == playerPosition.getColumn() + 1))){
                         return true;
                     }
@@ -174,6 +200,7 @@ public class GamesState {
             //If the current node is connected to the node below, return true
             if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
                 for(TilePosition T1 : tempEdges){
+                    //returns true if the tile to move to is a valid path to move to
                     if(((T1.getRow() == playerPosition.getRow()) && (T1.getColumn() == playerPosition.getColumn() - 1))){
                         return true;
                     }
@@ -205,6 +232,7 @@ public class GamesState {
             //If the current node is connected to the node to the left, return true
             if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
                 for(TilePosition T1 : tempEdges){
+                    //returns true if the tile to move to is a valid path to move to
                     if(((T1.getRow() == playerPosition.getRow() - 1) && (T1.getColumn() == playerPosition.getColumn()))){
                         return true;
                     }
@@ -235,6 +263,7 @@ public class GamesState {
             //If the current node is connected to the node to the right, return true
             if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
                 for(TilePosition T1 : tempEdges){
+                    //returns true if the tile to move to is a valid path to move to
                     if(((T1.getRow() == playerPosition.getRow() + 1) && (T1.getColumn() == playerPosition.getColumn() ))){
                         return true;
                     }
@@ -242,21 +271,28 @@ public class GamesState {
             }
         }
 
-
         return false;
     }
 
 
     //the function to perform an activity the user wants
-    public boolean performActivity() {
+    public boolean performActivity(Activity act) {
         ArrayList<Activity> tempActList = this.getActivities();
 
-        for (Activity act : tempActList) {
+
+        for (Activity tempAct : tempActList) {
 
                 //if the activity is Sleep, the time and energy is reset
                 //and the counter of the day increments
-                if (act instanceof Sleep) {
+                if ((act instanceof Sleep) && (tempAct.getClass() == act.getClass()))  {
 
+                    //if the day counter is greater than 6 the game ends
+                    if(this.day > 6){
+                        this.gameOver = true;
+                        return true;
+                    }
+
+                    //time and energy reset otherwise
                     this.day = this.day + 1;
                     this.energy = this.maxEnergy;
                     this.time = this.timeInDay;
@@ -287,34 +323,41 @@ public class GamesState {
     }
 
 
+    /**
+     * The function to return the activity or activities that the player can perform while...
+     * ... on the current playerposition
+     * @return ArrayList<Activity> the list of activities the player can perform
+     */
     public ArrayList<Activity> getActivities() {
 
+        //gets the player position and stores it locally
         playerPosition = character.getPlayerPosition();
 
+        //gets the map of the nodes and stores it locally
         Map<TilePosition, Node> tempNodeMap = map.getNodeMap();
 
+        //loops through each tile to try and find the tile that the player is currently on
         for (Map.Entry<TilePosition, Node> entry : tempNodeMap.entrySet()) {
 
             TilePosition tempTile = entry.getKey();
             Node tempNode = entry.getValue();
 
+            //if the tile is found, then the list of activities the player can perform is returned
             if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
                 return tempNode.getActivities();
             }
         }
 
+        //if no list is found then the empty list is returned
         ArrayList<Activity> emptyList = new ArrayList<>();
 
         return emptyList;
     }
 
-    private boolean getPlayerPosition(){
-
-        playerPosition = character.getPlayerPosition();
-
-        return true;
-    }
-
+    /**
+     * Function to calculate the score. Currently, this counts how many times each activity has taken place
+     * @return ArrayList</Integer> of the number of times an activity has been performed
+     */
     public ArrayList<?> scoreCalculation(){
 
         Integer sleepCounter = 0;
@@ -323,6 +366,8 @@ public class GamesState {
         Integer recreationalCounter = 0;
         ArrayList<Integer> counterList = new ArrayList<>();
 
+
+        //goes through the array list one activity at a time and increments the corresponding counter
         for(int i = 0; i < activityList.size(); i++){
 
             Activity acti = activityList.get(i);
@@ -343,6 +388,7 @@ public class GamesState {
             }
         }
 
+        //adds the final counts to the arraylist and returns it
         counterList.add(sleepCounter);
         counterList.add(eatCounter);
         counterList.add(studyCounter);

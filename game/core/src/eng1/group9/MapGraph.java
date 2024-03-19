@@ -6,12 +6,22 @@ import eng1.group9.GameState.TilePosition;
 
 import java.util.*;
 
+/**
+ * The MapGraph class. This contains all the information regarding the tile positions of each node in the map
+ *
+ */
 public class MapGraph {
-
+    /**
+     * @param fullMap HashMap<TilePosition, List<TilePosition>>, The hasmap between each Tile and then the Tiles that
+     *                the player can move to from that tile
+     * @param nodeMap HashMap<TilePosition, Node>, The hashmap between the tileposition and the list of activities
+     *                that can be performed at that position
+     */
 
     private HashMap<TilePosition, List<TilePosition>> fullMap;
     private HashMap<TilePosition, Node> nodeMap;
 
+    //getters
     public HashMap<TilePosition, List<TilePosition>> getFullMap(){
         return this.fullMap;
     }
@@ -20,6 +30,7 @@ public class MapGraph {
         return this.nodeMap;
     }
 
+    //constructor
     public MapGraph() {
         this.fullMap = new HashMap<TilePosition, List<TilePosition>>();
         this.nodeMap = new HashMap<TilePosition, Node>();
@@ -29,20 +40,41 @@ public class MapGraph {
          */
     }
 
+    /**
+     * function used to add TilePositions to the fullMap and nodeMap
+     * @param X, the row of the Tile
+     * @param Y, the column of the Tile
+     * @param nod, the list of activities associated with that tile
+     */
     void addTile(int X, int Y, Node nod) {
         fullMap.putIfAbsent(new TilePosition(X, Y), new ArrayList<>());
         nodeMap.putIfAbsent(new TilePosition(X, Y), nod);
     }
 
+
+    /**
+     *
+     * The function to connect all the paths between tilePositions
+     *
+     * @param X1 the row of the first tile you are connecting
+     * @param Y1 the column of the first tile you are connecting
+     * @param X2 the row of the second tile you are connecting
+     * @param Y2 the column of the second tile you are connecting
+     */
     void addEdge(int X1, int Y1, int X2, int Y2) {
 
+        //creates two tiles that will then be used to add to the fullMap
         TilePosition T1 = null;
         TilePosition T2 = null;
+
+        //iterates through each TilePosition
         for (Map.Entry<TilePosition, List<TilePosition>> entry : fullMap.entrySet()) {
 
+            //stores the Tile's data temporarily
             TilePosition tempTile = entry.getKey();
             List<TilePosition> tempTileList = entry.getValue();
 
+            //if the temp tile is the desired tile, then the Tile is added to the fullMap
             if ((tempTile.getRow() == X1) && (tempTile.getColumn() == Y1)) {
                 T1 = tempTile;
             }
@@ -69,28 +101,35 @@ public class MapGraph {
 //
 //    }
 
+
     public void CreateMap(){
         /*
-            Code for all Tiles within our game each Tile is giving an X and Y coordinate that responds to its position on the map
+            Code for all Tiles within our game each Tile is giving an X and Y coordinate that responds to its row and column on the map
          */
 
+
+        //creation of the Nodes that will be added to the TilePosition of where the activities are taking place
         Node empty = new Node();
 
+        //Eat activity node
         Node eatNode = new Node();
         Eat eatActivity = new Eat(10,10);
         ArrayList<Activity> eatArray = new ArrayList<>();
         eatArray.add(eatActivity);
 
+        //sleep activity node
         Node sleepNode = new Node();
         Sleep sleepActivity = new Sleep(10,10);
         ArrayList<Activity> sleepArray = new ArrayList<>();
         sleepArray.add(sleepActivity);
 
+        //study node activity
         Node studyNode = new Node();
         Study studyActivity = new Study(10,10);
         ArrayList<Activity> studyArray = new ArrayList<>();
         studyArray.add(studyActivity);
 
+        //recreation node activity
         Node recreationNode = new Node();
         Recreation recreationActivity = new Recreation(10,10);
         ArrayList<Activity> recreationArray = new ArrayList<>();
@@ -99,17 +138,23 @@ public class MapGraph {
 
 
 
+        //Sets the nodes to have their correct list of activities
         eatNode.setActivities(eatArray);
         sleepNode.setActivities(sleepArray);
         studyNode.setActivities(studyArray);
         recreationNode.setActivities(recreationArray);
 
 
-        addTile(2,1, eatNode);
+        //The addition of all the TilePositions that the player can travel to.
+        //If there is an activity that can be performed at that location, the
+        //corresponding node is added.
+        //Otherwise the node of the empty list is added
+
+        addTile(2,1, studyNode);
         addTile(2,2, empty);
         addTile(2,3, empty);
         addTile(2,4, empty);
-        addTile(2,7, studyNode);
+        addTile(2,7, sleepNode);
 
         addTile(3,3, empty);
         addTile(3,4, empty);
@@ -162,7 +207,7 @@ public class MapGraph {
         addTile(12,5, empty);
         addTile(12,6, empty);
 
-        addTile(13,1, sleepNode);
+        addTile(13,1, eatNode);
         addTile(13,2, empty);
         addTile(13,6, empty);
 
@@ -173,6 +218,10 @@ public class MapGraph {
         addTile(14,6, recreationNode);
 
 
+
+        //this now adds all the edges in the graph.
+        //X1 and Y1 correspond to the node the player is currently on.
+        //X2 and Y2 correspond to the tiles that the player can move to
         addEdge(2,1,2,2);
         addEdge(2,2,2,3);
         addEdge(2,3,2,4);
