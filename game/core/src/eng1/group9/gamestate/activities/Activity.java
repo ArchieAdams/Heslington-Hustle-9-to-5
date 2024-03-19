@@ -1,4 +1,4 @@
-package eng1.group9.GameState.Activities;
+package eng1.group9.gamestate.activities;
 
 
 /**
@@ -6,6 +6,10 @@ package eng1.group9.GameState.Activities;
  *
  * @param timeConsumption int, record of how much time is consumed for this activity
  * @param energyConsumption int, record of how much energy is consumed
+ */
+
+/**
+ *
  */
 public abstract class Activity {
 
