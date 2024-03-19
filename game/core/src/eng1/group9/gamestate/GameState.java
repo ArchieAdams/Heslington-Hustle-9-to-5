@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class GamesState {
+public class GameState {
 
     /**
      * This class is the main game logic class. The 'game state', i.e. the record of the energy
@@ -40,7 +40,7 @@ public class GamesState {
 
 
     //constructor
-    public GamesState(int eng, int tim, Player play, MapGraph gameMap){
+    public GameState(int eng, int tim, Player play, MapGraph gameMap){
 
         this.energy = eng;
         this.maxEnergy = eng;

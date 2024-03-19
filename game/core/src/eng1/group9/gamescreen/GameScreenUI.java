@@ -29,6 +29,7 @@ public class GameScreenUI extends ScreenUI {
     private float pixelsPerSquare = 120;
 
     private Texture playerTexture;
+    private Texture mapTexture;
 
 
     // HUD elements
@@ -50,6 +51,7 @@ public class GameScreenUI extends ScreenUI {
         screenViewport.setScreenX(10);
         screenViewport.setScreenY(10);
         playerTexture = new Texture(Gdx.files.internal("player.png"));
+        mapTexture = new Texture(Gdx.files.internal("fullmap.png"));
         Skin skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
 
         // Set up font
@@ -67,7 +69,7 @@ public class GameScreenUI extends ScreenUI {
         dayLabel = new Label("Monday", labelStyle);
         energyBar = new ProgressBar(0, 100, 1, true, skin);
         energyLabel = new Label("100/100", labelStyle);
-    activityButton = new TextButton("Perform Activity", skin);
+        activityButton = new TextButton("Perform Activity", skin);
 
         stage.addActor(dayLabel);
         stage.addActor(timeLabel);
@@ -100,7 +102,9 @@ public class GameScreenUI extends ScreenUI {
     }
 
     private void showMap() {
-
+        batch.begin();
+        batch.draw(mapTexture, 0, 0, mapTexture.getWidth() / pixelsPerSquare, mapTexture.getHeight() / pixelsPerSquare);
+        batch.end();
     }
 
 //    private int getPlayerHorizontalOffset() {
