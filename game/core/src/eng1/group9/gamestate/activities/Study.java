@@ -1,4 +1,4 @@
-package eng1.group9.GameState.Activities;
+package eng1.group9.gamestate.activities;
 
 /**
  * The class for the activity sleep

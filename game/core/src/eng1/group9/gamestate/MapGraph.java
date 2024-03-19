@@ -1,8 +1,6 @@
-package eng1.group9;
+package eng1.group9.gamestate;
 
-import eng1.group9.GameState.Activities.*;
-import eng1.group9.GameState.Node;
-import eng1.group9.GameState.TilePosition;
+import eng1.group9.gamestate.activities.*;
 
 import java.util.*;
 

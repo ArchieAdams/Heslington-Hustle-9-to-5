@@ -1,8 +1,7 @@
-package eng1.group9.GameState;
+package eng1.group9.gamestate;
 
-import eng1.group9.GameState.Activities.Activity;
-import eng1.group9.GameState.Activities.Sleep;
-import eng1.group9.MapGraph;
+import eng1.group9.gamestate.activities.Activity;
+import eng1.group9.gamestate.activities.Sleep;
 //import eng1.group9.GameState.TilePosition;
 
 import java.util.ArrayList;
