@@ -50,6 +50,15 @@ public class GameState {
         this.map = gameMap;
         this.day = 0;
     }
+    public GameState(){
+        this.energy = 100;
+        this.maxEnergy = 100;
+        this.time = 100;
+        this.timeInDay = 100;
+        this.character = new Player();
+        this.map = new MapGraph();
+        this.day = 0;
+    }
 
 
     //getters
@@ -67,7 +76,7 @@ public class GameState {
         return this.day;
     }
 
-    public boolean getGameOver(){
+    public boolean isGameOver(){
         return this.gameOver;
     }
 
@@ -76,11 +85,11 @@ public class GameState {
         return this.activityList;
     }
 
-    private boolean getPlayerPosition(){
+    public TilePosition getPlayerPosition(){
 
         playerPosition = character.getPlayerPosition();
 
-        return true;
+        return playerPosition;
     }
 
 
@@ -90,47 +99,64 @@ public class GameState {
      * @return boolean if the move has taken place or not
      */
     public boolean move(String direction){
+        System.out.println("here1");
 
         if((direction.equals("up")) && (this.canMoveUp())){
+            System.out.println("here1");
 
             playerPosition = character.getPlayerPosition();
+            System.out.println("here2");
 
             playerPosition.setColumn(playerPosition.getColumn() + 1);
+            System.out.println("here3");
 
             character.setPlayerPosition(playerPosition);
+            System.out.println("here4");
 
             return true;
         }
 
         if((direction.equals("down")) && (this.canMoveDown())){
+            System.out.println("down1");
 
             playerPosition = character.getPlayerPosition();
+            System.out.println("down2");
 
             playerPosition.setColumn(playerPosition.getColumn() - 1);
+            System.out.println("down3");
 
             character.setPlayerPosition(playerPosition);
+            System.out.println("down4");
 
             return true;
         }
 
         if((direction.equals("left")) && (this.canMoveLeft())){
+            System.out.println("left1");
 
             playerPosition = character.getPlayerPosition();
+            System.out.println("left2");
 
             playerPosition.setRow(playerPosition.getRow() - 1);
+            System.out.println("left3");
 
             character.setPlayerPosition(playerPosition);
+            System.out.println("left4");
 
             return true;
         }
 
         if((direction.equals("right")) && (this.canMoveRight())){
+            System.out.println("right1");
 
             playerPosition = character.getPlayerPosition();
+            System.out.println("right2");
 
             playerPosition.setRow(playerPosition.getRow() + 1);
+            System.out.println("right3");
 
             character.setPlayerPosition(playerPosition);
+            System.out.println("right4");
 
             return true;
         }
@@ -276,6 +302,7 @@ public class GameState {
 
     //the function to perform an activity the user wants
     public boolean performActivity(Activity act) {
+        System.out.println("here5");
         ArrayList<Activity> tempActList = this.getActivities();
 
 
@@ -286,7 +313,7 @@ public class GameState {
                 if ((act instanceof Sleep) && (tempAct.getClass() == act.getClass()))  {
 
                     //if the day counter is greater than 6 the game ends
-                    if(this.day > 6){
+                    if(this.day == 6){
                         this.gameOver = true;
                         return true;
                     }
@@ -302,7 +329,7 @@ public class GameState {
 
                 //if the activity is Eat, study or recreation, then the time and energy is decremented
                 //by the desired amount and the activity is recorded in the ArrayList
-                if ((act.getEnergyConsumption() < this.energy) && (act.getTimeConsumption() < this.time)) {
+                if ((act.getEnergyConsumption() <= this.energy) && (act.getTimeConsumption() <= this.time)) {
 
                     int tempTime = act.getTimeConsumption();
                     int tempEnergy = act.getEnergyConsumption();
