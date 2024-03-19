@@ -248,12 +248,12 @@ public class GamesState {
 
 
     //the function to perform an activity the user wants
-    public boolean performActivity(Activity act) {
+    public boolean performActivity() {
 
         ArrayList<Activity> tempActList = this.getActivities();
 
-        for (Activity tempAct : tempActList) {
-            if (act.getClass() == tempAct.getClass()) {
+        for (Activity act : tempActList) {
+
                 //if the activity is Sleep, the time and energy is reset
                 //and the counter of the day increments
                 if (act instanceof Sleep) {
@@ -282,7 +282,7 @@ public class GamesState {
                 }
             }
 
-        }
+
 
         return false;
     }
