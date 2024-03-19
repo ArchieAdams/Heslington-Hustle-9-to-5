@@ -19,6 +19,7 @@ public class StartScreenUI extends ScreenUI {
     private ScreenViewport screenViewport;
     private Label titleLabel;
     private Label instructionLabel;
+    private Label licenceLabel;
     private Stage stage;
 
     public StartScreenUI(){
@@ -43,9 +44,15 @@ public class StartScreenUI extends ScreenUI {
         Label.LabelStyle instructionStyle = new Label.LabelStyle(instructionFont, Color.WHITE);
         instructionLabel = new Label("PRESS ENTER TO PLAY", instructionStyle);
 
+        parameter.size = 15;
+        BitmapFont licenceFont = generator.generateFont(parameter);
+        Label.LabelStyle licenceStyle = new Label.LabelStyle(licenceFont, Color.WHITE);
+        licenceLabel = new Label("To view licences used: visit https://eng1-group-9-2024.github.io/website-1/", licenceStyle);
+
         generator.dispose();
         stage.addActor(instructionLabel);
         stage.addActor(titleLabel);
+        stage.addActor(licenceLabel);
 
     }
     @Override
@@ -70,7 +77,10 @@ public class StartScreenUI extends ScreenUI {
         titleLabel.setY(height - titleLabel.getHeight() - 20);
 
         instructionLabel.setX((width - instructionLabel.getWidth()) /2);
-        instructionLabel.setY(height - instructionLabel.getHeight() - 300);
+        instructionLabel.setY((float) height / 2);
+
+        licenceLabel.setX((width - licenceLabel.getWidth()) /2);
+        licenceLabel.setY(10);
 
         stage.draw();
     }
