@@ -13,7 +13,7 @@ public class EndScreen extends BaseScreen {
      * @param game HustleGame object that controls the application
      */
     public EndScreen(HustleGame game) {
-        super(game, new EndScreenUI(), new EndScreenInput(game));
+        super(game, new EndScreenUI(game), new EndScreenInput(game));
     }
 
 }
