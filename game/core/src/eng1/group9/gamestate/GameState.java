@@ -384,42 +384,39 @@ public class GameState {
      * Function to calculate the score. Currently, this counts how many times each activity has taken place
      * @return ArrayList</Integer> of the number of times an activity has been performed
      */
-    public ArrayList<?> scoreCalculation(){
+    public Map<String, Integer> scoreCalculation(){
 
-        Integer sleepCounter = 0;
-        Integer eatCounter = 0;
-        Integer studyCounter = 0;
-        Integer recreationalCounter = 0;
-        ArrayList<Integer> counterList = new ArrayList<>();
-
+        int sleepCounter = 0;
+        int eatCounter = 0;
+        int studyCounter = 0;
+        int recreationalCounter = 0;
+        Map<String, Integer> activitiesCounter = new HashMap<>();
 
         //goes through the array list one activity at a time and increments the corresponding counter
-        for(int i = 0; i < activityList.size(); i++){
+        for (Activity activity : activityList) {
 
-            Activity acti = activityList.get(i);
-
-            switch (acti.getClass().getSimpleName()) {
+            switch (activity.getClass().getSimpleName()) {
 
                 case "Sleep":
-                    sleepCounter = sleepCounter + 1;
+                    sleepCounter++;
                     break;
                 case "Eat":
-                    eatCounter = eatCounter + 1;
+                    eatCounter++;
                     break;
                 case "Study":
-                    studyCounter = studyCounter + 1;
+                    studyCounter++;
                     break;
-                case "Recreational":
-                    recreationalCounter = recreationalCounter + 1;
+                case "Recreation":
+                    recreationalCounter++;
             }
         }
 
         //adds the final counts to the arraylist and returns it
-        counterList.add(sleepCounter);
-        counterList.add(eatCounter);
-        counterList.add(studyCounter);
-        counterList.add(recreationalCounter);
+        activitiesCounter.put("Sleep", sleepCounter);
+        activitiesCounter.put("Eat", eatCounter);
+        activitiesCounter.put("Study", studyCounter);
+        activitiesCounter.put("Recreation", recreationalCounter);
 
-        return counterList;
+        return activitiesCounter;
     }
 }
