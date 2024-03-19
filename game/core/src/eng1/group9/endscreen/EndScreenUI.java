@@ -10,4 +10,9 @@ class EndScreenUI extends ScreenUI {
     public void update() {
 
     }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
 }
