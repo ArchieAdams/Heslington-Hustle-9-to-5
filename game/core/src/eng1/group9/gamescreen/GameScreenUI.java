@@ -8,18 +8,30 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import eng1.group9.BaseScreen;
+import eng1.group9.HustleGame;
 import eng1.group9.ScreenUI;
 import eng1.group9.gamestate.TilePosition;
+import eng1.group9.gamestate.activities.Activity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * UI handler for GameScreen
  */
 public class GameScreenUI extends ScreenUI {
+
+    HustleGame game;
 
     private SpriteBatch batch;
     private OrthographicCamera camera;
@@ -41,8 +53,12 @@ public class GameScreenUI extends ScreenUI {
     private Label dayLabel;
     private TextButton activityButton;
 
+    private List<String> days;
 
-    public GameScreenUI() {
+
+    public GameScreenUI(HustleGame game) {
+        days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        this.game = game;
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
@@ -70,6 +86,13 @@ public class GameScreenUI extends ScreenUI {
         energyBar = new ProgressBar(0, 100, 1, true, skin);
         energyLabel = new Label("100/100", labelStyle);
         activityButton = new TextButton("Perform Activity", skin);
+        activityButton.setWidth(1000);
+//        activityButton.addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//
+//            }
+//        })
 
         stage.addActor(dayLabel);
         stage.addActor(timeLabel);
@@ -116,7 +139,7 @@ public class GameScreenUI extends ScreenUI {
 
     private void showPlayer() {
         batch.begin();
-        TilePosition playerPos = new TilePosition(5, 5); // Update to get from gamestate class
+        TilePosition playerPos = game.getGameState().getPlayerPosition(); // Update to get from gamestate class
         batch.draw(playerTexture, playerPos.getRow() + 0.25f, playerPos.getColumn() + 0.25f, playerTexture.getWidth() / pixelsPerSquare, playerTexture.getHeight() / pixelsPerSquare);
         batch.end();
         camera.position.set(playerPos.getRow() + 0.25f, playerPos.getColumn() + 0.25f, 0);
@@ -130,12 +153,14 @@ public class GameScreenUI extends ScreenUI {
 
         dayLabel.setX(10);
         dayLabel.setY(height - dayLabel.getHeight() - 10);
+        dayLabel.setText(days.get(game.getGameState().getDay()));
 
         timeLabel.setX(width - timeLabel.getWidth() - 10);
         timeLabel.setY(height - timeLabel.getHeight() - 10);
+        timeLabel.setText(game.getGameState().getTime());
 
 
-        int currentEnergy = 100;
+        int currentEnergy = game.getGameState().getEnergy();
         energyLabel.setX(10);
         energyLabel.setY(10);
         energyBar.setX(10);
@@ -143,7 +168,11 @@ public class GameScreenUI extends ScreenUI {
         energyBar.setValue(currentEnergy);
         energyLabel.setText(currentEnergy + "/100");
 
-        String currentActivity = "Study";
+        List<Activity> activities = game.getGameState().getActivities();
+        String currentActivity = "";
+        if (!activities.isEmpty()) {
+            currentActivity = activities.get(0).toString();
+        }
         activityButton.setX(width - activityButton.getWidth() - 10);
         activityButton.setY(10);
         activityButton.setText(currentActivity);

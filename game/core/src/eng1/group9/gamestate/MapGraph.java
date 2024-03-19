@@ -111,25 +111,25 @@ public class MapGraph {
 
         //Eat activity node
         Node eatNode = new Node();
-        Eat eatActivity = new Eat(10,10);
+        Eat eatActivity = new Eat(5,0);
         ArrayList<Activity> eatArray = new ArrayList<>();
         eatArray.add(eatActivity);
 
         //sleep activity node
         Node sleepNode = new Node();
-        Sleep sleepActivity = new Sleep(10,10);
+        Sleep sleepActivity = new Sleep(0,0);
         ArrayList<Activity> sleepArray = new ArrayList<>();
         sleepArray.add(sleepActivity);
 
         //study node activity
         Node studyNode = new Node();
-        Study studyActivity = new Study(10,10);
+        Study studyActivity = new Study(25,25);
         ArrayList<Activity> studyArray = new ArrayList<>();
         studyArray.add(studyActivity);
 
         //recreation node activity
         Node recreationNode = new Node();
-        Recreation recreationActivity = new Recreation(10,10);
+        Recreation recreationActivity = new Recreation(10,25);
         ArrayList<Activity> recreationArray = new ArrayList<>();
         recreationArray.add(recreationActivity);
 
