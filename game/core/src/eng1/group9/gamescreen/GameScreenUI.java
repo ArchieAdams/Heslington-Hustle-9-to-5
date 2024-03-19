@@ -9,10 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -47,26 +44,36 @@ public class GameScreenUI extends ScreenUI {
     public GameScreenUI() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 16, 9);
+        camera.setToOrtho(false);
         fillViewport = new FillViewport(16, 9, camera);
-        screenViewport = new ScreenViewport(camera);
+        screenViewport = new ScreenViewport();
+        screenViewport.setScreenX(10);
+        screenViewport.setScreenY(10);
         playerTexture = new Texture(Gdx.files.internal("player.png"));
+        Skin skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
 
+        // Set up font
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Yantramanav/Yantramanav-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 12;
+        parameter.size = 24;
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
 
+        // Set up HUD
         stage = new Stage(screenViewport);
+        Table table = new Table();
         labelStyle = new Label.LabelStyle(font, Color.BLACK);
         timeLabel = new Label("00:00", labelStyle);
         dayLabel = new Label("Monday", labelStyle);
-        energyBar = new ProgressBar(0, 100, 1, true, new ProgressBar.ProgressBarStyle());
+        energyBar = new ProgressBar(0, 100, 1, true, skin);
         energyLabel = new Label("100/100", labelStyle);
-        //activityButton = new TextButton("Perform Activity", new TextButton.TextButtonStyle());
-        dayLabel.setX(0);
-        dayLabel.setY(0);
+    activityButton = new TextButton("Perform Activity", skin);
+
+        stage.addActor(dayLabel);
+        stage.addActor(timeLabel);
+        stage.addActor(energyBar);
+        stage.addActor(energyLabel);
+        stage.addActor(activityButton);
 
     }
 
@@ -112,6 +119,31 @@ public class GameScreenUI extends ScreenUI {
     }
 
     private void showHud() {
+        screenViewport.apply();
+
+        int width = screenViewport.getScreenWidth();
+        int height = screenViewport.getScreenHeight();
+
+        dayLabel.setX(10);
+        dayLabel.setY(height - dayLabel.getHeight() - 10);
+
+        timeLabel.setX(width - timeLabel.getWidth() - 10);
+        timeLabel.setY(height - timeLabel.getHeight() - 10);
+
+
+        int currentEnergy = 100;
+        energyLabel.setX(10);
+        energyLabel.setY(10);
+        energyBar.setX(10);
+        energyBar.setY(10 + energyLabel.getHeight() + 10);
+        energyBar.setValue(currentEnergy);
+        energyLabel.setText(currentEnergy + "/100");
+
+        String currentActivity = "Study";
+        activityButton.setX(width - activityButton.getWidth() - 10);
+        activityButton.setY(10);
+        activityButton.setText(currentActivity);
+
         stage.draw();
     }
 }
