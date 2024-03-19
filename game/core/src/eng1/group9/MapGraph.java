@@ -4,17 +4,16 @@ import eng1.group9.GameState.Activities.*;
 import eng1.group9.GameState.Node;
 import eng1.group9.GameState.TilePosition;
 
-import javax.sound.midi.Receiver;
 import java.util.*;
 
 public class MapGraph {
 
 
-    private HashMap<TilePosition, List<TilePosition>> FullMap;
+    private HashMap<TilePosition, List<TilePosition>> fullMap;
     private HashMap<TilePosition, Node> nodeMap;
 
     public HashMap<TilePosition, List<TilePosition>> getFullMap(){
-        return this.FullMap;
+        return this.fullMap;
     }
 
     public HashMap<TilePosition, Node> getNodeMap(){
@@ -22,7 +21,7 @@ public class MapGraph {
     }
 
     public MapGraph() {
-        this.FullMap = new HashMap<TilePosition, List<TilePosition>>();
+        this.fullMap = new HashMap<TilePosition, List<TilePosition>>();
         this.nodeMap = new HashMap<TilePosition, Node>();
         CreateMap();
         /*
@@ -31,7 +30,7 @@ public class MapGraph {
     }
 
     void addTile(int X, int Y, Node nod) {
-        FullMap.putIfAbsent(new TilePosition(X, Y), new ArrayList<>());
+        fullMap.putIfAbsent(new TilePosition(X, Y), new ArrayList<>());
         nodeMap.putIfAbsent(new TilePosition(X, Y), nod);
     }
 
@@ -39,7 +38,7 @@ public class MapGraph {
 
         TilePosition T1 = null;
         TilePosition T2 = null;
-        for (Map.Entry<TilePosition, List<TilePosition>> entry : FullMap.entrySet()) {
+        for (Map.Entry<TilePosition, List<TilePosition>> entry : fullMap.entrySet()) {
 
             TilePosition tempTile = entry.getKey();
             List<TilePosition> tempTileList = entry.getValue();
@@ -52,8 +51,8 @@ public class MapGraph {
                 T2 = tempTile;
             }
         }
-        FullMap.get(T1).add(T2);
-        FullMap.get(T2).add(T1);
+        fullMap.get(T1).add(T2);
+        fullMap.get(T2).add(T1);
     }
 
 //    class Tile {
@@ -93,9 +92,9 @@ public class MapGraph {
         studyArray.add(studyActivity);
 
         Node recreationNode = new Node();
-        Recreation RecreationActivity = new Recreation(10,10);
+        Recreation recreationActivity = new Recreation(10,10);
         ArrayList<Activity> recreationArray = new ArrayList<>();
-        recreationArray.add(RecreationActivity);
+        recreationArray.add(recreationActivity);
 
 
 
