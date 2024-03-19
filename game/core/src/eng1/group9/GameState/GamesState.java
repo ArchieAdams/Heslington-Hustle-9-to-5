@@ -249,7 +249,6 @@ public class GamesState {
 
     //the function to perform an activity the user wants
     public boolean performActivity() {
-
         ArrayList<Activity> tempActList = this.getActivities();
 
         for (Activity act : tempActList) {
