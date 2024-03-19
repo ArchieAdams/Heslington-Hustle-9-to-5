@@ -35,7 +35,9 @@ public abstract class BaseScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) { }
+    public void resize(int width, int height) {
+        ui.resize(width, height);
+    }
 
     @Override
     public void pause() { }
