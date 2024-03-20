@@ -62,7 +62,7 @@ public class GameScreenInput extends InputAdapter {
      */
     public boolean moveUp() {
         System.out.println("Move up");
-        return game.getGameState().move(Direction.UP);
+        return game.getGameState().moveUp();
     }
 
     /**
@@ -71,7 +71,7 @@ public class GameScreenInput extends InputAdapter {
      */
     public boolean moveLeft() {
         System.out.println("Move left");
-        return game.getGameState().move(Direction.LEFT);
+        return game.getGameState().moveLeft();
     }
 
     /**
@@ -80,7 +80,7 @@ public class GameScreenInput extends InputAdapter {
      */
     public boolean moveDown() {
         System.out.println("Move down");
-        return game.getGameState().move(Direction.DOWN);
+        return game.getGameState().moveDown();
     }
 
     /**
@@ -89,7 +89,7 @@ public class GameScreenInput extends InputAdapter {
      */
     public boolean moveRight() {
         System.out.println("Move right");
-        return game.getGameState().move(Direction.RIGHT);
+        return game.getGameState().moveRight();
     }
 
     /**

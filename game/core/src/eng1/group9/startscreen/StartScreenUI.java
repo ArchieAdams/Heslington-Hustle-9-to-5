@@ -46,7 +46,7 @@ public class StartScreenUI extends ScreenUI {
         parameter.size = 15;
         BitmapFont licenceFont = generator.generateFont(parameter);
         Label.LabelStyle licenceStyle = new Label.LabelStyle(licenceFont, Color.WHITE);
-        licenceLabel = new Label("To view licences used: visit https://eng1-group-9-2024.github.io/website-1/", licenceStyle);
+        licenceLabel = new Label("To view licences used: visit https://eng1-group-9-2024.github.io/Heslington-Hustle-Info/", licenceStyle);
 
         generator.dispose();
         stage.addActor(instructionLabel);
