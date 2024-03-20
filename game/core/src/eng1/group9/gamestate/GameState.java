@@ -76,25 +76,25 @@ public class GameState {
 
         if(direction == Direction.UP && canMoveUp()){
             playerPosition = character.getPosition();
-            playerPosition.setColumn(playerPosition.getColumn() + 1);
+            playerPosition.setRow(playerPosition.getRow() + 1);
             character.setPosition(playerPosition);
             return true;
         }
         else if(direction == Direction.DOWN && canMoveDown()){
             playerPosition = character.getPosition();
-            playerPosition.setColumn(playerPosition.getColumn() - 1);
+            playerPosition.setRow(playerPosition.getRow() - 1);
             character.setPosition(playerPosition);
             return true;
         }
         else if(direction == Direction.LEFT && canMoveLeft()){
             playerPosition = character.getPosition();
-            playerPosition.setRow(playerPosition.getRow() - 1);
+            playerPosition.setColumn(playerPosition.getColumn() - 1);
             character.setPosition(playerPosition);
             return true;
         }
         else if(direction == Direction.RIGHT && (this.canMoveRight())){
             playerPosition = character.getPosition();
-            playerPosition.setRow(playerPosition.getRow() + 1);
+            playerPosition.setColumn(playerPosition.getColumn() + 1);
             character.setPosition(playerPosition);
             return true;
         }
@@ -127,10 +127,10 @@ public class GameState {
 
 
             //If the current node is connected to the node above, return true
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
+            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
                 for(TilePosition T1 : tempEdges){
                     //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getRow() == playerPosition.getRow()) && (T1.getColumn() == playerPosition.getColumn() + 1))){
+                    if(((T1.getColumn() == playerPosition.getColumn()) && (T1.getRow() == playerPosition.getRow() + 1))){
                         return true;
                     }
                 }
@@ -163,10 +163,10 @@ public class GameState {
 
 
             //If the current node is connected to the node below, return true
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
+            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
                 for(TilePosition T1 : tempEdges){
                     //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getRow() == playerPosition.getRow()) && (T1.getColumn() == playerPosition.getColumn() - 1))){
+                    if(((T1.getColumn() == playerPosition.getColumn()) && (T1.getRow() == playerPosition.getRow() - 1))){
                         return true;
                     }
                 }
@@ -199,10 +199,10 @@ public class GameState {
 
 
             //If the current node is connected to the node to the left, return true
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
+            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
                 for(TilePosition T1 : tempEdges){
                     //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getRow() == playerPosition.getRow() - 1) && (T1.getColumn() == playerPosition.getColumn()))){
+                    if(((T1.getColumn() == playerPosition.getColumn() - 1) && (T1.getRow() == playerPosition.getRow()))){
                         return true;
                     }
                 }
@@ -234,10 +234,10 @@ public class GameState {
 
 
             //If the current node is connected to the node to the right, return true
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
+            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
                 for(TilePosition T1 : tempEdges){
                     //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getRow() == playerPosition.getRow() + 1) && (T1.getColumn() == playerPosition.getColumn() ))){
+                    if(((T1.getColumn() == playerPosition.getColumn() + 1) && (T1.getRow() == playerPosition.getRow() ))){
                         return true;
                     }
                 }
@@ -317,7 +317,7 @@ public class GameState {
             Node tempNode = entry.getValue();
 
             //if the tile is found, then the list of activities the player can perform is returned
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
+            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
                 return tempNode.getActivities();
             }
         }

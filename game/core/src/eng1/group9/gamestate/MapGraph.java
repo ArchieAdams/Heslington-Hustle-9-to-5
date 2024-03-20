@@ -73,11 +73,11 @@ public class MapGraph {
             List<TilePosition> tempTileList = entry.getValue();
 
             //if the temp tile is the desired tile, then the Tile is added to the fullMap
-            if ((tempTile.getRow() == X1) && (tempTile.getColumn() == Y1)) {
+            if ((tempTile.getColumn() == X1) && (tempTile.getRow() == Y1)) {
                 T1 = tempTile;
             }
 
-            if ((tempTile.getRow() == X2) && (tempTile.getColumn() == Y2)){
+            if ((tempTile.getColumn() == X2) && (tempTile.getRow() == Y2)){
                 T2 = tempTile;
             }
         }

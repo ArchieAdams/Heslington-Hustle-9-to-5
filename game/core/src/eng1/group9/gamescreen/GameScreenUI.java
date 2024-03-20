@@ -121,9 +121,9 @@ public class GameScreenUI extends ScreenUI {
     private void showPlayer() {
         batch.begin();
         TilePosition playerPos = game.getGameState().getPlayerPosition();
-        batch.draw(playerTexture, playerPos.getRow() + 0.25f, playerPos.getColumn() + 0.25f, playerTexture.getWidth() / pixelsPerSquare, playerTexture.getHeight() / pixelsPerSquare);
+        batch.draw(playerTexture, playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, playerTexture.getWidth() / pixelsPerSquare, playerTexture.getHeight() / pixelsPerSquare);
         batch.end();
-        camera.position.set(playerPos.getRow() + 0.25f, playerPos.getColumn() + 0.25f, 0);
+        camera.position.set(playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, 0);
     }
 
     /** Draw the HUD */
