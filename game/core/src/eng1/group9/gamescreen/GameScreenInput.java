@@ -101,7 +101,7 @@ public class GameScreenInput extends InputAdapter {
         if (!tempList.isEmpty()){
             boolean success = game.getGameState().performActivity(tempList.get(0));
             if (game.getGameState().isGameOver()) {
-                game.setEndScreen();
+                nextScreen();
             }
             return success;
         }
