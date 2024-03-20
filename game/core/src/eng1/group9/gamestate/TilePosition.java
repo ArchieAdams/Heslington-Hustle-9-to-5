@@ -1,16 +1,13 @@
 package eng1.group9.gamestate;
 
-/**
- * This class is for the row and column of a certain tile
- */
+/** Holds a grid position. Zero-based */
 public class TilePosition{
     int row;
     int column;
 
-    //Constructor
     /**
-     * @param row int, row position on map grid of tile
-     * @param column int, column position on map grid of tile
+     * @param row row position on map grid of tile, starting at 0
+     * @param column column position on map grid of tile, starting at 0
      */
     public TilePosition(int row, int column){
         this.row = row;
@@ -28,6 +25,10 @@ public class TilePosition{
         this.row = row;
     }
     public void setColumn(int column){
+        this.column = column;
+    }
+    public void set(int row, int column) {
+        this.row = row;
         this.column = column;
     }
 
