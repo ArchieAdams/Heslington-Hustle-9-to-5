@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,6 +19,7 @@ import eng1.group9.gamestate.TilePosition;
 import eng1.group9.gamestate.activities.Activity;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * UI handler for GameScreen
@@ -46,10 +48,12 @@ public class GameScreenUI extends ScreenUI {
     private TextButton activityButton;
 
     private List<String> days;
+    private Vector3 previousPos;
 
 
     public GameScreenUI(HustleGame game) {
         days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        previousPos = new Vector3(0, 0, 0);
         this.game = game;
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -121,9 +125,13 @@ public class GameScreenUI extends ScreenUI {
     private void showPlayer() {
         batch.begin();
         TilePosition playerPos = game.getGameState().getPlayerPosition();
-        batch.draw(playerTexture, playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, playerTexture.getWidth() / pixelsPerSquare, playerTexture.getHeight() / pixelsPerSquare);
+        Vector3 targetPosition = new Vector3(playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, 0);
+        Vector3 interpolatedPos = previousPos.lerp(targetPosition, 0.1f);
+
+        batch.draw(playerTexture, interpolatedPos.x, interpolatedPos.y, playerTexture.getWidth() / pixelsPerSquare, playerTexture.getHeight() / pixelsPerSquare);
         batch.end();
-        camera.position.set(playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, 0);
+        camera.position.lerp(targetPosition, 0.1f);
+        //;;camera.position.set(playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, 0);
     }
 
     /** Draw the HUD */
