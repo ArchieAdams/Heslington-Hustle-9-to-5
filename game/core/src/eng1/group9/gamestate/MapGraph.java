@@ -32,24 +32,24 @@ public class MapGraph {
 
     /**Add a TilePosition to the fullMap and nodeMap
      *
-     * @param X, the row of the Tile
-     * @param Y, the column of the Tile
+     * @param x, the row of the Tile
+     * @param y, the column of the Tile
      * @param nod, the list of activities associated with that tile
      */
-    private void addTile(int X, int Y, Node nod) {
-        fullMap.putIfAbsent(new TilePosition(X, Y), new ArrayList<>());
-        nodeMap.putIfAbsent(new TilePosition(X, Y), nod);
+    private void addTile(int x, int y, Node nod) {
+        fullMap.putIfAbsent(new TilePosition(x, y), new ArrayList<>());
+        nodeMap.putIfAbsent(new TilePosition(x, y), nod);
     }
 
 
     /** Connect all the paths between tilePositions
      *
-     * @param X1 the row of the first tile you are connecting
-     * @param Y1 the column of the first tile you are connecting
-     * @param X2 the row of the second tile you are connecting
-     * @param Y2 the column of the second tile you are connecting
+     * @param x1 the row of the first tile you are connecting
+     * @param y1 the column of the first tile you are connecting
+     * @param x2 the row of the second tile you are connecting
+     * @param y2 the column of the second tile you are connecting
      */
-    private void addEdge(int X1, int Y1, int X2, int Y2) {
+    private void addEdge(int x1, int y1, int x2, int y2) {
 
         //creates two tiles that will then be used to add to the fullMap
         TilePosition T1 = null;
@@ -63,11 +63,11 @@ public class MapGraph {
             List<TilePosition> tempTileList = entry.getValue();
 
             //if the temp tile is the desired tile, then the Tile is added to the fullMap
-            if ((tempTile.getColumn() == X1) && (tempTile.getRow() == Y1)) {
+            if ((tempTile.getColumn() == x1) && (tempTile.getRow() == y1)) {
                 T1 = tempTile;
             }
 
-            if ((tempTile.getColumn() == X2) && (tempTile.getRow() == Y2)){
+            if ((tempTile.getColumn() == x2) && (tempTile.getRow() == y2)){
                 T2 = tempTile;
             }
         }

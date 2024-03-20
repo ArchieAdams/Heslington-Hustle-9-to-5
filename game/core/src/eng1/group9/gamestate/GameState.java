@@ -173,7 +173,6 @@ public class GameState {
     * @return true if the activity was successfully performed
     */
     public boolean performActivity(Activity activity) {
-        System.out.println("here5");
         ArrayList<Activity> tempActList = this.getActivities();
 
 
