@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -18,8 +19,8 @@ import eng1.group9.ScreenUI;
 import eng1.group9.gamestate.TilePosition;
 import eng1.group9.gamestate.activities.Activity;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * UI handler for GameScreen
@@ -45,6 +46,7 @@ public class GameScreenUI extends ScreenUI {
     private ProgressBar energyBar;
     private Label energyLabel;
     private Label dayLabel;
+    private Label scoreLabel;
     private TextButton activityButton;
 
     private List<String> days;
@@ -76,19 +78,23 @@ public class GameScreenUI extends ScreenUI {
         // Set up HUD
         stage = new Stage(screenViewport);
         Table table = new Table();
-        labelStyle = new Label.LabelStyle(font, Color.BLACK);
-        timeLabel = new Label("00:00", labelStyle);
-        dayLabel = new Label("Monday", labelStyle);
+        timeLabel = new Label("00:00", skin);
+        dayLabel = new Label("Monday", skin);
         energyBar = new ProgressBar(0, 100, 1, true, skin);
-        energyLabel = new Label("100/100", labelStyle);
+        energyLabel = new Label("100/100", skin);
+        scoreLabel = new Label("", skin);
         activityButton = new TextButton("Perform Activity", skin);
         activityButton.setWidth(1000);
+        dayLabel.setFontScale(1.2f);
+        timeLabel.setFontScale(1.2f);
+        timeLabel.setAlignment(Align.right);
 
         stage.addActor(dayLabel);
         stage.addActor(timeLabel);
         stage.addActor(energyBar);
         stage.addActor(energyLabel);
         stage.addActor(activityButton);
+        stage.addActor(scoreLabel);
     }
 
 
@@ -127,11 +133,9 @@ public class GameScreenUI extends ScreenUI {
         TilePosition playerPos = game.getGameState().getPlayerPosition();
         Vector3 targetPosition = new Vector3(playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, 0);
         Vector3 interpolatedPos = previousPos.lerp(targetPosition, 0.1f);
-
         batch.draw(playerTexture, interpolatedPos.x, interpolatedPos.y, playerTexture.getWidth() / pixelsPerSquare, playerTexture.getHeight() / pixelsPerSquare);
         batch.end();
         camera.position.lerp(targetPosition, 0.1f);
-        //;;camera.position.set(playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, 0);
     }
 
     /** Draw the HUD */
@@ -147,7 +151,7 @@ public class GameScreenUI extends ScreenUI {
 
         timeLabel.setX(width - timeLabel.getWidth() - 10);
         timeLabel.setY(height - timeLabel.getHeight() - 10);
-        timeLabel.setText(game.getGameState().getTime());
+        timeLabel.setText("Time left: " + game.getGameState().getTime());
 
 
         int currentEnergy = game.getGameState().getEnergy();
@@ -157,6 +161,12 @@ public class GameScreenUI extends ScreenUI {
         energyBar.setY(10 + energyLabel.getHeight() + 10);
         energyBar.setValue(currentEnergy);
         energyLabel.setText(currentEnergy + "/100");
+
+        Map<String, Integer> activityCounts = game.getGameState().scoreCalculation();
+        scoreLabel.setText(String.format("Study: %1d\nEat: %2d\nRecreation: %3d", activityCounts.get("Study"), activityCounts.get("Eat"), activityCounts.get("Recreation")));
+        scoreLabel.setX(width - scoreLabel.getWidth() - 10);
+        scoreLabel.setY(height / 2f - scoreLabel.getHeight());
+        scoreLabel.setAlignment(Align.right);
 
         List<Activity> activities = game.getGameState().getActivities();
         String currentActivity = "";
