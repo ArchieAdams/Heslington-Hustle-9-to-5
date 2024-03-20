@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import eng1.group9.HustleGame;
 import eng1.group9.ScreenUI;
-
 import java.util.Map;
 
 /**
@@ -17,16 +16,17 @@ import java.util.Map;
  */
 class EndScreenUI extends ScreenUI {
 
-    HustleGame game;
+    private HustleGame game;
+    private ScreenViewport viewport;
+    private Skin skin;
+    private Label thanksLabel;
+    private Label scoreLabel;
+    private Stage stage;
 
-    ScreenViewport viewport;
-
-    Skin skin;
-
-    Label thanksLabel;
-    Label scoreLabel;
-    Stage stage;
-
+    /**
+     *
+     * @param game HustleGame object that controls the application
+     */
     public EndScreenUI(HustleGame game) {
         this.game = game;
         viewport = new ScreenViewport();

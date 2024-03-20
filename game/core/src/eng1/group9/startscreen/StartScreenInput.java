@@ -12,14 +12,14 @@ public class StartScreenInput extends InputAdapter {
 
     /**
      *
-     * @param game HustleGame object that controls the application
+     * @param game HustleGame that controls the application
      */
     public StartScreenInput(HustleGame game) {
         this.game = game;
     }
 
-    /**
-     * Handle user keyboard input
+    /** Handle user keyboard input
+     *
      * @param keycode the key pressed
      * @return true if handled, false otherwise
      */

@@ -2,10 +2,9 @@ package eng1.group9.gamescreen;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import eng1.group9.BaseScreen;
 import eng1.group9.HustleGame;
+import eng1.group9.gamestate.Direction;
 import eng1.group9.gamestate.activities.Activity;
-
 import java.util.ArrayList;
 
 /**
@@ -13,7 +12,7 @@ import java.util.ArrayList;
  */
 public class GameScreenInput extends InputAdapter {
 
-    HustleGame game;
+    private HustleGame game;
 
     /**
      *
@@ -63,7 +62,7 @@ public class GameScreenInput extends InputAdapter {
      */
     public boolean moveUp() {
         System.out.println("Move up");
-        return game.getGameState().move("up");
+        return game.getGameState().moveUp();
     }
 
     /**
@@ -72,7 +71,7 @@ public class GameScreenInput extends InputAdapter {
      */
     public boolean moveLeft() {
         System.out.println("Move left");
-        return game.getGameState().move("left");
+        return game.getGameState().moveLeft();
     }
 
     /**
@@ -81,7 +80,7 @@ public class GameScreenInput extends InputAdapter {
      */
     public boolean moveDown() {
         System.out.println("Move down");
-        return game.getGameState().move("down");
+        return game.getGameState().moveDown();
     }
 
     /**
@@ -90,7 +89,7 @@ public class GameScreenInput extends InputAdapter {
      */
     public boolean moveRight() {
         System.out.println("Move right");
-        return game.getGameState().move("right");
+        return game.getGameState().moveRight();
     }
 
     /**
@@ -102,7 +101,7 @@ public class GameScreenInput extends InputAdapter {
         if (!tempList.isEmpty()){
             boolean success = game.getGameState().performActivity(tempList.get(0));
             if (game.getGameState().isGameOver()) {
-                game.setEndScreen();
+                nextScreen();
             }
             return success;
         }
