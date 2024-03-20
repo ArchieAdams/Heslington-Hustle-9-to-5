@@ -1,15 +1,17 @@
 package eng1.group9.gamestate.activities;
 
 
-/**
- * The class for the activity eat
- *
- */
+/** An eating activity */
 public class Eat extends Activity {
 
-
-    public Eat(int time, int energy) {
-        super(time, energy);
+    /**
+     *
+     * @param time How much time the activity takes
+     * @param energy How much energy the activity takes
+     * @param name Name of the activity
+     */
+    public Eat(int time, int energy, String name) {
+        super(time, energy, name);
     }
 
     @Override
