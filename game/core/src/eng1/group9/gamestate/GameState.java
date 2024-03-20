@@ -2,184 +2,147 @@ package eng1.group9.gamestate;
 
 import eng1.group9.gamestate.activities.Activity;
 import eng1.group9.gamestate.activities.Sleep;
-//import eng1.group9.GameState.TilePosition;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * This class is the main game logic class. The 'game state', i.e. the record of the energy
+ * and time, etc. of the player is kept and modified in this class.
+ */
 public class GameState {
-
-    /**
-     * This class is the main game logic class. The 'game state', i.e. the record of the energy
-     * and time, etc. of the player is kept and modified in this class.
-     * @param energy int, the remaining energy of the player
-     * @param maxEnergy int the energy the player starts with in a day
-     * @param time int the remaining time of the player
-     * @param timeInDay int the total time in a day
-     * @param day int the counter of the days
-     * @param activityList int the list of activities taken place
-     * @param map MapGraph the graph of all the tiles, and then the associated edges that connect each connected tile
-     * @param playerPosition TilePosition, the location of the player
-     * @param character Player, the local instance of the Player class, used to call getters/setters
-     */
-
-    private int energy;
-    private int maxEnergy;
-    private int time;
-    private int timeInDay;
+    private int energy; // remaining energy for the day
+    private final int maxEnergy; // the energy the player starts with each a day
+    private int time; // remaining time in the day
+    private final int timeInDay; // the total time in each day
     private int day;
-    private ArrayList<Activity> activityList = new ArrayList<>();
+    private final ArrayList<Activity> activityHistory;
     private MapGraph map;
     private TilePosition playerPosition;
-    private Player character;
+    private final Player character;
     private boolean gameOver = false;
 
 
-
-    //constructor
-    public GameState(int eng, int tim, Player play, MapGraph gameMap){
-
-        this.energy = eng;
-        this.maxEnergy = eng;
-        this.time = tim;
-        this.timeInDay = tim;
-        this.character = play;
+    /**
+     *
+     * @param energy how much energy the player has each day
+     * @param time how much time is in the day
+     * @param player the player
+     * @param gameMap which map to use
+     */
+    public GameState(int energy, int time, Player player, MapGraph gameMap){
+        this.energy = energy;
+        this.maxEnergy = energy;
+        this.time = time;
+        this.timeInDay = time;
+        this.character = player;
         this.map = gameMap;
         this.day = 0;
+        this.activityHistory = new ArrayList<>();
     }
     public GameState(){
-        this.energy = 100;
-        this.maxEnergy = 100;
-        this.time = 100;
-        this.timeInDay = 100;
-        this.character = new Player();
-        this.map = new MapGraph();
-        this.day = 0;
+        this(100, 100, new Player(), new MapGraph());
     }
 
 
-    //getters
     public int getEnergy(){
-
         return this.energy;
     }
     public int getTime(){
-
         return this.time;
     }
-
     public int getDay(){
-
         return this.day;
     }
-
     public boolean isGameOver(){
         return this.gameOver;
     }
-
-    public ArrayList<Activity> getActivityList(){
-
-        return this.activityList;
+    public ArrayList<Activity> getActivityHistory(){
+        return this.activityHistory;
     }
-
     public TilePosition getPlayerPosition(){
-
-        playerPosition = character.getPlayerPosition();
-
-        return playerPosition;
+        return character.getPosition();
     }
 
 
-    /**
-     * The function to update the player position
-     * @param direction String, the input to determine what direction to move
-     * @return boolean if the move has taken place or not
-     */
-    public boolean move(String direction){
-        System.out.println("here1");
-
-        if((direction.equals("up")) && (this.canMoveUp())){
-            System.out.println("here1");
-
-            playerPosition = character.getPlayerPosition();
-            System.out.println("here2");
-
-            playerPosition.setColumn(playerPosition.getColumn() + 1);
-            System.out.println("here3");
-
-            character.setPlayerPosition(playerPosition);
-            System.out.println("here4");
-
-            return true;
-        }
-
-        if((direction.equals("down")) && (this.canMoveDown())){
-            System.out.println("down1");
-
-            playerPosition = character.getPlayerPosition();
-            System.out.println("down2");
-
-            playerPosition.setColumn(playerPosition.getColumn() - 1);
-            System.out.println("down3");
-
-            character.setPlayerPosition(playerPosition);
-            System.out.println("down4");
-
-            return true;
-        }
-
-        if((direction.equals("left")) && (this.canMoveLeft())){
-            System.out.println("left1");
-
-            playerPosition = character.getPlayerPosition();
-            System.out.println("left2");
-
-            playerPosition.setRow(playerPosition.getRow() - 1);
-            System.out.println("left3");
-
-            character.setPlayerPosition(playerPosition);
-            System.out.println("left4");
-
-            return true;
-        }
-
-        if((direction.equals("right")) && (this.canMoveRight())){
-            System.out.println("right1");
-
-            playerPosition = character.getPlayerPosition();
-            System.out.println("right2");
-
+    /** Attempt to move the player up */
+    public boolean moveUp() {
+        if(canMove(Direction.UP)){
+            playerPosition = character.getPosition();
             playerPosition.setRow(playerPosition.getRow() + 1);
-            System.out.println("right3");
-
-            character.setPlayerPosition(playerPosition);
-            System.out.println("right4");
-
+            character.setPosition(playerPosition);
             return true;
         }
-
-        return false;
+        else {
+            return false;
+        }
     }
 
+    /** Attempt to move the player down */
+    public boolean moveDown() {
+        if(canMove(Direction.DOWN)) {
+            playerPosition = character.getPosition();
+            playerPosition.setRow(playerPosition.getRow() - 1);
+            character.setPosition(playerPosition);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
-    //the functions to check whether the player is capable of moving in
-    //that direction
+    /** Attempt to move the player left */
+    public boolean moveLeft() {
+        if(canMove(Direction.LEFT)){
+            playerPosition = character.getPosition();
+            playerPosition.setColumn(playerPosition.getColumn() - 1);
+            character.setPosition(playerPosition);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
-    /**
-     * Checks the current map to see if the player can move to the desired tile that is inputted
-     * @return boolean if the player can move in that direction or not
-     */
-    private boolean canMoveUp(){
+    /** Attempt to move the player right */
+    public boolean moveRight() {
+        if(this.canMove(Direction.RIGHT)){
+            playerPosition = character.getPosition();
+            playerPosition.setColumn(playerPosition.getColumn() + 1);
+            character.setPosition(playerPosition);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /** Returns whether the player can move in the specified direction */
+    private boolean canMove(Direction direction){
+        int colOffset = 0;
+        int rowOffset = 0;
+
+        switch (direction) {
+            case UP:
+                rowOffset = 1;
+                break;
+            case DOWN:
+                rowOffset = -1;
+                break;
+            case RIGHT:
+                colOffset = 1;
+                break;
+            case LEFT:
+                colOffset = -1;
+                break;
+        }
 
         //gets player position and stores in locally
-        playerPosition = character.getPlayerPosition();
+        playerPosition = character.getPosition();
 
         //stores the current mapGraph locally
-        HashMap<TilePosition, List<TilePosition>> tempMap = new HashMap<TilePosition, List<TilePosition>>();
-        tempMap = map.getFullMap();
+        HashMap<TilePosition, List<TilePosition>> tempMap = map.getFullMap();
 
 
         //Iterates through every instance of the node until it finds the player's position node
@@ -191,10 +154,10 @@ public class GameState {
 
 
             //If the current node is connected to the node above, return true
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
+            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
                 for(TilePosition T1 : tempEdges){
                     //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getRow() == playerPosition.getRow()) && (T1.getColumn() == playerPosition.getColumn() + 1))){
+                    if(((T1.getColumn() == playerPosition.getColumn() + colOffset) && (T1.getRow() == playerPosition.getRow() + rowOffset))){
                         return true;
                     }
                 }
@@ -204,160 +167,60 @@ public class GameState {
         return false;
     }
 
-    private boolean canMoveDown(){
-
-        //gets player position and stores in locally
-        playerPosition = character.getPlayerPosition();
-
-        //stores the current mapGraph locally
-        HashMap<TilePosition, List<TilePosition>> tempMap = new HashMap<TilePosition, List<TilePosition>>();
-        tempMap = map.getFullMap();
-
-
-        //Iterates through every instance of the node until it finds the player's position node
-        for (Map.Entry<TilePosition, List<TilePosition>> entry : tempMap.entrySet()) {
-
-            //stores temporary variables used in the comparison
-            TilePosition tempTile = entry.getKey();
-            ArrayList<TilePosition> tempEdges = (ArrayList<TilePosition>) entry.getValue();
-
-
-            //If the current node is connected to the node below, return true
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
-                for(TilePosition T1 : tempEdges){
-                    //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getRow() == playerPosition.getRow()) && (T1.getColumn() == playerPosition.getColumn() - 1))){
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean canMoveLeft(){
-
-        //gets player position and stores in locally
-        playerPosition = character.getPlayerPosition();
-
-        //stores the current mapGraph locally
-        HashMap<TilePosition, List<TilePosition>> tempMap = new HashMap<TilePosition, List<TilePosition>>();
-        tempMap = map.getFullMap();
-
-
-        //Iterates through every instance of the node until it finds the player's position node
-        for (Map.Entry<TilePosition, List<TilePosition>> entry : tempMap.entrySet()) {
-
-            //stores temporary variables used in the comparison
-            TilePosition tempTile = entry.getKey();
-            ArrayList<TilePosition> tempEdges = (ArrayList<TilePosition>) entry.getValue();
-
-
-            //If the current node is connected to the node to the left, return true
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
-                for(TilePosition T1 : tempEdges){
-                    //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getRow() == playerPosition.getRow() - 1) && (T1.getColumn() == playerPosition.getColumn()))){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean canMoveRight(){
-
-        //gets player position and stores in locally
-        playerPosition = character.getPlayerPosition();
-
-        //stores the current mapGraph locally
-        HashMap<TilePosition, List<TilePosition>> tempMap = new HashMap<TilePosition, List<TilePosition>>();
-        tempMap = map.getFullMap();
-
-
-        //Iterates through every instance of the node until it finds the player's position node
-        for (Map.Entry<TilePosition, List<TilePosition>> entry : tempMap.entrySet()) {
-
-            //stores temporary variables used in the comparison
-            TilePosition tempTile = entry.getKey();
-            ArrayList<TilePosition> tempEdges = (ArrayList<TilePosition>) entry.getValue();
-
-
-            //If the current node is connected to the node to the right, return true
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
-                for(TilePosition T1 : tempEdges){
-                    //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getRow() == playerPosition.getRow() + 1) && (T1.getColumn() == playerPosition.getColumn() ))){
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-
-    //the function to perform an activity the user wants
-    public boolean performActivity(Activity act) {
-        System.out.println("here5");
+    /** Attempt to perform the specified activity
+    *
+    * @param activity the activity to perform
+    * @return true if the activity was successfully performed
+    */
+    public boolean performActivity(Activity activity) {
         ArrayList<Activity> tempActList = this.getActivities();
 
 
         for (Activity tempAct : tempActList) {
 
-                //if the activity is Sleep, the time and energy is reset
-                //and the counter of the day increments
-                if ((act instanceof Sleep) && (tempAct.getClass() == act.getClass()))  {
+            //if the activity is Sleep, the time and energy is reset
+            //and the counter of the day increments
+            if ((activity instanceof Sleep) && (tempAct.getClass() == activity.getClass()))  {
 
-                    //if the day counter is greater than 6 the game ends
-                    if(this.day == 6){
-                        this.gameOver = true;
-                        return true;
-                    }
-
-                    //time and energy reset otherwise
-                    this.day = this.day + 1;
-                    this.energy = this.maxEnergy;
-                    this.time = this.timeInDay;
-
+                //if the day counter is greater than 6 the game ends
+                if(this.day == 6) {
+                    this.gameOver = true;
                     return true;
                 }
 
+                //time and energy reset otherwise
+                this.day = this.day + 1;
+                this.energy = this.maxEnergy;
+                this.time = this.timeInDay;
 
-                //if the activity is Eat, study or recreation, then the time and energy is decremented
-                //by the desired amount and the activity is recorded in the ArrayList
-                if ((act.getEnergyConsumption() <= this.energy) && (act.getTimeConsumption() <= this.time)) {
-
-                    int tempTime = act.getTimeConsumption();
-                    int tempEnergy = act.getEnergyConsumption();
-
-                    activityList.add(act);
-                    this.time = this.time - tempTime;
-                    this.energy = this.energy - tempEnergy;
-
-                    return true;
-
-                }
+                return true;
             }
 
 
+            //if the activity is Eat, study or recreation, then the time and energy is decremented
+            //by the desired amount and the activity is recorded in the ArrayList
+            if ((activity.getEnergyConsumption() <= this.energy) && (activity.getTimeConsumption() <= this.time)) {
 
+                int tempTime = activity.getTimeConsumption();
+                int tempEnergy = activity.getEnergyConsumption();
+
+                activityHistory.add(activity);
+                this.time = this.time - tempTime;
+                this.energy = this.energy - tempEnergy;
+
+                return true;
+
+            }
+        }
         return false;
     }
 
 
-    /**
-     * The function to return the activity or activities that the player can perform while...
-     * ... on the current playerposition
-     * @return ArrayList<Activity> the list of activities the player can perform
-     */
+    /** Returns the list of activities available at the player's current position */
     public ArrayList<Activity> getActivities() {
 
         //gets the player position and stores it locally
-        playerPosition = character.getPlayerPosition();
+        playerPosition = character.getPosition();
 
         //gets the map of the nodes and stores it locally
         Map<TilePosition, Node> tempNodeMap = map.getNodeMap();
@@ -369,7 +232,7 @@ public class GameState {
             Node tempNode = entry.getValue();
 
             //if the tile is found, then the list of activities the player can perform is returned
-            if ((tempTile.getRow() == playerPosition.getRow()) && (tempTile.getColumn() == playerPosition.getColumn())) {
+            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
                 return tempNode.getActivities();
             }
         }
@@ -380,9 +243,11 @@ public class GameState {
         return emptyList;
     }
 
-    /**
-     * Function to calculate the score. Currently, this counts how many times each activity has taken place
-     * @return ArrayList</Integer> of the number of times an activity has been performed
+    /** Calculate the score.
+     * <p>
+     * Currently, this just counts how many times each activity has taken place
+     * </p>
+     * @return A mapping specifying how many times each type of activity has been performed
      */
     public Map<String, Integer> scoreCalculation(){
 
@@ -393,7 +258,7 @@ public class GameState {
         Map<String, Integer> activitiesCounter = new HashMap<>();
 
         //goes through the array list one activity at a time and increments the corresponding counter
-        for (Activity activity : activityList) {
+        for (Activity activity : activityHistory) {
 
             switch (activity.getClass().getSimpleName()) {
 

@@ -1,37 +1,27 @@
 package eng1.group9.gamestate;
 
-/**
- * Class that holds the current position of the player on the grid
- */
+/** Stores information about the player */
 public class Player {
     TilePosition playerPosition;
 
-    /**
+    /** Create a new player at the given position
      *
-     * @param playerPosition holds the instance of TilePosition where the player is currently on the grid
+     * @param playerPosition the TilePosition specifying the player's starting location on the grid
      */
     public Player(TilePosition playerPosition){
         this.playerPosition = playerPosition;
     }
 
-    /**
-     * The player's initial starting position is at row 9, column 5
-     */
+    /** Create a new player with a starting position of row 2, column 1 */
     public Player() {
         this(new TilePosition(2, 1));
     }
-    /**
-     * returns the current player position when called
-     */
-    public TilePosition getPlayerPosition(){
+
+    public TilePosition getPosition(){
         return playerPosition;
     }
 
-    /**
-     *
-     * @param playerPosition sets the player position
-     */
-    public void setPlayerPosition(TilePosition playerPosition){
+    public void setPosition(TilePosition playerPosition){
         this.playerPosition = playerPosition;
     }
 }

@@ -1,38 +1,37 @@
 package eng1.group9.gamestate.activities;
 
-
-/**
- * This class is the abstract class for the eat, sleep, study, and recreation classes
- *
- * @param timeConsumption int, record of how much time is consumed for this activity
- * @param energyConsumption int, record of how much energy is consumed
- */
-
-/**
- *
- */
+/** Base class for the activity types */
 public abstract class Activity {
 
     private final int timeConsumption;
     private final int energyConsumption;
+    private final String name;
 
-
-    //Constructor
-    public Activity(int time, int energy){
-
+    /**
+     *
+     * @param time How much time the activity takes
+     * @param energy How much energy the activity takes
+     * @param name Name of the activity
+     */
+    public Activity(int time, int energy, String name) {
         this.timeConsumption = time;
         this.energyConsumption = energy;
+        this.name = name;
     }
 
-
-    //getters
-    public int getTimeConsumption(){
-
-        return  timeConsumption;
+    /** Returns how much time the activity takes */
+    public int getTimeConsumption() {
+        return timeConsumption;
     }
-    public int getEnergyConsumption(){
 
+    /** Returns how much energy the activity takes */
+    public int getEnergyConsumption() {
         return energyConsumption;
     }
 
+    /** Returns the name of the activity */
+    public String getName() {
+        return name;
+    }
 }
+

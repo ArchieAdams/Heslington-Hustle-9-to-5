@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import eng1.group9.ScreenUI;
@@ -47,7 +46,7 @@ public class StartScreenUI extends ScreenUI {
         parameter.size = 15;
         BitmapFont licenceFont = generator.generateFont(parameter);
         Label.LabelStyle licenceStyle = new Label.LabelStyle(licenceFont, Color.WHITE);
-        licenceLabel = new Label("To view licences used: visit https://eng1-group-9-2024.github.io/website-1/", licenceStyle);
+        licenceLabel = new Label("To view licences used: visit https://eng1-group-9-2024.github.io/Heslington-Hustle-Info/", licenceStyle);
 
         generator.dispose();
         stage.addActor(instructionLabel);
@@ -55,21 +54,11 @@ public class StartScreenUI extends ScreenUI {
         stage.addActor(licenceLabel);
 
     }
+
     @Override
     public void update() {
-        showStartScreen();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        screenViewport.update(width, height, true);
-    }
-
-    public void showStartScreen(){
         ScreenUtils.clear(0, 0, 100, 255);
         screenViewport.apply();
-
-
 
         int width = screenViewport.getScreenWidth();
         int height = screenViewport.getScreenHeight();
@@ -85,5 +74,9 @@ public class StartScreenUI extends ScreenUI {
         stage.draw();
     }
 
+    @Override
+    public void resize(int width, int height) {
+        screenViewport.update(width, height, true);
+    }
 
 }

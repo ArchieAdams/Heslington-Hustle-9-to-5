@@ -11,7 +11,6 @@ public class HustleGame extends Game {
 	private Screen startScreen;
 	private Screen gameScreen;
 	private Screen endScreen;
-
 	private GameState gameState;
 
 
