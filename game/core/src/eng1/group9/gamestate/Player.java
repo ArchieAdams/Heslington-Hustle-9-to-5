@@ -17,11 +17,11 @@ public class Player {
         this(new TilePosition(2, 1));
     }
 
-    public TilePosition getPlayerPosition(){
+    public TilePosition getPosition(){
         return playerPosition;
     }
 
-    public void setPlayerPosition(TilePosition playerPosition){
+    public void setPosition(TilePosition playerPosition){
         this.playerPosition = playerPosition;
     }
 }
