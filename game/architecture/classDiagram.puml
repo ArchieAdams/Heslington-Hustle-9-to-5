@@ -1,4 +1,5 @@
 @startuml
+
 class HustleGame{
     - Screen startScreen
     - Screen gameScreen
