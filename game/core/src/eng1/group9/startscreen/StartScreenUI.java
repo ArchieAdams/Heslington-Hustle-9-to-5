@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import eng1.group9.ScreenUI;
@@ -41,7 +42,9 @@ public class StartScreenUI extends ScreenUI {
         parameter.size = 20;
         BitmapFont instructionFont = generator.generateFont(parameter);
         Label.LabelStyle instructionStyle = new Label.LabelStyle(instructionFont, Color.WHITE);
-        instructionLabel = new Label("PRESS ENTER TO PLAY", instructionStyle);
+        instructionLabel = new Label("PRESS ENTER TO PLAY\n\nWASD / Arrow keys move the player\nEnter performs the activity", instructionStyle);
+        instructionLabel.setAlignment(Align.center);
+
 
         parameter.size = 15;
         BitmapFont licenceFont = generator.generateFont(parameter);
