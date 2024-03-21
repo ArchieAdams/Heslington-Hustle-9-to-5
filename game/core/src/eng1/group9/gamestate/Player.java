@@ -14,7 +14,7 @@ public class Player {
 
     /** Create a new player with a starting position of row 2, column 1 */
     public Player() {
-        this(new TilePosition(2, 1));
+        this(new TilePosition(2, 7));
     }
 
     public TilePosition getPosition(){
