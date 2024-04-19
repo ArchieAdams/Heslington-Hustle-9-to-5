@@ -58,12 +58,6 @@ com_crashlytics_export_strings.xml
 /html/nbproject/private/
 /ios/nbproject/private/
 
-/build/
-/android/build/
-/core/build/
-/desktop/build/
-/html/build/
-/ios/build/
 
 /nbbuild/
 /android/nbbuild/
@@ -100,7 +94,8 @@ gradle-app.setting
 /desktop/build/
 /html/build/
 /ios/build/
-
+/test/build/
+/main/build/
 ## OS Specific
 .DS_Store
 Thumbs.db
