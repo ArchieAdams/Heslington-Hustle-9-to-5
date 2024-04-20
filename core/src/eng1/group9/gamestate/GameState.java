@@ -1,11 +1,12 @@
 package eng1.group9.gamestate;
 
+import com.badlogic.gdx.math.Vector2;
 import eng1.group9.gamestate.activities.Activity;
 import eng1.group9.gamestate.activities.Sleep;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
+import static eng1.group9.gamestate.Direction.*;
 
 /**
  * This class is the main game logic class. The 'game state', i.e. the record of the energy
@@ -22,6 +23,13 @@ public class GameState {
     private TilePosition playerPosition;
     private final Player character;
     private boolean gameOver = false;
+    private final Map<Direction, Vector2> directionOffset = Map.ofEntries(
+            new AbstractMap.SimpleEntry<>(UP, new Vector2(1,0)),
+            new AbstractMap.SimpleEntry<>(DOWN,  new Vector2(-1,0)),
+            new AbstractMap.SimpleEntry<>(RIGHT,  new Vector2(0,1)),
+            new AbstractMap.SimpleEntry<>(LEFT,  new Vector2(0,-1))
+    );
+
 
 
     /**
@@ -66,11 +74,12 @@ public class GameState {
     }
 
 
-    /** Attempt to move the player up */
-    public boolean moveUp() {
-        if(canMove(Direction.UP)){
+    /** Attempt to move the player */
+    public boolean move(Direction direction) {
+        if(canMove(direction)){
             playerPosition = character.getPosition();
-            playerPosition.setRow(playerPosition.getRow() + 1);
+            Vector2 offsetVector = directionOffset.get(direction);
+            playerPosition.move(offsetVector);
             character.setPosition(playerPosition);
             return true;
         }
@@ -79,65 +88,12 @@ public class GameState {
         }
     }
 
-    /** Attempt to move the player down */
-    public boolean moveDown() {
-        if(canMove(Direction.DOWN)) {
-            playerPosition = character.getPosition();
-            playerPosition.setRow(playerPosition.getRow() - 1);
-            character.setPosition(playerPosition);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    /** Attempt to move the player left */
-    public boolean moveLeft() {
-        if(canMove(Direction.LEFT)){
-            playerPosition = character.getPosition();
-            playerPosition.setColumn(playerPosition.getColumn() - 1);
-            character.setPosition(playerPosition);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    /** Attempt to move the player right */
-    public boolean moveRight() {
-        if(this.canMove(Direction.RIGHT)){
-            playerPosition = character.getPosition();
-            playerPosition.setColumn(playerPosition.getColumn() + 1);
-            character.setPosition(playerPosition);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     /** Returns whether the player can move in the specified direction */
     private boolean canMove(Direction direction){
-        int colOffset = 0;
-        int rowOffset = 0;
-
-        switch (direction) {
-            case UP:
-                rowOffset = 1;
-                break;
-            case DOWN:
-                rowOffset = -1;
-                break;
-            case RIGHT:
-                colOffset = 1;
-                break;
-            case LEFT:
-                colOffset = -1;
-                break;
-        }
-
+        Vector2 offsetVector = directionOffset.get(direction);
+        int rowOffset = (int)offsetVector.x;
+        int colOffset = (int)offsetVector.y;
         //gets player position and stores in locally
         playerPosition = character.getPosition();
 

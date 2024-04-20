@@ -1,5 +1,7 @@
 package eng1.group9.gamestate;
 
+import com.badlogic.gdx.math.Vector2;
+
 /** Holds a grid position. Zero-based */
 public class TilePosition{
     int column;
@@ -32,6 +34,11 @@ public class TilePosition{
     public void set(int column, int row) {
         this.column = column;
         this.row = row;
+    }
+
+    public void move(Vector2 moveVector){
+        this.row += (int) moveVector.x;
+        this.column += (int) moveVector.y;
     }
 
 }
