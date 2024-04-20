@@ -1,4 +1,5 @@
-package eng1.group9.tests; /*******************************************************************************
+package eng1.group9.tests;
+/*******************************************************************************
  * Copyright 2015 See AUTHORS file.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
