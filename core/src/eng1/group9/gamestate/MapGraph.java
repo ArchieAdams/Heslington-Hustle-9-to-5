@@ -1,5 +1,6 @@
 package eng1.group9.gamestate;
 
+import com.badlogic.gdx.math.Vector2;
 import eng1.group9.gamestate.activities.*;
 
 import java.util.*;
@@ -8,23 +9,23 @@ import java.util.*;
 public class MapGraph {
 
     // maps a position to reachable adjacent positions
-    private HashMap<TilePosition, List<TilePosition>> fullMap;
+    private final HashMap<Vector2, List<Vector2>> fullMap;
 
     // maps a position to a node (and therefore what activities can be performed at that position)
-    private HashMap<TilePosition, Node> nodeMap;
+    private final HashMap<Vector2, Node> nodeMap;
 
 
     public MapGraph() {
-        fullMap = new HashMap<TilePosition, List<TilePosition>>();
-        nodeMap = new HashMap<TilePosition, Node>();
+        fullMap = new HashMap<>();
+        nodeMap = new HashMap<>();
         createMainMap();
     }
 
-    public HashMap<TilePosition, List<TilePosition>> getFullMap(){
+    public HashMap<Vector2, List<Vector2>> getFullMap(){
         return fullMap;
     }
 
-    public HashMap<TilePosition, Node> getNodeMap(){
+    public HashMap<Vector2, Node> getNodeMap(){
         return nodeMap;
     }
 
@@ -37,8 +38,8 @@ public class MapGraph {
      * @param nod, the list of activities associated with that tile
      */
     private void addTile(int x, int y, Node nod) {
-        fullMap.putIfAbsent(new TilePosition(x, y), new ArrayList<>());
-        nodeMap.putIfAbsent(new TilePosition(x, y), nod);
+        fullMap.putIfAbsent(new Vector2(x, y), new ArrayList<>());
+        nodeMap.putIfAbsent(new Vector2(x, y), nod);
     }
 
 
@@ -52,27 +53,12 @@ public class MapGraph {
     private void addEdge(int x1, int y1, int x2, int y2) {
 
         //creates two tiles that will then be used to add to the fullMap
-        TilePosition T1 = null;
-        TilePosition T2 = null;
-
-        //iterates through each TilePosition
-        for (Map.Entry<TilePosition, List<TilePosition>> entry : fullMap.entrySet()) {
-
-            //stores the Tile's data temporarily
-            TilePosition tempTile = entry.getKey();
-            List<TilePosition> tempTileList = entry.getValue();
-
-            //if the temp tile is the desired tile, then the Tile is added to the fullMap
-            if ((tempTile.getColumn() == x1) && (tempTile.getRow() == y1)) {
-                T1 = tempTile;
-            }
-
-            if ((tempTile.getColumn() == x2) && (tempTile.getRow() == y2)){
-                T2 = tempTile;
-            }
+        Vector2 T1 = new Vector2(x1,y1);
+        Vector2 T2 = new Vector2(x2, y2);
+        if(fullMap.containsKey(T1) && fullMap.containsKey(T2)) {
+            fullMap.get(T1).add(T2);
+            fullMap.get(T2).add(T1);
         }
-        fullMap.get(T1).add(T2);
-        fullMap.get(T2).add(T1);
     }
 
 

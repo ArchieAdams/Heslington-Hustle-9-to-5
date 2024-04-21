@@ -1,12 +1,12 @@
 package eng1.group9.gamescreen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -16,41 +16,41 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import eng1.group9.HustleGame;
 import eng1.group9.ScreenUI;
-import eng1.group9.gamestate.TilePosition;
 import eng1.group9.gamestate.activities.Activity;
+
 import java.util.Arrays;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * UI handler for GameScreen
  */
 public class GameScreenUI extends ScreenUI {
 
-    private HustleGame game;
+    private final HustleGame game;
 
-    private SpriteBatch batch;
-    private OrthographicCamera camera;
-    private FillViewport fillViewport;
-    private ScreenViewport screenViewport;
-    private float pixelsPerSquare = 120;
+    private final SpriteBatch batch;
+    private final OrthographicCamera camera;
+    private final FillViewport fillViewport;
+    private final ScreenViewport screenViewport;
+    private final float pixelsPerSquare = 120;
 
-    private Texture playerTexture;
-    private Texture mapTexture;
+    private final Texture playerTexture;
+    private final Texture mapTexture;
 
 
     // HUD elements
     private Label.LabelStyle labelStyle;
-    private Stage stage;
-    private Label timeLabel;
-    private ProgressBar energyBar;
-    private Label energyLabel;
-    private Label dayLabel;
-    private Label scoreLabel;
-    private TextButton activityButton;
+    private final Stage stage;
+    private final Label timeLabel;
+    private final ProgressBar energyBar;
+    private final Label energyLabel;
+    private final Label dayLabel;
+    private final Label scoreLabel;
+    private final TextButton activityButton;
 
-    private List<String> days;
-    private Vector3 previousPos;
+    private final List<String> days;
+    private final Vector3 previousPos;
 
 
     public GameScreenUI(HustleGame game) {
@@ -114,31 +114,39 @@ public class GameScreenUI extends ScreenUI {
         screenViewport.update(width, height, true);
     }
 
-    /** Show a coloured background */
+    /**
+     * Show a coloured background
+     */
     private void showBackground() {
         ScreenUtils.clear(0, 0, 100, 255);
         camera.update();
     }
 
-    /** Draw the map */
+    /**
+     * Draw the map
+     */
     private void showMap() {
         batch.begin();
         batch.draw(mapTexture, 0, 0, mapTexture.getWidth() / pixelsPerSquare, mapTexture.getHeight() / pixelsPerSquare);
         batch.end();
     }
 
-    /** Draw the player */
+    /**
+     * Draw the player
+     */
     private void showPlayer() {
         batch.begin();
-        TilePosition playerPos = game.getGameState().getPlayerPosition();
-        Vector3 targetPosition = new Vector3(playerPos.getColumn() + 0.25f, playerPos.getRow() + 0.25f, 0);
+        Vector2 playerPos = game.getGameState().getPlayerPosition();
+        Vector3 targetPosition = new Vector3(playerPos.x + 0.25f, playerPos.y + 0.25f, 0);
         Vector3 interpolatedPos = previousPos.lerp(targetPosition, 0.1f);
         batch.draw(playerTexture, interpolatedPos.x, interpolatedPos.y, playerTexture.getWidth() / pixelsPerSquare, playerTexture.getHeight() / pixelsPerSquare);
         batch.end();
         camera.position.lerp(targetPosition, 0.1f);
     }
 
-    /** Draw the HUD */
+    /**
+     * Draw the HUD
+     */
     private void showHud() {
         screenViewport.apply();
 

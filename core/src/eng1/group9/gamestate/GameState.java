@@ -13,33 +13,26 @@ import static eng1.group9.gamestate.Direction.*;
  * and time, etc. of the player is kept and modified in this class.
  */
 public class GameState {
-    private int energy; // remaining energy for the day
     private final int maxEnergy; // the energy the player starts with each a day
-    private int time; // remaining time in the day
     private final int timeInDay; // the total time in each day
-    private int day;
     private final ArrayList<Activity> activityHistory;
-    private MapGraph map;
-    private TilePosition playerPosition;
+    private final MapGraph map;
     private final Player character;
+    private final Map<Direction, Vector2> directionOffset = Map.ofEntries(new AbstractMap.SimpleEntry<>(RIGHT, new Vector2(1, 0)), new AbstractMap.SimpleEntry<>(LEFT, new Vector2(-1, 0)), new AbstractMap.SimpleEntry<>(UP, new Vector2(0, 1)), new AbstractMap.SimpleEntry<>(DOWN, new Vector2(0, -1)));
+    private int energy; // remaining energy for the day
+    private int time; // remaining time in the day
+    private int day;
+    private Vector2 playerPosition;
     private boolean gameOver = false;
-    private final Map<Direction, Vector2> directionOffset = Map.ofEntries(
-            new AbstractMap.SimpleEntry<>(UP, new Vector2(1,0)),
-            new AbstractMap.SimpleEntry<>(DOWN,  new Vector2(-1,0)),
-            new AbstractMap.SimpleEntry<>(RIGHT,  new Vector2(0,1)),
-            new AbstractMap.SimpleEntry<>(LEFT,  new Vector2(0,-1))
-    );
-
 
 
     /**
-     *
-     * @param energy how much energy the player has each day
-     * @param time how much time is in the day
-     * @param player the player
+     * @param energy  how much energy the player has each day
+     * @param time    how much time is in the day
+     * @param player  the player
      * @param gameMap which map to use
      */
-    public GameState(int energy, int time, Player player, MapGraph gameMap){
+    public GameState(int energy, int time, Player player, MapGraph gameMap) {
         this.energy = energy;
         this.maxEnergy = energy;
         this.time = time;
@@ -49,85 +42,76 @@ public class GameState {
         this.day = 0;
         this.activityHistory = new ArrayList<>();
     }
-    public GameState(){
+
+    public GameState() {
         this(100, 100, new Player(), new MapGraph());
     }
 
 
-    public int getEnergy(){
+    public int getEnergy() {
         return this.energy;
     }
-    public int getTime(){
+
+    public int getTime() {
         return this.time;
     }
-    public int getDay(){
+
+    public int getDay() {
         return this.day;
     }
-    public boolean isGameOver(){
+
+    public boolean isGameOver() {
         return this.gameOver;
     }
-    public ArrayList<Activity> getActivityHistory(){
+
+    public ArrayList<Activity> getActivityHistory() {
         return this.activityHistory;
     }
-    public TilePosition getPlayerPosition(){
+
+    public Vector2 getPlayerPosition() {
         return character.getPosition();
     }
 
 
-    /** Attempt to move the player */
+    /**
+     * Attempt to move the player
+     */
     public boolean move(Direction direction) {
-        if(canMove(direction)){
-            playerPosition = character.getPosition();
+        if (canMove(direction)) {
             Vector2 offsetVector = directionOffset.get(direction);
-            playerPosition.move(offsetVector);
-            character.setPosition(playerPosition);
+            playerPosition.add(offsetVector);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
 
-    /** Returns whether the player can move in the specified direction */
-    private boolean canMove(Direction direction){
+    /**
+     * Returns whether the player can move in the specified direction
+     */
+    private boolean canMove(Direction direction) {
         Vector2 offsetVector = directionOffset.get(direction);
-        int rowOffset = (int)offsetVector.x;
-        int colOffset = (int)offsetVector.y;
-        //gets player position and stores in locally
-        playerPosition = character.getPosition();
 
         //stores the current mapGraph locally
-        HashMap<TilePosition, List<TilePosition>> tempMap = map.getFullMap();
+        HashMap<Vector2, List<Vector2>> tempMap = map.getFullMap();
 
-
-        //Iterates through every instance of the node until it finds the player's position node
-        for (Map.Entry<TilePosition, List<TilePosition>> entry : tempMap.entrySet()) {
-
-            //stores temporary variables used in the comparison
-            TilePosition tempTile = entry.getKey();
-            ArrayList<TilePosition> tempEdges = (ArrayList<TilePosition>) entry.getValue();
-
-
-            //If the current node is connected to the node above, return true
-            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
-                for(TilePosition T1 : tempEdges){
-                    //returns true if the tile to move to is a valid path to move to
-                    if(((T1.getColumn() == playerPosition.getColumn() + colOffset) && (T1.getRow() == playerPosition.getRow() + rowOffset))){
-                        return true;
-                    }
-                }
-            }
+        // Checks if the player is currently on NOT the map should always be false
+        if (!tempMap.containsKey(playerPosition)) {
+            throw new RuntimeException("Player has Left the Map");
         }
+        List<Vector2> tempEdges = tempMap.get(playerPosition);
+        //returns true if the tile to move to is a valid path to move to
+        return (tempEdges.contains(playerPosition.cpy().add(offsetVector)));
 
-        return false;
     }
 
-    /** Attempt to perform the specified activity
-    *
-    * @param activity the activity to perform
-    * @return true if the activity was successfully performed
-    */
+    /**
+     * Attempt to perform the specified activity
+     *
+     * @param activity the activity to perform
+     * @return true if the activity was successfully performed
+     */
     public boolean performActivity(Activity activity) {
         ArrayList<Activity> tempActList = this.getActivities();
 
@@ -136,10 +120,10 @@ public class GameState {
 
             //if the activity is Sleep, the time and energy is reset
             //and the counter of the day increments
-            if ((activity instanceof Sleep) && (tempAct.getClass() == activity.getClass()))  {
+            if ((activity instanceof Sleep) && (tempAct.getClass() == activity.getClass())) {
 
                 //if the day counter is greater than 6 the game ends
-                if(this.day == 6) {
+                if (this.day == 6) {
                     this.gameOver = true;
                     return true;
                 }
@@ -172,40 +156,36 @@ public class GameState {
     }
 
 
-    /** Returns the list of activities available at the player's current position */
+    /**
+     * Returns the list of activities available at the player's current position
+     */
     public ArrayList<Activity> getActivities() {
 
         //gets the player position and stores it locally
         playerPosition = character.getPosition();
 
         //gets the map of the nodes and stores it locally
-        Map<TilePosition, Node> tempNodeMap = map.getNodeMap();
+        Map<Vector2, Node> tempNodeMap = map.getNodeMap();
 
         //loops through each tile to try and find the tile that the player is currently on
-        for (Map.Entry<TilePosition, Node> entry : tempNodeMap.entrySet()) {
-
-            TilePosition tempTile = entry.getKey();
-            Node tempNode = entry.getValue();
-
-            //if the tile is found, then the list of activities the player can perform is returned
-            if ((tempTile.getColumn() == playerPosition.getColumn()) && (tempTile.getRow() == playerPosition.getRow())) {
-                return tempNode.getActivities();
-            }
+        if (tempNodeMap.containsKey(playerPosition)){
+            return tempNodeMap.get(playerPosition).getActivities();
         }
 
         //if no list is found then the empty list is returned
-        ArrayList<Activity> emptyList = new ArrayList<>();
 
-        return emptyList;
+        return new ArrayList<>();
     }
 
-    /** Calculate the score.
+    /**
+     * Calculate the score.
      * <p>
      * Currently, this just counts how many times each activity has taken place
      * </p>
+     *
      * @return A mapping specifying how many times each type of activity has been performed
      */
-    public Map<String, Integer> scoreCalculation(){
+    public Map<String, Integer> scoreCalculation() {
 
         int sleepCounter = 0;
         int eatCounter = 0;
