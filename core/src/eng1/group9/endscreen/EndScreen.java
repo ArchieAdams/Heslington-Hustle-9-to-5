@@ -9,7 +9,6 @@ import eng1.group9.HustleGame;
 public class EndScreen extends BaseScreen {
 
     /**
-     *
      * @param game HustleGame that controls the application
      */
     public EndScreen(HustleGame game) {

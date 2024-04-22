@@ -12,7 +12,6 @@ class EndScreenInput extends InputAdapter {
     HustleGame game;
 
     /**
-     *
      * @param game HustleGame object that controls the application
      */
     public EndScreenInput(HustleGame game) {
@@ -21,16 +20,16 @@ class EndScreenInput extends InputAdapter {
 
     /**
      * Handle user keyboard input
+     *
      * @param keycode the key pressed
      * @return true if handled, false otherwise
      */
     @Override
-    public boolean keyDown (int keycode) {
+    public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ENTER) {
             finish();
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

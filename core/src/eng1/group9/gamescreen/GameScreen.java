@@ -6,7 +6,6 @@ import eng1.group9.HustleGame;
 public class GameScreen extends BaseScreen {
 
     /**
-     *
      * @param game HustleGame object that controls the application
      */
     public GameScreen(HustleGame game) {

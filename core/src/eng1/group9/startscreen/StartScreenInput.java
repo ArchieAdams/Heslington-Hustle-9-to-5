@@ -11,25 +11,24 @@ public class StartScreenInput extends InputAdapter {
     HustleGame game;
 
     /**
-     *
      * @param game HustleGame that controls the application
      */
     public StartScreenInput(HustleGame game) {
         this.game = game;
     }
 
-    /** Handle user keyboard input
+    /**
+     * Handle user keyboard input
      *
      * @param keycode the key pressed
      * @return true if handled, false otherwise
      */
     @Override
-    public boolean keyDown (int keycode) {
+    public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ENTER) {
             nextScreen();
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

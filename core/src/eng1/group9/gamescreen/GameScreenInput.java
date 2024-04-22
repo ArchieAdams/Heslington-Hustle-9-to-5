@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import eng1.group9.HustleGame;
 import eng1.group9.gamestate.Direction;
 import eng1.group9.gamestate.activities.Activity;
+
 import java.util.ArrayList;
 
 /**
@@ -12,10 +13,9 @@ import java.util.ArrayList;
  */
 public class GameScreenInput extends InputAdapter {
 
-    private HustleGame game;
+    private final HustleGame game;
 
     /**
-     *
      * @param game HustleGame object that controls the application
      */
     public GameScreenInput(HustleGame game) {
@@ -24,11 +24,12 @@ public class GameScreenInput extends InputAdapter {
 
     /**
      * Handle user keyboard input
+     *
      * @param keycode the key pressed
      * @return true if handled, false otherwise
      */
     @Override
-    public boolean keyDown (int keycode) {
+    public boolean keyDown(int keycode) {
         boolean valid = false;
 
         switch (keycode) {
@@ -58,6 +59,7 @@ public class GameScreenInput extends InputAdapter {
 
     /**
      * Attempt to move the player up
+     *
      * @return true if successful, false otherwise
      */
     public boolean moveUp() {
@@ -67,6 +69,7 @@ public class GameScreenInput extends InputAdapter {
 
     /**
      * Attempt to move the player left
+     *
      * @return true if successful, false otherwise
      */
     public boolean moveLeft() {
@@ -76,6 +79,7 @@ public class GameScreenInput extends InputAdapter {
 
     /**
      * Attempt to move the player down
+     *
      * @return true if successful, false otherwise
      */
     public boolean moveDown() {
@@ -85,6 +89,7 @@ public class GameScreenInput extends InputAdapter {
 
     /**
      * Attempt to move the player right
+     *
      * @return true if successful, false otherwise
      */
     public boolean moveRight() {
@@ -94,11 +99,12 @@ public class GameScreenInput extends InputAdapter {
 
     /**
      * Attempt to move perform an activity
+     *
      * @return true if successful, false otherwise
      */
     public boolean performGameActivity() {
         ArrayList<Activity> tempList = game.getGameState().getActivities();
-        if (!tempList.isEmpty()){
+        if (!tempList.isEmpty()) {
             boolean success = game.getGameState().performActivity(tempList.get(0));
             if (game.getGameState().isGameOver()) {
                 nextScreen();

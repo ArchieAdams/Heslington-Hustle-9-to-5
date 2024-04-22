@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * UI handler for GameScreen
  */
@@ -37,10 +38,6 @@ public class GameScreenUI extends ScreenUI {
 
     private final Texture playerTexture;
     private final Texture mapTexture;
-
-
-    // HUD elements
-    private Label.LabelStyle labelStyle;
     private final Stage stage;
     private final Label timeLabel;
     private final ProgressBar energyBar;
@@ -48,9 +45,10 @@ public class GameScreenUI extends ScreenUI {
     private final Label dayLabel;
     private final Label scoreLabel;
     private final TextButton activityButton;
-
     private final List<String> days;
     private final Vector3 previousPos;
+    // HUD elements
+    private Label.LabelStyle labelStyle;
 
 
     public GameScreenUI(HustleGame game) {

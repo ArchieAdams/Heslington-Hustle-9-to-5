@@ -168,7 +168,7 @@ public class GameState {
         Map<Vector2, Node> tempNodeMap = map.getNodeMap();
 
         //loops through each tile to try and find the tile that the player is currently on
-        if (tempNodeMap.containsKey(playerPosition)){
+        if (tempNodeMap.containsKey(playerPosition)) {
             return tempNodeMap.get(playerPosition).getActivities();
         }
 

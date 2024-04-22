@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import eng1.group9.HustleGame;
 import eng1.group9.ScreenUI;
+
 import java.util.Map;
 
 /**
@@ -16,15 +17,13 @@ import java.util.Map;
  */
 class EndScreenUI extends ScreenUI {
 
-    private HustleGame game;
-    private ScreenViewport viewport;
-    private Skin skin;
-    private Label thanksLabel;
-    private Label scoreLabel;
-    private Stage stage;
+    private final HustleGame game;
+    private final ScreenViewport viewport;
+    private final Label thanksLabel;
+    private final Label scoreLabel;
+    private final Stage stage;
 
     /**
-     *
      * @param game HustleGame object that controls the application
      */
     public EndScreenUI(HustleGame game) {
@@ -32,7 +31,7 @@ class EndScreenUI extends ScreenUI {
         viewport = new ScreenViewport();
         viewport.apply();
         stage = new Stage(viewport);
-        skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
         thanksLabel = new Label("", skin);
         thanksLabel.setAlignment(Align.center);
         scoreLabel = new Label("", skin);

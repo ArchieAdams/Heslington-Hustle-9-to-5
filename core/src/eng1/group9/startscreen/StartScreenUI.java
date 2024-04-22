@@ -16,13 +16,13 @@ import eng1.group9.ScreenUI;
  */
 public class StartScreenUI extends ScreenUI {
 
-    private ScreenViewport screenViewport;
-    private Label titleLabel;
-    private Label instructionLabel;
-    private Label licenceLabel;
-    private Stage stage;
+    private final ScreenViewport screenViewport;
+    private final Label titleLabel;
+    private final Label instructionLabel;
+    private final Label licenceLabel;
+    private final Stage stage;
 
-    public StartScreenUI(){
+    public StartScreenUI() {
         //Create screen view
         screenViewport = new ScreenViewport();
         screenViewport.setScreenX(10);
@@ -65,13 +65,13 @@ public class StartScreenUI extends ScreenUI {
 
         int width = screenViewport.getScreenWidth();
         int height = screenViewport.getScreenHeight();
-        titleLabel.setX((width - titleLabel.getWidth()) /2);
+        titleLabel.setX((width - titleLabel.getWidth()) / 2);
         titleLabel.setY(height - titleLabel.getHeight() - 20);
 
-        instructionLabel.setX((width - instructionLabel.getWidth()) /2);
+        instructionLabel.setX((width - instructionLabel.getWidth()) / 2);
         instructionLabel.setY((float) height / 2);
 
-        licenceLabel.setX((width - licenceLabel.getWidth()) /2);
+        licenceLabel.setX((width - licenceLabel.getWidth()) / 2);
         licenceLabel.setY(10);
 
         stage.draw();
