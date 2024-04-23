@@ -21,12 +21,15 @@ public class GameState {
     private final Map<Direction, Vector2> directionOffset = Map.ofEntries(new AbstractMap.SimpleEntry<>(RIGHT, new Vector2(1, 0)), new AbstractMap.SimpleEntry<>(LEFT, new Vector2(-1, 0)), new AbstractMap.SimpleEntry<>(UP, new Vector2(0, 1)), new AbstractMap.SimpleEntry<>(DOWN, new Vector2(0, -1)));
     private int energy; // remaining energy for the day
     private int time; // remaining time in the day
-    private int day;
+    private final List<Day> week = new ArrayList<>(7);
+    private Day currentDay = new Day();
     private Vector2 playerPosition;
     private boolean gameOver = false;
 
 
     /**
+     * Instantiates a new Game state.
+     *
      * @param energy  how much energy the player has each day
      * @param time    how much time is in the day
      * @param player  the player
@@ -39,35 +42,58 @@ public class GameState {
         this.timeInDay = time;
         this.character = player;
         this.map = gameMap;
-        this.day = 0;
         this.activityHistory = new ArrayList<>();
     }
 
+    /**
+     * Instantiates a new Game state.
+     */
     public GameState() {
         this(100, 100, new Player(), new MapGraph());
     }
 
 
+    /**
+     * Gets energy.
+     *
+     * @return the energy
+     */
     public int getEnergy() {
         return this.energy;
     }
 
+    /**
+     * Gets time.
+     *
+     * @return the time
+     */
     public int getTime() {
         return this.time;
     }
 
+    /**
+     * Gets day.
+     *
+     * @return the day
+     */
     public int getDay() {
-        return this.day;
+        return week.size();
     }
 
+    /**
+     * Is game over boolean.
+     *
+     * @return the boolean
+     */
     public boolean isGameOver() {
         return this.gameOver;
     }
 
-    public ArrayList<Activity> getActivityHistory() {
-        return this.activityHistory;
-    }
-
+    /**
+     * Gets player position.
+     *
+     * @return the player position
+     */
     public Vector2 getPlayerPosition() {
         return character.getPosition();
     }
@@ -75,6 +101,9 @@ public class GameState {
 
     /**
      * Attempt to move the player
+     *
+     * @param direction the direction
+     * @return if they moved
      */
     public boolean move(Direction direction) {
         if (canMove(direction)) {
@@ -122,14 +151,15 @@ public class GameState {
             //and the counter of the day increments
             if ((activity instanceof Sleep) && (tempAct.getClass() == activity.getClass())) {
 
+                week.add(currentDay);
                 //if the day counter is greater than 6 the game ends
-                if (this.day == 6) {
+                if (week.size()==7) {
                     this.gameOver = true;
                     return true;
                 }
 
                 //time and energy reset otherwise
-                this.day = this.day + 1;
+                this.currentDay = new Day();
                 this.energy = this.maxEnergy;
                 this.time = this.timeInDay;
 
@@ -143,7 +173,7 @@ public class GameState {
 
                 int tempTime = activity.getTimeConsumption();
                 int tempEnergy = activity.getEnergyConsumption();
-
+                currentDay.addActivity(activity);
                 activityHistory.add(activity);
                 this.time = this.time - tempTime;
                 this.energy = this.energy - tempEnergy;
@@ -158,6 +188,8 @@ public class GameState {
 
     /**
      * Returns the list of activities available at the player's current position
+     *
+     * @return the activities
      */
     public ArrayList<Activity> getActivities() {
 
@@ -173,9 +205,57 @@ public class GameState {
         }
 
         //if no list is found then the empty list is returned
-
         return new ArrayList<>();
     }
+
+
+    /**
+     * Calculate the score.
+     *
+     * @return The score calculated.
+     */
+    public int calculateScore() {
+        int studyCount = 0;
+        int dayStudiedOnce = 0;
+        int dayRelaxedOnce = 0;
+        int dayEatenCount = 0;
+        int maxScore = 100;
+        int score;
+        for (Day day : week) {
+            studyCount += day.getNumberOfActivity("Study");
+            if (day.getNumberOfActivity("Study") >= 1) {
+                dayStudiedOnce++;
+            }
+            if (day.getNumberOfActivity("Eat")>= 2) {
+                dayEatenCount++;
+            }
+            if (day.getNumberOfActivity("Recreation") > 0) {
+                dayRelaxedOnce++;
+            }
+        }
+
+        score = studyCount * 10;
+        score = Math.min(score, maxScore);
+
+        // Apply penalties
+        if (dayStudiedOnce != 7 && (dayStudiedOnce != 6 || studyCount < 7)) {
+            score = dayStudiedOnce*10;
+            score = Math.min(score, 50);
+        }
+
+        if (dayEatenCount < 7) {
+            score -= 10; // Penalty for not eating enough
+        }
+
+        if (dayRelaxedOnce < 7) {
+            score -= 10; // Penalty for not relaxing enough
+        }
+
+        // Cap the score at maxScore
+        score = Math.max(score, 0);
+        return score;
+    }
+
 
     /**
      * Calculate the score.

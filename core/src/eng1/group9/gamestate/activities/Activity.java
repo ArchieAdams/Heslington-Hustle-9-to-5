@@ -10,6 +10,8 @@ public abstract class Activity {
     private final String name;
 
     /**
+     * Instantiates a new Activity.
+     *
      * @param time   How much time the activity takes
      * @param energy How much energy the activity takes
      * @param name   Name of the activity
@@ -22,6 +24,8 @@ public abstract class Activity {
 
     /**
      * Returns how much time the activity takes
+     *
+     * @return the time consumption
      */
     public int getTimeConsumption() {
         return timeConsumption;
@@ -29,6 +33,8 @@ public abstract class Activity {
 
     /**
      * Returns how much energy the activity takes
+     *
+     * @return the energy consumption
      */
     public int getEnergyConsumption() {
         return energyConsumption;
@@ -36,6 +42,8 @@ public abstract class Activity {
 
     /**
      * Returns the name of the activity
+     *
+     * @return the name
      */
     public String getName() {
         return name;

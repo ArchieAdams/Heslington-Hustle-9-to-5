@@ -13,12 +13,12 @@ public class TestJunit {
 
     @Test
     public void trueTest() {
-        assertEquals(message,"Hello World");
+        assertEquals(message, "Hello World");
     }
 
     @Test
     public void falseTest() {
-        assertNotEquals(message,"Hello");
+        assertNotEquals(message, "Hello");
     }
 
 

@@ -10,12 +10,17 @@ import java.util.ArrayList;
 public class Node {
     private ArrayList<Activity> listOfActivities;
 
+    /**
+     * Instantiates a new Node.
+     */
     public Node() {
         listOfActivities = new ArrayList<>();
     }
 
     /**
      * Returns a list of activities available at this node
+     *
+     * @return the activities
      */
     public ArrayList<Activity> getActivities() {
         return listOfActivities;
@@ -23,6 +28,8 @@ public class Node {
 
     /**
      * Sets the activities available at this node
+     *
+     * @param activities the activities
      */
     public void setActivities(ArrayList<Activity> activities) {
         this.listOfActivities = activities;
