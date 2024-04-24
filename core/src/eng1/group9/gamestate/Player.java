@@ -24,6 +24,7 @@ public class Player {
         this(new Vector2(2, 7));
     }
 
+
     public Vector2 getPosition() {
         return playerPosition;
     }

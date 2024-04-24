@@ -1,4 +1,3 @@
-package eng1.group9.tests;
 /*
  * Copyright 2015 See AUTHORS file.
  * --------------------------------
@@ -77,7 +76,7 @@ public class GdxTestRunner extends BlockJUnit4ClassRunner implements Application
             // add for invoking in render phase, where gl context is available
             invokeInRender.put(method, notifier);
         }
-        // wait until that test was invoked
+        // wait until that test1 was invoked
         waitUntilInvokedInRenderMethod();
     }
 

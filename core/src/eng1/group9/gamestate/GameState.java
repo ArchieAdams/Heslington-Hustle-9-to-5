@@ -41,6 +41,7 @@ public class GameState {
         this.time = time;
         this.timeInDay = time;
         this.character = player;
+        playerPosition = getPlayerPosition();
         this.map = gameMap;
         this.activityHistory = new ArrayList<>();
     }
@@ -49,7 +50,7 @@ public class GameState {
      * Instantiates a new Game state.
      */
     public GameState() {
-        this(100, 100, new Player(), new MapGraph());
+        this(100, 100, new Player(), new MapGraph("map"));
     }
 
 

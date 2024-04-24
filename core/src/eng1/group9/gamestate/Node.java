@@ -17,6 +17,11 @@ public class Node {
         listOfActivities = new ArrayList<>();
     }
 
+    public Node(Activity activity) {
+        listOfActivities = new ArrayList<>();
+        listOfActivities.add(activity);
+    }
+
     /**
      * Returns a list of activities available at this node
      *
