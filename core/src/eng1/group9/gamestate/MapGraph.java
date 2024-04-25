@@ -32,7 +32,6 @@ public class MapGraph {
         nodeMap = new HashMap<>();
         this.filename = filename;
         readGridFromFile();
-        System.out.println();
     }
 
 
