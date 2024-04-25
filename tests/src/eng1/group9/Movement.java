@@ -1,3 +1,5 @@
+package eng1.group9;
+
 import com.badlogic.gdx.math.Vector2;
 import eng1.group9.gamestate.Direction;
 import eng1.group9.gamestate.GameState;

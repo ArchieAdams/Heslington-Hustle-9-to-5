@@ -1,4 +1,4 @@
-package eng1.group9.tests;
+package eng1.group9;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
