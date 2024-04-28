@@ -8,9 +8,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-
       - name: Validate gradle
         uses: gradle/wrapper-validation-action@v1
 
@@ -33,6 +30,9 @@ jobs:
           distribution: 'temurin'
           architecture: x64
           cache: 'gradle'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
       - name: Build with Gradle
         run: ./gradlew dist
