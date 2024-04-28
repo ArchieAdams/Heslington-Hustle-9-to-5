@@ -21,9 +21,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: desktop/build/
-          key: ${{ runner.os }}-gradle dist-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-dist-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
-            ${{ runner.os }}-gradle dist-
+            ${{ runner.os }}-gradle-dist-
 
       - name: Set up JDK 11 for x64
         uses: actions/setup-java@v4
@@ -59,7 +59,7 @@ jobs:
           cache: 'gradle'
 
       - name: Test Movement
-        run: gradle test --tests "Movement"
+        run: gradle test --tests "Movement" -Dtest.useTestCache=true
 
       - run: |
           if [ ${{ job.status }} == 'success' ]; then
