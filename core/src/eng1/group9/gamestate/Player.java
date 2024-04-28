@@ -21,7 +21,7 @@ public class Player {
      * Create a new player with a starting position of row 2, column 1
      */
     public Player() {
-        this(new Vector2(2, 7));
+        this(new Vector2(1, 6));
     }
 
 

@@ -33,7 +33,7 @@ jobs:
           name: Package
           path: desktop/build/libs
 
-  Movement-Test:
+  MovementTest:
     runs-on: ubuntu-latest
     needs: [Gadle-Build-Test]
     steps:
@@ -49,7 +49,7 @@ jobs:
           cache: 'gradle'
 
       - name: Test Movement
-        run: ./gradlew test --tests "Movement" -Dtest.useTestCache=true
+        run: ./gradlew test --tests "MovementTest" -Dtest.useTestCache=true
 
       - run: |
           if [ ${{ job.status }} == 'success' ]; then

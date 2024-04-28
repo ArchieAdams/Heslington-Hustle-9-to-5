@@ -134,8 +134,10 @@ public class GameScreenUI extends ScreenUI {
      */
     private void showPlayer() {
         batch.begin();
+        int x_offset = 1;
+        int y_offset = 1;
         Vector2 playerPos = game.getGameState().getPlayerPosition();
-        Vector3 targetPosition = new Vector3(playerPos.x + 0.25f, playerPos.y + 0.25f, 0);
+        Vector3 targetPosition = new Vector3(x_offset + playerPos.x + 0.25f, y_offset + playerPos.y + 0.25f, 0);
         Vector3 interpolatedPos = previousPos.lerp(targetPosition, 0.1f);
         batch.draw(playerTexture, interpolatedPos.x, interpolatedPos.y, playerTexture.getWidth() / pixelsPerSquare, playerTexture.getHeight() / pixelsPerSquare);
         batch.end();

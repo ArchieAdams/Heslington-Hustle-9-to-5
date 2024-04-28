@@ -56,8 +56,8 @@ public class MapGraph {
                     continue;
                 }
                 // Add 1 to offset x and inverts y
-                System.out.println((x + 1)+","+ (MAX_Y - y));
-                addTile(x + 1, MAX_Y - y, getNodeFromSymbol(symbol));
+                System.out.println((x)+","+ (MAX_Y - y - 1));
+                addTile(x, MAX_Y - y - 1, getNodeFromSymbol(symbol));
             }
         }
         generateEdges();
