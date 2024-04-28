@@ -49,7 +49,7 @@ jobs:
           cache: 'gradle'
 
       - name: Test Movement
-        run: gradle test --tests "Movement" -Dtest.useTestCache=true
+        run: ./gradlew test --tests "Movement" -Dtest.useTestCache=true
 
       - run: |
           if [ ${{ job.status }} == 'success' ]; then
