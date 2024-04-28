@@ -2,7 +2,7 @@ name: Tests
 run-name: ${{ github.actor }} is testing out the Lastest push 🚀
 on: [ push, pull_request ]
 jobs:
-  Gadle-Build-Test:
+  Gradle-Build-Test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
