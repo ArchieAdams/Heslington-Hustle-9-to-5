@@ -32,6 +32,7 @@ jobs:
 
   Movement-Test:
     runs-on: ubuntu-latest
+    needs: [Gadle-Build-Test]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,9 +49,9 @@ jobs:
         run: gradle test --tests "Movement"
 
       - name: Review Commit
-
-        if: success() || failure()
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ github.token }}
-          run: node .github/review.js
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "Test passed ✓"
+          else
+            echo "Test failed ✗"
+          fi
