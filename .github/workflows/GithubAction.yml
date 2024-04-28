@@ -48,8 +48,7 @@ jobs:
       - name: Test Movement
         run: gradle test --tests "Movement"
 
-      - name: Review Commit
-        run: |
+      - run: |
           if [ ${{ job.status }} == 'success' ]; then
             echo "Test passed ✓"
           else
