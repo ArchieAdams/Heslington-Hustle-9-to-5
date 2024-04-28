@@ -155,7 +155,7 @@ public class GameScreenUI extends ScreenUI {
 
         dayLabel.setX(10);
         dayLabel.setY(height - dayLabel.getHeight() - 10);
-        dayLabel.setText(days.get(game.getGameState().getDay()));
+        dayLabel.setText(days.get(game.getGameState().getDayCount()));
 
         timeLabel.setX(width - timeLabel.getWidth() - 10);
         timeLabel.setY(height - timeLabel.getHeight() - 10);

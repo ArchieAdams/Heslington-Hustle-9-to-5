@@ -77,9 +77,20 @@ public class GameState {
      *
      * @return the day
      */
-    public int getDay() {
+    public Day getDay() {
+        return currentDay;
+    }
+
+    /**
+     * Gets number of days.
+     *
+     * @return the day number
+     */
+    public int getDayCount() {
         return week.size();
     }
+
+
 
     /**
      * Is game over boolean.
