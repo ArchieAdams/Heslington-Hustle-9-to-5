@@ -9,6 +9,10 @@ public class DesktopLauncher {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setForegroundFPS(60);
         config.setTitle("HeslingtonHustle");
+        config.setDecorated(true);
+        //config.setWindowPosition(10,10);
+
+        config.setWindowedMode(1820, 880);
         new Lwjgl3Application(new HustleGame(), config);
     }
 }
