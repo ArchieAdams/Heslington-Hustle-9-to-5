@@ -130,15 +130,15 @@ public class MapGraph {
             case 'S':
                 return new Node(new Sleep(0, 0, "Sleep in Goodricke College"));
             case 'G':
-                return new Node(new Gym(10, 25, "Exercise in the gym"));
+                return new Node(new Recreation(10, 25, "Exercise in the gym"));
             case 'E':
                 return new Node(new Eat(5, 0, "Eat at Greggs"));
             case 'F':
-                return new Node(new FeedDucks(5, 10, "Feed ducks"));
+                return new Node(new Recreation(5, 10, "Feed ducks"));
             case 'L':
-                return new Node(new LakeRelax(5, 10, "Relax at lake"));
+                return new Node(new Recreation(5, 10, "Relax at lake"));
             case 'T':
-                return new Node(new Town(5, 20, "Head to town"));
+                return new Node(new Recreation(5, 20, "Head to town"));
 
         }
         return new Node();
