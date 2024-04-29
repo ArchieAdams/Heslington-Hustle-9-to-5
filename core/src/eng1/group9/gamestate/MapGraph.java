@@ -125,14 +125,20 @@ public class MapGraph {
         switch (symbol) {
             case 'X':
                 return new Node();
-            case 'L':
+            case 'C':
                 return new Node(new Study(25, 25, "Study in the CS building"));
             case 'S':
                 return new Node(new Sleep(0, 0, "Sleep in Goodricke College"));
-            case 'R':
-                return new Node(new Recreation(10, 25, "Exercise in the gym"));
+            case 'G':
+                return new Node(new Gym(10, 25, "Exercise in the gym"));
             case 'E':
                 return new Node(new Eat(5, 0, "Eat at Greggs"));
+            case 'F':
+                return new Node(new FeedDucks(5, 10, "Feed ducks"));
+            case 'L':
+                return new Node(new LakeRelax(5, 10, "Relax at lake"));
+            case 'T':
+                return new Node(new Town(5, 20, "Head to town"));
 
         }
         return new Node();
