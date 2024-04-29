@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(GdxTestRunner.class)
-public class ActivityTest {
+public class ActivityTests {
 
 
     @Test

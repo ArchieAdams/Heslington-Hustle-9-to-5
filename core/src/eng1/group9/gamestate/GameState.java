@@ -6,7 +6,6 @@ import eng1.group9.gamestate.activities.Sleep;
 
 import java.util.*;
 
-import static eng1.group9.gamestate.Direction.*;
 
 /**
  * This class is the main game logic class. The 'game state', i.e. the record of the energy
@@ -18,10 +17,10 @@ public class GameState {
     private final ArrayList<Activity> activityHistory;
     private final MapGraph map;
     private final Player character;
-    private final Map<Direction, Vector2> directionOffset = Map.ofEntries(new AbstractMap.SimpleEntry<>(RIGHT, new Vector2(1, 0)), new AbstractMap.SimpleEntry<>(LEFT, new Vector2(-1, 0)), new AbstractMap.SimpleEntry<>(UP, new Vector2(0, 1)), new AbstractMap.SimpleEntry<>(DOWN, new Vector2(0, -1)));
+    private final Map<Direction, Vector2> directionOffset = Map.ofEntries(new AbstractMap.SimpleEntry<>(Direction.RIGHT, new Vector2(1, 0)), new AbstractMap.SimpleEntry<>(Direction.LEFT, new Vector2(-1, 0)), new AbstractMap.SimpleEntry<>(Direction.UP, new Vector2(0, 1)), new AbstractMap.SimpleEntry<>(Direction.DOWN, new Vector2(0, -1)));
+    private final List<Day> week = new ArrayList<>(7);
     private int energy; // remaining energy for the day
     private int time; // remaining time in the day
-    private final List<Day> week = new ArrayList<>(7);
     private Day currentDay = new Day();
     private Vector2 playerPosition;
     private boolean gameOver = false;
@@ -45,23 +44,22 @@ public class GameState {
         this.map = gameMap;
         this.activityHistory = new ArrayList<>();
 
-        if (!map.getFullMap().containsKey(playerPosition)){
+        if (!map.getFullMap().containsKey(playerPosition)) {
             SendToSpawnPoint();
         }
-    }
-
-    public void SendToSpawnPoint(){
-        character.setPosition((Vector2) map.getFullMap().keySet().toArray()[0]);
-        playerPosition = getPlayerPosition();
     }
 
     /**
      * Instantiates a new Game state.
      */
-    public GameState() {
+    public GameState(){
         this(100, 100, new Player(), new MapGraph("map"));
     }
 
+    public void SendToSpawnPoint() {
+        character.setPosition((Vector2) map.getFullMap().keySet().toArray()[0]);
+        playerPosition = getPlayerPosition();
+    }
 
     /**
      * Gets energy.
@@ -98,7 +96,6 @@ public class GameState {
     public int getDayCount() {
         return week.size();
     }
-
 
 
     /**
@@ -144,7 +141,7 @@ public class GameState {
         Vector2 offsetVector = directionOffset.get(direction);
 
         //stores the current mapGraph locally
-        HashMap<Vector2, List<Vector2>> tempMap = map.getFullMap();
+        Map<Vector2, List<Vector2>> tempMap = map.getFullMap();
 
         // Checks if the player is currently on NOT the map should always be false
         if (!tempMap.containsKey(playerPosition)) {
@@ -175,7 +172,7 @@ public class GameState {
 
                 week.add(currentDay);
                 //if the day counter is greater than 6 the game ends
-                if (week.size()==7) {
+                if (week.size() == 7) {
                     this.gameOver = true;
                     return true;
                 }
@@ -248,7 +245,7 @@ public class GameState {
             if (day.getNumberOfActivity("Study") >= 1) {
                 dayStudiedOnce++;
             }
-            if (day.getNumberOfActivity("Eat")>= 2) {
+            if (day.getNumberOfActivity("Eat") >= 2) {
                 dayEatenCount++;
             }
             if (day.getNumberOfActivity("Recreation") > 0) {
@@ -261,7 +258,7 @@ public class GameState {
 
         // Apply penalties
         if (dayStudiedOnce != 7 && (dayStudiedOnce != 6 || studyCount < 7)) {
-            score = dayStudiedOnce*10;
+            score = dayStudiedOnce * 10;
             score = Math.min(score, 50);
         }
 

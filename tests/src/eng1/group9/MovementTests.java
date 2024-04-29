@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
-public class MovementTest {
+public class MovementTests {
 
     @Test
     public void MapBoundsLimitTest() {
