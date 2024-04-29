@@ -3,7 +3,6 @@ package eng1.group9.gamescreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
@@ -48,7 +47,7 @@ public class GameScreenUI extends ScreenUI {
     private final List<String> days;
     private final Vector3 previousPos;
     // HUD elements
-    private Label.LabelStyle labelStyle;
+
 
 
     public GameScreenUI(HustleGame game) {
@@ -70,12 +69,10 @@ public class GameScreenUI extends ScreenUI {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Yantramanav/Yantramanav-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 24;
-        BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
 
         // Set up HUD
         stage = new Stage(screenViewport);
-        Table table = new Table();
         timeLabel = new Label("00:00", skin);
         dayLabel = new Label("Monday", skin);
         energyBar = new ProgressBar(0, 100, 1, true, skin);
@@ -116,7 +113,7 @@ public class GameScreenUI extends ScreenUI {
      * Show a coloured background
      */
     private void showBackground() {
-        ScreenUtils.clear(0, 0, 100, 255);
+        ScreenUtils.clear(0.133f, 0.133f, 0.133f, 1);
         camera.update();
     }
 
