@@ -40,7 +40,7 @@ public class MapGraph {
     private void readGridFromFile() {
         FileHandle fileHandle = Gdx.files.internal(this.filename);
         String fileContents = fileHandle.readString();
-        String[] lines = fileContents.split("\\n");
+        String[] lines = fileContents.split("\\r?\\n");
         // Define the maximum column size of the grid
         int MAX_Y = lines.length;
         // Define the maximum row size of the grid

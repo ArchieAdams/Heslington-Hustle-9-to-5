@@ -44,6 +44,15 @@ public class GameState {
         playerPosition = getPlayerPosition();
         this.map = gameMap;
         this.activityHistory = new ArrayList<>();
+
+        if (!map.getFullMap().containsKey(playerPosition)){
+            SendToSpawnPoint();
+        }
+    }
+
+    public void SendToSpawnPoint(){
+        character.setPosition((Vector2) map.getFullMap().keySet().toArray()[0]);
+        playerPosition = getPlayerPosition();
     }
 
     /**
@@ -139,7 +148,8 @@ public class GameState {
 
         // Checks if the player is currently on NOT the map should always be false
         if (!tempMap.containsKey(playerPosition)) {
-            throw new RuntimeException("Player has Left the Map");
+            SendToSpawnPoint();
+            System.out.println("Player has Left the Map");
         }
         List<Vector2> tempEdges = tempMap.get(playerPosition);
         //returns true if the tile to move to is a valid path to move to

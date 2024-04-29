@@ -21,5 +21,10 @@ public class TestJunit {
         assertNotEquals(message, "Hello");
     }
 
+    //TODO Test files loading
+    //TODO Test files with wrong format
+    //TODO make player leaving map not crash and just send player to the spawn point TICK
+    //TODO make player spawn point so if they leave map it doesn't break (write test for this)
+    //TODO default map if error breaks
 
 }
