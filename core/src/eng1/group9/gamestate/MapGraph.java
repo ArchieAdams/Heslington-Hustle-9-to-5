@@ -65,8 +65,16 @@ public class MapGraph {
 
     /**
      * Creates edges for the all tiles in map
+     *
      */
     private void generateEdges() {
+        // Manually define blocked connections, to avoid adjacent nodes incorrectly connecting where a square of
+        // X's exist in the text file
+        HashMap<Vector2, Vector2> blockedConnections = new HashMap<>();
+        blockedConnections.put(new Vector2(2,2), new Vector2(2,3));
+        blockedConnections.put(new Vector2(11,1), new Vector2(12,1));
+        blockedConnections.put(new Vector2(10,4), new Vector2(10,5));
+
         // Loops through all tiles in map
         for (Vector2 location : fullMap.keySet()) {
             // Up, Down, Right, Left
@@ -75,9 +83,26 @@ public class MapGraph {
             // Checks if they have adjacent cells and adds them as an edge
             for (Vector2 direction : directions) {
                 Vector2 newPosition = location.cpy().add(direction);
+
+                // Skip defined nodes which should not connect
+                if (isBlocked(location, newPosition, blockedConnections)) {
+                    continue;
+                }
                 addIfInMap(location, newPosition);
             }
         }
+    }
+
+    /**
+     * Returns true if nodes should not be connected, also checks reverse direction
+     * @param from The starting position vector of the proposed connection.
+     * @param to The ending position vector of the proposed connection.
+     * @param blockedConnections A map containing pairs of vectors representing explicitly blocked connections.
+     * @return true if the connection between the nodes is blocked, false otherwise.
+     */
+    private boolean isBlocked(Vector2 from, Vector2 to, HashMap<Vector2, Vector2> blockedConnections) {
+        return (blockedConnections.containsKey(from) && blockedConnections.get(from).equals(to)) ||
+                (blockedConnections.containsKey(to) && blockedConnections.get(to).equals(from));
     }
 
     /**
