@@ -60,7 +60,7 @@ public class StartScreenUI extends ScreenUI {
 
     @Override
     public void update() {
-        ScreenUtils.clear(0, 0, 100, 255);
+        ScreenUtils.clear(0.133f, 0.133f, 0.133f, 1);
         screenViewport.apply();
 
         int width = screenViewport.getScreenWidth();
