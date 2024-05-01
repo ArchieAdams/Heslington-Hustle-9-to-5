@@ -1,4 +1,5 @@
-name: ${{ github.actor }} is testing out the Lastest push 🚀
+name: Tests
+run-name: ${{ github.actor }} is testing out the Lastest push 🚀
 on: [ push, pull_request ]
 jobs:
   Gradle-Build:
