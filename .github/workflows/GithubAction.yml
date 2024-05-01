@@ -170,6 +170,10 @@ jobs:
           distribution: 'temurin'
           architecture: x64
 
+      - run: echo ${TEST_REPORT_DIR}
+
+      - run: ls ${TEST_REPORT_DIR}
+
       - name: Test Report
         uses: actions/upload-artifact@v4
         with:
