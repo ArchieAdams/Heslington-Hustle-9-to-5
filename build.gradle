@@ -1,5 +1,5 @@
 buildscript {
-    
+
 
     repositories {
         mavenLocal()
@@ -9,14 +9,28 @@ buildscript {
         google()
     }
     dependencies {
-        
 
     }
 }
 
+
+
+
+
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
+    apply plugin: "checkstyle"
+
+    dependencies {
+        checkstyle "com.puppycrawl.tools:checkstyle:10.12.4"
+    }
+
+    checkstyle {
+        toolVersion = "10.12.4"
+        configFile = file("${project.rootDir}/config/checkstyle/google_checks.xml")
+    }
+
 
     version = '1.0'
     ext {

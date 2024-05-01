@@ -1,4 +1,4 @@
-sourceCompatibility = 1.8
+
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../assets"]
 
@@ -7,6 +7,7 @@ project.ext.assetsDir = new File("../assets")
 
 
 import org.gradle.internal.os.OperatingSystem
+
 
 tasks.register('dist', Jar) {
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
@@ -26,7 +27,7 @@ tasks.register('run', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.ext.assetsDir
-    ignoreExitValue = true
+    ignoreExitValue = true as JavaExecSpec
 
     if (OperatingSystem.current() == OperatingSystem.MAC_OS) {
         // Required to run on macOS
@@ -40,8 +41,8 @@ tasks.register('debug', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.ext.assetsDir
-    ignoreExitValue = true
-    debug = true
+    ignoreExitValue = true as JavaExecSpec
+    debug = true as JavaExec
 }
 
 
