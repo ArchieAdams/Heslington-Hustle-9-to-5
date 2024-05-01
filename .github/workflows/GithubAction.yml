@@ -158,7 +158,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ Movement-Tests,Asset-Tests,Activity-Tests ]
     env:
-      TEST_REPORT_DIR: ${{ github.workspace }}/tests/build/reports/tests
+      TEST_REPORT_DIR: ${{ github.workspace }}/tests/build/reports
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -178,5 +178,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test Report
-          path: ${TEST_REPORT_DIR}
+          path: ${TEST_REPORT_DIR}/tests
 
