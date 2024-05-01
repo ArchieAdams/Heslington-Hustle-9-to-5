@@ -84,6 +84,8 @@ jobs:
         run: ./gradlew test --tests "MovementTests" -Dtest.useTestCache=true -Dtest.reportDir=${TEST_REPORT_DIR}
 
       - run: echo ${TEST_REPORT_DIR}
+
+      - run: ls ${TEST_REPORT_DIR}
       - name: Test Result
         run: |
           if [ ${{ job.status }} == 'success' ]; then
