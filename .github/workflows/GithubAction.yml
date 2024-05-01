@@ -64,6 +64,8 @@ jobs:
   Movement-Tests:
     runs-on: ubuntu-latest
     needs: [ Gradle-Build-Test ]
+    env:
+      TEST_REPORT_DIR: ${{ github.workspace }}/tests/build/reports/tests
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -79,7 +81,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Test Movement
-        run: ./gradlew test --tests "MovementTests" -Dtest.useTestCache=true
+        run: ./gradlew test --tests "MovementTests" -Dtest.useTestCache=true -Dtest.reportDir=${TEST_REPORT_DIR}
 
       - name: Test Result
         run: |
@@ -92,6 +94,8 @@ jobs:
   Activity-Tests:
     runs-on: ubuntu-latest
     needs: [ Gradle-Build-Test ]
+    env:
+      TEST_REPORT_DIR: ${{ github.workspace }}/tests/build/reports
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -107,7 +111,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Test Activity
-        run: ./gradlew test --tests "ActivityTests" -Dtest.useTestCache=true
+        run: ./gradlew test --tests "ActivityTests" -Dtest.useTestCache=true -Dtest.reportDir=${TEST_REPORT_DIR}
 
       - name: Test Result
         run: |
@@ -120,6 +124,8 @@ jobs:
   Asset-Tests:
     runs-on: ubuntu-latest
     needs: [ Gradle-Build-Test ]
+    env:
+      TEST_REPORT_DIR: ${{ github.workspace }}/tests/build/reports/tests
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -148,6 +154,8 @@ jobs:
   Upload-Test-Report:
     runs-on: ubuntu-latest
     needs: [ Movement-Tests,Asset-Tests,Activity-Tests ]
+    env:
+      TEST_REPORT_DIR: ${{ github.workspace }}/tests/build/reports/tests
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -163,5 +171,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test Report
-          path: tests/build/reports/tests/test
+          path: ${TEST_REPORT_DIR}
 
