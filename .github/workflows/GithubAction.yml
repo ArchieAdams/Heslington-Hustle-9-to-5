@@ -49,26 +49,18 @@ jobs:
       - name: Check main
         run: ./gradlew checkstyleMain
 
-      - name: Upload Core Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: checkstyle-report-core
-          path: core/build/reports/checkstyle/main.html
-
-      - name: Upload Desktop Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: checkstyle-report-desktop
-          path: desktop/build/reports/checkstyle/main.html
-
       - name: Check test
         run: ./gradlew checkstyleTest
 
-      - name: Upload Test Report
+      - name: Upload Reports
         uses: actions/upload-artifact@v2
         with:
-          name: checkstyle-report-test
-          path: tests/build/reports/checkstyle/main.html
+          name: checkstyle-reports
+          path: |
+            core/build/reports/checkstyle/main.html
+            desktop/build/reports/checkstyle/main.html
+            tests/build/reports/checkstyle/main.html
+
 
 
   MovementTests:
