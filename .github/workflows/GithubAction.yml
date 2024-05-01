@@ -1,5 +1,4 @@
-name: Tests
-run-name: ${{ github.actor }} is testing out the Lastest push 🚀
+name: ${{ github.actor }} is testing out the Lastest push 🚀
 on: [ push, pull_request ]
 jobs:
   Gradle-Build:
@@ -157,8 +156,7 @@ jobs:
   Asset-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]
-    env:
-      TEST_REPORT_DIR: ${{ github.workspace }}/tests/build/reports
+    if: ${{ needs.Tests.result == 'failure' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
