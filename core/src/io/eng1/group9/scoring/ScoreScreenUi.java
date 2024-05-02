@@ -18,7 +18,6 @@ import io.eng1.group9.ScreenUi;
  */
 class ScoreScreenUi extends ScreenUi {
 
-  private final HustleGame game;
   private final ScreenViewport viewport;
   private final Stage stage;
   private final ScoreManager scoreManager;
@@ -32,7 +31,6 @@ class ScoreScreenUi extends ScreenUi {
    * @param game HustleGame object that controls the application
    */
   public ScoreScreenUi(HustleGame game) {
-    this.game = game;
     viewport = new ScreenViewport();
     viewport.apply();
     stage = new Stage(viewport);
@@ -54,7 +52,7 @@ class ScoreScreenUi extends ScreenUi {
     for (ScoreManager.PlayerScore score : scores) {
       System.out.println(score.name);
       Label scoreLabel = new Label(score.name + ": " + score.score, skin);
-      scoreLabel.setPosition((float) width / 2, y, Align.center); // Position label at the center horizontally
+      scoreLabel.setPosition((float) width / 2, y, Align.center);
       y -= 60; // Move next label down
       stage.addActor(scoreLabel); // Add label to stage
     }
