@@ -356,7 +356,6 @@ public class GameState {
 
   public void saveScore() {
     scoreManager.saveScore(playerName, calculateScore());
-    scoreManager.printScores();
   }
 
   public ScoreManager getScoreManager() {

@@ -48,13 +48,18 @@ class ScoreScreenUi extends ScreenUi {
     titleLabel.setPosition((float) width / 2, y, Align.center);
     y -= 80;
     stage.addActor(titleLabel);
+
     java.util.List<ScoreManager.PlayerScore> scores = scoreManager.getScores();
     for (ScoreManager.PlayerScore score : scores) {
       Label scoreLabel = new Label(score.name + ": " + score.score, skin);
       scoreLabel.setPosition((float) width / 2, y, Align.center);
-      y -= 60; // Move next label down
+      y -= 50; // Move next label down
       stage.addActor(scoreLabel);
     }
+    y -= 30;
+    Label instructionLabel = new Label("Press q to quit or enter to play again", skin);
+    stage.addActor(instructionLabel);
+    instructionLabel.setPosition((float) width / 2, y, Align.center);
   }
 
   @Override

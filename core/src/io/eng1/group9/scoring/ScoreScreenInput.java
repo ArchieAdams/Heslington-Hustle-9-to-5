@@ -32,7 +32,7 @@ class ScoreScreenInput extends InputAdapter {
   @Override
   public boolean keyDown(int keycode) {
     switch (keycode) {
-      case Input.Keys.ESCAPE:
+      case Input.Keys.Q:
         finish();
         return true;
       case Input.Keys.ENTER:
