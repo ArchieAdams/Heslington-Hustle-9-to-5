@@ -31,6 +31,7 @@ public class GameState {
   private Day currentDay = new Day();
   private Vector2 playerPosition;
   private boolean gameOver = false;
+  private String playerName = "";
 
 
   /**
@@ -340,5 +341,13 @@ public class GameState {
     activitiesCounter.put("Recreation", recreationalCounter);
 
     return activitiesCounter;
+  }
+
+  public void setName(String name) {
+    playerName = name;
+  }
+
+  public String getName() {
+    return playerName;
   }
 }

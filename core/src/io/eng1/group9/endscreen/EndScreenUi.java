@@ -21,6 +21,8 @@ class EndScreenUi extends ScreenUi {
   private final Label thanksLabel;
   private final Label scoreLabel;
   private final Stage stage;
+  private final Label nameLabel;
+  private String name;
 
   /**
    * Instantiates a new End screen ui.
@@ -33,12 +35,19 @@ class EndScreenUi extends ScreenUi {
     viewport.apply();
     stage = new Stage(viewport);
     Skin skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
+
     thanksLabel = new Label("", skin);
     thanksLabel.setAlignment(Align.center);
+
     scoreLabel = new Label("", skin);
     scoreLabel.setAlignment(Align.center);
+
+    nameLabel = new Label("", skin);
+    nameLabel.setAlignment(Align.center);
+
     stage.addActor(thanksLabel);
     stage.addActor(scoreLabel);
+    stage.addActor(nameLabel);
   }
 
   @Override
@@ -53,6 +62,7 @@ class EndScreenUi extends ScreenUi {
         String.format("On average per day you:\nStudied: %1d\nAte: %2d\nRelaxed: %3d\nScore: %4d",
             Math.round(studyCount / 7f), Math.round(eatCount / 7f),
             Math.round(recreationCount / 7f), game.getGameState().calculateScore()));
+    nameLabel.setText("Enter name: " +  game.getGameState().getName());
 
     int width = viewport.getScreenWidth();
     int height = viewport.getScreenHeight();
@@ -60,6 +70,8 @@ class EndScreenUi extends ScreenUi {
     thanksLabel.setY((height - thanksLabel.getHeight()) / 2 + 150);
     scoreLabel.setX((width - scoreLabel.getWidth()) / 2);
     scoreLabel.setY((height - scoreLabel.getHeight()) / 2 - thanksLabel.getHeight() - 50);
+    nameLabel.setX((width - nameLabel.getWidth()) / 2);
+    nameLabel.setY((height - nameLabel.getHeight()) / 2 - nameLabel.getHeight() - 200);
     stage.draw();
   }
 
