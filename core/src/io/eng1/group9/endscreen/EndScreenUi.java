@@ -50,8 +50,9 @@ class EndScreenUi extends ScreenUi {
     int recreationCount = activitiesCount.get("Recreation");
     thanksLabel.setText("Thank you for playing Heslington Hustle");
     scoreLabel.setText(
-        String.format("Study: %1d\nEat: %2d\nRecreation: %3d\nScore: %4d", studyCount, eatCount,
-            recreationCount, game.getGameState().calculateScore()));
+        String.format("On average per day you:\nStudied: %1d\nAte: %2d\nRelaxed: %3d\nScore: %4d",
+            Math.round(studyCount / 7f), Math.round(eatCount / 7f),
+            Math.round(recreationCount / 7f), game.getGameState().calculateScore()));
 
     int width = viewport.getScreenWidth();
     int height = viewport.getScreenHeight();
