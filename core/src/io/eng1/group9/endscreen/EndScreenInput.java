@@ -1,6 +1,5 @@
 package io.eng1.group9.endscreen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import io.eng1.group9.HustleGame;
@@ -13,7 +12,7 @@ class EndScreenInput extends InputAdapter {
    * The Game.
    */
   HustleGame game;
-  private StringBuilder nameBuffer = new StringBuilder();
+  private final StringBuilder nameBuffer = new StringBuilder();
 
   /**
    * Instantiates a new End screen input.
@@ -40,8 +39,8 @@ class EndScreenInput extends InputAdapter {
         }
         return true;
       case Input.Keys.ENTER:
-        updateName(); // Handle enter as finish action
-        finish();
+        game.getGameState().saveScore();
+        game.setScoreScreen();
         return true;
       default:
         return false;
@@ -65,19 +64,11 @@ class EndScreenInput extends InputAdapter {
   }
 
   /**
-   * Returns the content of the name buffer.
+   * Sets name in gamestate.
    *
-   * @return the current content of the name buffer
    */
   public void updateName() {
     game.getGameState().setName(nameBuffer.toString());
-  }
-
-  /**
-   * Exit the application.
-   */
-  private void finish() {
-    Gdx.app.exit();
   }
 
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import io.eng1.group9.endscreen.EndScreen;
 import io.eng1.group9.gamescreen.GameScreen;
 import io.eng1.group9.gamestate.GameState;
+import io.eng1.group9.scoring.ScoreScreen;
 import io.eng1.group9.startscreen.StartScreen;
 
 
@@ -15,6 +16,7 @@ public class HustleGame extends Game {
   private Screen startScreen;
   private Screen gameScreen;
   private Screen endScreen;
+  private Screen scoreScreen;
   private GameState gameState;
 
 
@@ -24,6 +26,7 @@ public class HustleGame extends Game {
     startScreen = new StartScreen(this);
     gameScreen = new GameScreen(this);
     endScreen = new EndScreen(this);
+    scoreScreen = new ScoreScreen(this);
 
     setStartScreen();
   }
@@ -52,6 +55,10 @@ public class HustleGame extends Game {
     System.out.println("Switched to end screen");
   }
 
+  public void setScoreScreen() {
+    setScreen(scoreScreen);
+  }
+
   /**
    * Gets game state.
    *
@@ -68,6 +75,14 @@ public class HustleGame extends Game {
 
   @Override
   public void dispose() {
+  }
 
+  /**
+   * Restarts the game by hiding and disposing the current game screen, then recreating the game.
+   */
+  public void restartGame() {
+    gameScreen.hide();
+    gameScreen.dispose();
+    create();
   }
 }

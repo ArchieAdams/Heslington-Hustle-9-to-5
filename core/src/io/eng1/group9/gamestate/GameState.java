@@ -3,6 +3,7 @@ package io.eng1.group9.gamestate;
 import com.badlogic.gdx.math.Vector2;
 import io.eng1.group9.gamestate.activities.Activity;
 import io.eng1.group9.gamestate.activities.Sleep;
+import io.eng1.group9.scoring.ScoreManager;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,9 +23,9 @@ public class GameState {
   private final Player character;
   private final Map<Direction, Vector2> directionOffset =
       Map.ofEntries(new AbstractMap.SimpleEntry<>(Direction.RIGHT, new Vector2(1, 0)),
-          new AbstractMap.SimpleEntry<>(Direction.LEFT, new Vector2(-1, 0)),
-          new AbstractMap.SimpleEntry<>(Direction.UP, new Vector2(0, 1)),
-          new AbstractMap.SimpleEntry<>(Direction.DOWN, new Vector2(0, -1)));
+        new AbstractMap.SimpleEntry<>(Direction.LEFT, new Vector2(-1, 0)),
+        new AbstractMap.SimpleEntry<>(Direction.UP, new Vector2(0, 1)),
+        new AbstractMap.SimpleEntry<>(Direction.DOWN, new Vector2(0, -1)));
   private final List<Day> week = new ArrayList<>(7);
   private int energy; // remaining energy for the day
   private int time; // remaining time in the day
@@ -32,6 +33,7 @@ public class GameState {
   private Vector2 playerPosition;
   private boolean gameOver = false;
   private String playerName = "";
+  private final ScoreManager scoreManager;
 
 
   /**
@@ -51,6 +53,7 @@ public class GameState {
     playerPosition = getPlayerPosition();
     this.map = gameMap;
     this.activityHistory = new ArrayList<>();
+    this.scoreManager = new ScoreManager();
 
     if (!map.getFullMap().containsKey(playerPosition)) {
       sendToSpawnPoint();
@@ -349,5 +352,14 @@ public class GameState {
 
   public String getName() {
     return playerName;
+  }
+
+  public void saveScore() {
+    scoreManager.saveScore(playerName, calculateScore());
+    scoreManager.printScores();
+  }
+
+  public ScoreManager getScoreManager() {
+    return scoreManager;
   }
 }

@@ -3,8 +3,6 @@ package io.eng1.group9.scoring;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -32,7 +30,8 @@ public class ScoreManager {
   }
 
   /**
-   * Saves a new score along with the player's name. If the list of scores already contains 10 scores,
+   * Saves a new score along with the player's name.
+   * If the list of scores already contains 10 scores,
    * the lowest score will be removed to make room for the new score.
    *
    * @param name  The name of the player who achieved the score.
@@ -42,12 +41,7 @@ public class ScoreManager {
     List<PlayerScore> scores = getScores();
     scores.add(new PlayerScore(name, score));
     // Sort scores descending
-    Collections.sort(scores, new Comparator<PlayerScore>() {
-      @Override
-      public int compare(PlayerScore p1, PlayerScore p2) {
-        return Integer.compare(p2.score, p1.score);
-      }
-    });
+    scores.sort((p1, p2) -> Integer.compare(p2.score, p1.score));
     // Keep only the top 10 scores
     if (scores.size() > 10) {
       scores = scores.subList(0, 10);

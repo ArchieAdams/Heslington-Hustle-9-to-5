@@ -50,11 +50,10 @@ class ScoreScreenUi extends ScreenUi {
     stage.addActor(titleLabel);
     java.util.List<ScoreManager.PlayerScore> scores = scoreManager.getScores();
     for (ScoreManager.PlayerScore score : scores) {
-      System.out.println(score.name);
       Label scoreLabel = new Label(score.name + ": " + score.score, skin);
       scoreLabel.setPosition((float) width / 2, y, Align.center);
       y -= 60; // Move next label down
-      stage.addActor(scoreLabel); // Add label to stage
+      stage.addActor(scoreLabel);
     }
   }
 
