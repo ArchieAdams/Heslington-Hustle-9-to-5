@@ -27,13 +27,13 @@ public class GameState {
           new AbstractMap.SimpleEntry<>(Direction.UP, new Vector2(0, 1)),
           new AbstractMap.SimpleEntry<>(Direction.DOWN, new Vector2(0, -1)));
   private final List<Day> week = new ArrayList<>(7);
-  private final ScoreManager scoreManager;
   private int energy; // remaining energy for the day
   private int time; // remaining time in the day
   private Day currentDay = new Day();
   private Vector2 playerPosition;
   private boolean gameOver = false;
   private String playerName = "";
+  private int score = 0;
 
 
   /**
@@ -53,7 +53,6 @@ public class GameState {
     playerPosition = getPlayerPosition();
     this.map = gameMap;
     this.activityHistory = new ArrayList<>();
-    this.scoreManager = new ScoreManager();
 
     if (!map.getFullMap().containsKey(playerPosition)) {
       sendToSpawnPoint();
@@ -204,8 +203,8 @@ public class GameState {
 
     //if the activity is Eat, study or recreation, then the time and energy is decremented
     //by the desired amount and the activity is recorded in the ArrayList
-    if ((activity.getEnergyConsumption() <= this.energy)
-        && (activity.getTimeConsumption() <= this.time)) {
+    if ((activity.getEnergyConsumption() <= this.energy) &&
+        (activity.getTimeConsumption() <= this.time)) {
 
       currentDay.addActivity(activity);
       activityHistory.add(activity);
@@ -249,61 +248,13 @@ public class GameState {
 
   /**
    * Calculate the score.
-   *
-   * @return The score calculated.
-   */
-  public int calculateScore() {
-    int studyCount = 0;
-    int dayStudiedOnce = 0;
-    int dayRelaxedOnce = 0;
-    int dayEatenCount = 0;
-    int maxScore = 100;
-    int score;
-    for (Day day : week) {
-      studyCount += day.getNumberOfActivity("Study");
-      if (day.getNumberOfActivity("Study") >= 1) {
-        dayStudiedOnce++;
-      }
-      if (day.getNumberOfActivity("Eat") >= 2) {
-        dayEatenCount++;
-      }
-      if (day.getNumberOfActivity("Recreation") > 0) {
-        dayRelaxedOnce++;
-      }
-    }
-
-    score = studyCount * 10;
-    score = Math.min(score, maxScore);
-
-    // Apply penalties
-    if (dayStudiedOnce != 7 && (dayStudiedOnce != 6 || studyCount < 7)) {
-      score = dayStudiedOnce * 10;
-      score = Math.min(score, 50);
-    }
-
-    if (dayEatenCount < 7) {
-      score -= 10; // Penalty for not eating enough
-    }
-
-    if (dayRelaxedOnce < 7) {
-      score -= 10; // Penalty for not relaxing enough
-    }
-
-    // Cap the score at maxScore
-    score = Math.max(score, 0);
-    return score;
-  }
-
-
-  /**
-   * Calculate the score.
    * <p>
    * Currently, this just counts how many times each activity has taken place
    * </p>
    *
    * @return A mapping specifying how many times each type of activity has been performed
    */
-  public Map<String, Integer> scoreCalculation() {
+  public Map<String, Integer> scoreCount() {
     int sleepCounter = 0;
     int eatCounter = 0;
     int studyCounter = 0;
@@ -342,19 +293,38 @@ public class GameState {
     return activitiesCounter;
   }
 
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
   public String getName() {
     return playerName;
   }
 
+  /**
+   * Sets name.
+   *
+   * @param name the name
+   */
   public void setName(String name) {
     playerName = name;
   }
 
+  /**
+   * Save score.
+   */
   public void saveScore() {
-    scoreManager.saveScore(playerName, calculateScore());
+    this.score = ScoreManager.calculateScore(week);
+    ScoreManager.addScore(playerName, score);
   }
 
-  public ScoreManager getScoreManager() {
-    return scoreManager;
+  /**
+   * Gets score.
+   *
+   * @return the score
+   */
+  public int getScore() {
+    return this.score;
   }
 }

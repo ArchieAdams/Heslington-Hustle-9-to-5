@@ -1,8 +1,5 @@
 package io.eng1.group9;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import io.eng1.group9.gamestate.GameState;
 import io.eng1.group9.gamestate.MapGraph;
@@ -12,6 +9,7 @@ import io.eng1.group9.gamestate.activities.Eat;
 import io.eng1.group9.gamestate.activities.Recreation;
 import io.eng1.group9.gamestate.activities.Sleep;
 import io.eng1.group9.gamestate.activities.Study;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +18,7 @@ import org.junit.runner.RunWith;
  * The type Game state time test.
  */
 @RunWith(GdxTestRunner.class)
-public class GameStateTimeTest {
+public class GameStateTimeTests {
   private GameState gameState;
 
   /**
@@ -40,8 +38,8 @@ public class GameStateTimeTest {
   public void testTimeConsumptionForEating() {
     Activity eat = new Eat(10, 20, "Eating");
     boolean result = gameState.performActivity(eat);
-    assertTrue("The activity should be performed successfully", result);
-    assertEquals("Time should be reduced by 10", 90, gameState.getTime());
+    Assert.assertTrue("The activity should be performed successfully", result);
+    Assert.assertEquals("Time should be reduced by 10", 90, gameState.getTime());
   }
 
   /**
@@ -51,8 +49,8 @@ public class GameStateTimeTest {
   public void testTimeConsumptionForSleep() {
     Activity sleep = new Sleep(40, 0, "Sleeping");
     boolean result = gameState.performActivity(sleep);
-    assertTrue("The activity should be performed successfully", result);
-    assertEquals("Time should be reset to max", 100, gameState.getTime());
+    Assert.assertTrue("The activity should be performed successfully", result);
+    Assert.assertEquals("Time should be reset to max", 100, gameState.getTime());
   }
 
   /**
@@ -63,15 +61,15 @@ public class GameStateTimeTest {
     Activity sleep = new Sleep(0, 0, "Sleeping");
     for (int i = 0; i < 7; i++) {
       boolean result = gameState.performActivity(sleep);
-      assertTrue("The activity should be performed successfully", result);
+      Assert.assertTrue("The activity should be performed successfully", result);
       int currentDay = gameState.getDayCount();
-      assertEquals("The day should be " + currentDay, i+1, currentDay);
+      Assert.assertEquals("The day should be " + currentDay, i+1, currentDay);
       int time = gameState.getTime();
-      assertEquals("Time should be reset to max", 100, time);
+      Assert.assertEquals("Time should be reset to max", 100, time);
     }
     boolean gameOver = gameState.isGameOver();
-    assertTrue("The game should be over", gameOver);
-    assertEquals("Time should be reset to max", 100, gameState.getTime());
+    Assert.assertTrue("The game should be over", gameOver);
+    Assert.assertEquals("Time should be reset to max", 100, gameState.getTime());
   }
 
   /**
@@ -81,8 +79,8 @@ public class GameStateTimeTest {
   public void testTimeForStudy() {
     Activity study = new Study(30, 40, "Studying");
     boolean result = gameState.performActivity(study);
-    assertTrue("The activity should be performed successfully", result);
-    assertEquals("Time should be reduced by 30", 70, gameState.getTime());
+    Assert.assertTrue("The activity should be performed successfully", result);
+    Assert.assertEquals("Time should be reduced by 30", 70, gameState.getTime());
   }
 
   /**
@@ -92,8 +90,8 @@ public class GameStateTimeTest {
   public void testTimeConsumptionForRecreation() {
     Activity recreation = new Recreation(15, 30, "Recreation");
     boolean result = gameState.performActivity(recreation);
-    assertTrue("The activity should be performed successfully", result);
-    assertEquals("Time should be reduced by 15", 85,  gameState.getTime());
+    Assert.assertTrue("The activity should be performed successfully", result);
+    Assert.assertEquals("Time should be reduced by 15", 85,  gameState.getTime());
   }
 
   /**
@@ -104,8 +102,8 @@ public class GameStateTimeTest {
     Activity heavyActivity =
         new Recreation(110, 20, "Intensive Workout");
     boolean result = gameState.performActivity(heavyActivity);
-    assertFalse("The activity should not be performed due to insufficient time", result);
-    assertEquals("Time should remain unchanged", 100, gameState.getTime());
+    Assert.assertFalse("The activity should not be performed due to insufficient time", result);
+    Assert.assertEquals("Time should remain unchanged", 100, gameState.getTime());
   }
 
 

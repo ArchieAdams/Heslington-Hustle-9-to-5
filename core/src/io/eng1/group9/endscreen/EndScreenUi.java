@@ -59,7 +59,7 @@ class EndScreenUi extends ScreenUi {
   }
 
   private void initializeScreenLayout() {
-    Map<String, Integer> activitiesCount = game.getGameState().scoreCalculation();
+    Map<String, Integer> activitiesCount = game.getGameState().scoreCount();
 
     int studyCount = activitiesCount.get("Study");
     int eatCount = activitiesCount.get("Eat");
@@ -68,7 +68,7 @@ class EndScreenUi extends ScreenUi {
     scoreLabel.setText(
         String.format("On average per day you:\nStudied: %1d\nAte: %2d\nRelaxed: %3d\nScore: %4d",
             Math.round(studyCount / 7f), Math.round(eatCount / 7f),
-            Math.round(recreationCount / 7f), game.getGameState().calculateScore()));
+            Math.round(recreationCount / 7f), game.getGameState().getScore()));
 
     positionTopLabels();
     positionBottomLabels(activitiesCount, studyCount, eatCount, recreationCount);

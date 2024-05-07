@@ -2,6 +2,7 @@ package io.eng1.group9.scoring;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import io.eng1.group9.gamestate.Day;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +20,60 @@ public class ScoreManager {
   /**
    * The preferences object used to save and load high scores.
    */
-  private final Preferences prefs;
+  private static final Preferences preferences = Gdx.app.getPreferences(PREFERENCES_KEY);
 
   /**
-   * Constructs a new instance of the ScoreManager class.
+   * Calculate the score.
+   *
+   * @return The score calculated.
    */
-  public ScoreManager() {
-    this.prefs = Gdx.app.getPreferences(PREFERENCES_KEY);
+  public static int calculateScore(List<Day> week) {
+    int studyCount = 0;
+    int dayStudiedOnce = 0;
+    int dayRelaxedOnce = 0;
+    int dayEatenCount = 0;
+    int maxScore = 100;
+    int score;
+    for (Day day : week) {
+      studyCount += day.getNumberOfActivity("Study");
+      if (day.getNumberOfActivity("Study") >= 1) {
+        dayStudiedOnce++;
+      }
+      if (day.getNumberOfActivity("Eat") >= 2) {
+        dayEatenCount++;
+      }
+      if (day.getNumberOfActivity("Recreation") > 0) {
+        dayRelaxedOnce++;
+      }
+    }
+
+    System.out.println(studyCount);
+    score = studyCount * 10;
+    score = Math.min(score, maxScore);
+
+    // Apply penalties
+    if (dayStudiedOnce != 7) {
+      score = dayStudiedOnce * 10;
+      score = Math.min(score, 50);
+    }
+
+    if (dayStudiedOnce == 6 && studyCount >= 7){
+      score = 70;
+    }
+
+    if (dayEatenCount < 7) {
+      score -= 10; // Penalty for not eating enough
+    }
+
+    if (dayRelaxedOnce < 7) {
+      score -= 10; // Penalty for not relaxing enough
+    }
+
+    // Cap the score at maxScore
+    score = Math.max(score, 0);
+    return score;
   }
+
 
   /**
    * Saves a new score along with the player's name.
@@ -36,7 +83,7 @@ public class ScoreManager {
    * @param name  The name of the player who achieved the score.
    * @param score The score achieved by the player.
    */
-  public void saveScore(String name, int score) {
+  public static void addScore(String name, int score) {
     List<PlayerScore> scores = getScores();
     scores.add(new PlayerScore(name, score));
     // Sort scores descending
@@ -54,14 +101,14 @@ public class ScoreManager {
    *
    * @param scores The list of scores to be saved.
    */
-  private void saveScores(List<PlayerScore> scores) {
+  private static void saveScores(List<PlayerScore> scores) {
     // Convert scores to a single string
     StringBuilder sb = new StringBuilder();
     for (PlayerScore score : scores) {
       sb.append(score.name).append(":").append(score.score).append(";");
     }
-    prefs.putString("scoreList", sb.toString());
-    prefs.flush();
+    preferences.putString("scoreList", sb.toString());
+    preferences.flush();
   }
 
   /**
@@ -69,9 +116,9 @@ public class ScoreManager {
    *
    * @return The list of high scores.
    */
-  public List<PlayerScore> getScores() {
+  public static List<ScoreManager.PlayerScore> getScores() {
     List<ScoreManager.PlayerScore> scores = new ArrayList<>();
-    String scoresStr = prefs.getString("scoreList", "");
+    String scoresStr = preferences.getString("scoreList", "");
     if (!scoresStr.isEmpty()) {
       for (String entry : scoresStr.split(";")) {
         String[] parts = entry.split(":");
@@ -86,7 +133,7 @@ public class ScoreManager {
   /**
    * Prints the top scores to the console.
    */
-  public void printScores() {
+  public static void printScores() {
     List<PlayerScore> scores = getScores();
     System.out.println("Top Scores:");
     for (PlayerScore score : scores) {
@@ -97,9 +144,9 @@ public class ScoreManager {
   /**
    * Clears all saved scores from the preferences file.
    */
-  public void resetScores() {
-    prefs.putString("scoreList", ""); // Clear the score string
-    prefs.flush(); // Make sure the changes are saved to the file
+  public static void resetScores() {
+    preferences.putString("scoreList", ""); // Clear the score string
+    preferences.flush(); // Make sure the changes are saved to the file
   }
 
 

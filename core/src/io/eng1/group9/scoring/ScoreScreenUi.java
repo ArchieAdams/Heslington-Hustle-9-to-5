@@ -7,10 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.eng1.group9.HustleGame;
 import io.eng1.group9.ScreenUi;
-
-
+import java.util.List;
 
 
 /**
@@ -20,7 +18,6 @@ class ScoreScreenUi extends ScreenUi {
 
   private final ScreenViewport viewport;
   private final Stage stage;
-  private final ScoreManager scoreManager;
   private final Skin skin;
 
 
@@ -28,14 +25,12 @@ class ScoreScreenUi extends ScreenUi {
   /**
    * Instantiates a new End screen ui.
    *
-   * @param game HustleGame object that controls the application
    */
-  public ScoreScreenUi(HustleGame game) {
+  public ScoreScreenUi() {
     viewport = new ScreenViewport();
     viewport.apply();
     stage = new Stage(viewport);
     skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
-    scoreManager = game.getGameState().getScoreManager();
 
     initScoreLabels();
   }
@@ -49,7 +44,7 @@ class ScoreScreenUi extends ScreenUi {
     y -= 80;
     stage.addActor(titleLabel);
 
-    java.util.List<ScoreManager.PlayerScore> scores = scoreManager.getScores();
+    List<ScoreManager.PlayerScore> scores = ScoreManager.getScores();
     for (ScoreManager.PlayerScore score : scores) {
       Label scoreLabel = new Label(score.name + ": " + score.score, skin);
       scoreLabel.setPosition((float) width / 2, y, Align.center);

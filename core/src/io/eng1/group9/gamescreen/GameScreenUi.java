@@ -181,7 +181,7 @@ public class GameScreenUi extends ScreenUi {
     energyBar.setValue(currentEnergy);
     energyLabel.setText(currentEnergy + "/100");
 
-    Map<String, Integer> activityCounts = game.getGameState().scoreCalculation();
+    Map<String, Integer> activityCounts = game.getGameState().scoreCount();
     scoreLabel.setText(
         String.format("Study: %1d\nEat: %2d\nRecreation: %3d", activityCounts.get("Study"),
             activityCounts.get("Eat"), activityCounts.get("Recreation")));
