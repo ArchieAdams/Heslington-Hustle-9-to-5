@@ -50,7 +50,7 @@ public class GameStateEnergyTest {
   @Test
   public void testEnergyConsumptionForSleep() {
     // Assuming Sleep resets energy to max
-    Activity sleep = new Sleep(8, 0, "Sleeping");  // Restores energy fully
+    Activity sleep = new Sleep(0, 0, "Sleeping");  // Restores energy fully
     boolean result = gameState.performActivity(sleep);
     assertTrue("The activity should be performed successfully", result);
     assertEquals("Energy should be reset to max", 100, gameState.getEnergy());
@@ -89,4 +89,6 @@ public class GameStateEnergyTest {
     assertFalse("The activity should not be performed due to insufficient energy", result);
     assertEquals("Energy should remain unchanged", 100, gameState.getEnergy());
   }
+
+
 }

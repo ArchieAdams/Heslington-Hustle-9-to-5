@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * A node may have one or more activities available to perform.
  */
 public class Node {
-  private ArrayList<Activity> listOfActivities;
+  private final ArrayList<Activity> listOfActivities;
 
   /**
    * Instantiates a new Node.
@@ -36,12 +36,4 @@ public class Node {
     return listOfActivities;
   }
 
-  /**
-   * Sets the activities available at this node.
-   *
-   * @param activities the activities
-   */
-  public void setActivities(ArrayList<Activity> activities) {
-    this.listOfActivities = activities;
-  }
 }
