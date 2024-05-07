@@ -23,17 +23,17 @@ public class GameState {
   private final Player character;
   private final Map<Direction, Vector2> directionOffset =
       Map.ofEntries(new AbstractMap.SimpleEntry<>(Direction.RIGHT, new Vector2(1, 0)),
-        new AbstractMap.SimpleEntry<>(Direction.LEFT, new Vector2(-1, 0)),
-        new AbstractMap.SimpleEntry<>(Direction.UP, new Vector2(0, 1)),
-        new AbstractMap.SimpleEntry<>(Direction.DOWN, new Vector2(0, -1)));
+          new AbstractMap.SimpleEntry<>(Direction.LEFT, new Vector2(-1, 0)),
+          new AbstractMap.SimpleEntry<>(Direction.UP, new Vector2(0, 1)),
+          new AbstractMap.SimpleEntry<>(Direction.DOWN, new Vector2(0, -1)));
   private final List<Day> week = new ArrayList<>(7);
+  private final ScoreManager scoreManager;
   private int energy; // remaining energy for the day
   private int time; // remaining time in the day
   private Day currentDay = new Day();
   private Vector2 playerPosition;
   private boolean gameOver = false;
   private String playerName = "";
-  private final ScoreManager scoreManager;
 
 
   /**
@@ -182,42 +182,42 @@ public class GameState {
    * @return true if the activity was successfully performed
    */
   public boolean performActivity(Activity activity) {
-      //if the activity is Sleep, the time and energy is reset
-      //and the counter of the day increments
-      if (activity instanceof Sleep) {
+    //if the activity is Sleep, the time and energy is reset
+    //and the counter of the day increments
+    if (activity instanceof Sleep) {
 
-        week.add(currentDay);
-        //if the day counter is greater than 6 the game ends
-        if (week.size() == 7) {
-          this.gameOver = true;
-          return true;
-        }
-
-        //time and energy reset otherwise
-        this.currentDay = new Day();
-        this.energy = this.maxEnergy;
-        this.time = this.timeInDay;
-
+      week.add(currentDay);
+      //if the day counter is greater than 6 the game ends
+      if (week.size() == 7) {
+        this.gameOver = true;
         return true;
       }
 
+      //time and energy reset otherwise
+      this.currentDay = new Day();
+      this.energy = this.maxEnergy;
+      this.time = this.timeInDay;
 
-      //if the activity is Eat, study or recreation, then the time and energy is decremented
-      //by the desired amount and the activity is recorded in the ArrayList
-      if ((activity.getEnergyConsumption() <= this.energy)
-          && (activity.getTimeConsumption() <= this.time)) {
+      return true;
+    }
 
-        currentDay.addActivity(activity);
-        activityHistory.add(activity);
 
-        int tempTime = activity.getTimeConsumption();
-        int tempEnergy = activity.getEnergyConsumption();
-        this.time = this.time - tempTime;
-        this.energy = this.energy - tempEnergy;
+    //if the activity is Eat, study or recreation, then the time and energy is decremented
+    //by the desired amount and the activity is recorded in the ArrayList
+    if ((activity.getEnergyConsumption() <= this.energy)
+        && (activity.getTimeConsumption() <= this.time)) {
 
-        return true;
+      currentDay.addActivity(activity);
+      activityHistory.add(activity);
 
-      }
+      int tempTime = activity.getTimeConsumption();
+      int tempEnergy = activity.getEnergyConsumption();
+      this.time = this.time - tempTime;
+      this.energy = this.energy - tempEnergy;
+
+      return true;
+
+    }
 
     return false;
   }
@@ -341,12 +341,12 @@ public class GameState {
     return activitiesCounter;
   }
 
-  public void setName(String name) {
-    playerName = name;
-  }
-
   public String getName() {
     return playerName;
+  }
+
+  public void setName(String name) {
+    playerName = name;
   }
 
   public void saveScore() {
