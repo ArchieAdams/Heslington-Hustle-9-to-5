@@ -150,13 +150,6 @@ jobs:
       - name: Test Movement
         run: ./gradlew test --tests "TESTNAME" -Dtest.useTestCache=true
 
-      - run: |
-          if [ ${{ job.status }} == 'success' ]; then
-            echo "Test passed ✓"
-          else
-            echo "Test failed ✗"
-          fi
-
   Asset-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]

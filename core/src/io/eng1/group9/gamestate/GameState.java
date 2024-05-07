@@ -182,14 +182,9 @@ public class GameState {
    * @return true if the activity was successfully performed
    */
   public boolean performActivity(Activity activity) {
-    ArrayList<Activity> tempActList = this.getActivities();
-
-
-    for (Activity tempAct : tempActList) {
-
       //if the activity is Sleep, the time and energy is reset
       //and the counter of the day increments
-      if ((activity instanceof Sleep) && (tempAct.getClass() == activity.getClass())) {
+      if (activity instanceof Sleep) {
 
         week.add(currentDay);
         //if the day counter is greater than 6 the game ends
@@ -223,7 +218,7 @@ public class GameState {
         return true;
 
       }
-    }
+
     return false;
   }
 

@@ -2,7 +2,7 @@
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../assets"]
 
-project.ext.mainClassName = "eng1.group9.DesktopLauncher"
+project.ext.mainClassName = "io.eng1.group9.DesktopLauncher"
 project.ext.assetsDir = new File("../assets")
 
 
