@@ -40,7 +40,6 @@ public class GameStateEnergyTest {
   public void testEnergyConsumptionForEat() {
     Activity eat = new Eat(10, 20, "Eating");  // Consumes 20 energy
     boolean result = gameState.performActivity(eat);
-    System.out.println(gameState.getEnergy());
     assertTrue("The activity should be performed successfully", result);
     assertEquals("Energy should be reduced by 20", 80, gameState.getEnergy());
   }

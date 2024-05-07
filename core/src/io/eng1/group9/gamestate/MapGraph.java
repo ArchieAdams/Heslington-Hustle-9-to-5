@@ -59,7 +59,6 @@ public class MapGraph {
           continue;
         }
         // Add 1 to offset x and inverts y
-        System.out.println((x) + "," + (maxY - y - 1));
         addTile(x, maxY - y - 1, getNodeFromSymbol(symbol));
       }
     }
