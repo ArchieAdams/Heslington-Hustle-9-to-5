@@ -15,7 +15,7 @@ class ScoreScreenInput extends InputAdapter {
   HustleGame game;
 
   /**
-   * Instantiates a new End screen input
+   * Instantiates a new End screen input.
    *
    * @param game HustleGame object that controls the application
    */

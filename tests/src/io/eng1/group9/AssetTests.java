@@ -15,7 +15,7 @@ public class AssetTests {
   */
   @Test
   public void testMapExists() {
-      Assert.assertTrue("The map exists", Gdx.files.internal("map").exists());
+    Assert.assertTrue("The map exists", Gdx.files.internal("map").exists());
   }
 
   /**
