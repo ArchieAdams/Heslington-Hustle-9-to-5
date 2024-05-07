@@ -59,7 +59,7 @@ class EndScreenUi extends ScreenUi {
   }
 
   private void initializeScreenLayout() {
-    Map<String, Integer> activitiesCount = game.getGameState().scoreCount();
+    Map<String, Integer> activitiesCount = game.getGameState().activityCount();
 
     int studyCount = activitiesCount.get("Study");
     int eatCount = activitiesCount.get("Eat");

@@ -181,17 +181,6 @@ public class ScoreManager {
   }
 
   /**
-   * Prints the top scores to the console.
-   */
-  public static void printScores() {
-    List<PlayerScore> scores = getScores();
-    System.out.println("Top Scores:");
-    for (PlayerScore score : scores) {
-      System.out.println(score.name + ": " + score.score);
-    }
-  }
-
-  /**
    * Clears all saved scores from the preferences file.
    */
   public static void resetScores() {

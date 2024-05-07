@@ -254,7 +254,7 @@ public class GameState {
    *
    * @return A mapping specifying how many times each type of activity has been performed
    */
-  public Map<String, Integer> scoreCount() {
+  public Map<String, Integer> activityCount() {
     int sleepCounter = 0;
     int eatCounter = 0;
     int studyCounter = 0;
