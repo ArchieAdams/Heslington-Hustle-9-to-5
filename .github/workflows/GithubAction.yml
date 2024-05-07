@@ -126,7 +126,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test Report
-          path: tests/build/reports/tests/test
+          path: tests/build/reports/jacoco/test
 
   Movement-Tests:
     runs-on: ubuntu-latest
