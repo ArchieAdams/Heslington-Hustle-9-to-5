@@ -216,9 +216,7 @@ public class GameState {
       this.energy = this.energy - tempEnergy;
 
       return true;
-
     }
-
     return false;
   }
 
@@ -257,7 +255,8 @@ public class GameState {
     int dayRelaxedOnce = 0;
     int dayEatenCount = 0;
     int maxScore = 100;
-    int score;
+
+
     for (Day day : week) {
       studyCount += day.getNumberOfActivity("Study");
       if (day.getNumberOfActivity("Study") >= 1) {
@@ -271,7 +270,7 @@ public class GameState {
       }
     }
 
-    score = studyCount * 10;
+    int score = studyCount * 10;
     score = Math.min(score, maxScore);
 
     // Apply penalties
@@ -280,12 +279,29 @@ public class GameState {
       score = Math.min(score, 50);
     }
 
-    if (dayEatenCount < 7) {
+    if (dayEatenCount < 0) {
       score -= 10; // Penalty for not eating enough
     }
 
-    if (dayRelaxedOnce < 7) {
+    if (dayRelaxedOnce < 0) {
       score -= 10; // Penalty for not relaxing enough
+    }
+
+    Map<String, Integer> activities = scoreCalculation();
+    int eatCount = activities.get("Eat");
+    int recreationCount = activities.get("Recreation");
+
+    // Add achievement bonuses
+    if (recreationCount > 10) {
+      score += 10;
+    }
+
+    if (eatCount >= 14) {
+      score += 10;
+    }
+
+    if (studyCount > 7) {
+      score += 10;
     }
 
     // Cap the score at maxScore
