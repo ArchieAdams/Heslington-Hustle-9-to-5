@@ -240,6 +240,7 @@ public class GameState {
     }
 
     //if no list is found then the empty list is returned
+    // This should never occur as it means the player has left the map
     return new ArrayList<>();
   }
 

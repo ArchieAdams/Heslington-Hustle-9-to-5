@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
  * The type Activity tests.
  */
 @RunWith(GdxTestRunner.class)
-public class ActivityTests {
+public class ActivityTileTests {
 
   /**
    * Sleep.
