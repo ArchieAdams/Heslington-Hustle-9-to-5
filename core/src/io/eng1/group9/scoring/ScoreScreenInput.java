@@ -37,7 +37,7 @@ class ScoreScreenInput extends InputAdapter {
         return true;
       case Input.Keys.ENTER:
         game.restartGame();
-          return true;
+        return true;
       default:
         return false;
     }
