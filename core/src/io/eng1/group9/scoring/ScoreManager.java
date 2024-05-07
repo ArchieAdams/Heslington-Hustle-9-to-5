@@ -3,8 +3,11 @@ package io.eng1.group9.scoring;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import io.eng1.group9.gamestate.Day;
+import io.eng1.group9.gamestate.activities.Activity;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A class for managing and saving high scores.
@@ -33,7 +36,8 @@ public class ScoreManager {
     int dayRelaxedOnce = 0;
     int dayEatenCount = 0;
     int maxScore = 100;
-    int score;
+
+
     for (Day day : week) {
       studyCount += day.getNumberOfActivity("Study");
       if (day.getNumberOfActivity("Study") >= 1) {
@@ -47,8 +51,7 @@ public class ScoreManager {
       }
     }
 
-    System.out.println(studyCount);
-    score = studyCount * 10;
+    int score = studyCount * 10;
     score = Math.min(score, maxScore);
 
     // Apply penalties
@@ -69,9 +72,58 @@ public class ScoreManager {
       score -= 10; // Penalty for not relaxing enough
     }
 
-    // Cap the score at maxScore
+    Map<String, Integer> activities = scoreCount(week);
+    int eatCount = activities.get("Eat");
+    int recreationCount = activities.get("Recreation");
+
+    // Add achievement bonuses
+    if (recreationCount > 10) {
+      score += 10;
+    }
+
+    if (eatCount >= 21) {
+      score += 10;
+    }
+
+    if (studyCount > 7) {
+      score += 10;
+    }
+
+
     score = Math.max(score, 0);
+    score = Math.min(score, 100);
     return score;
+  }
+
+  /**
+   * Calculate the score.
+   * <p>
+   * Currently, this just counts how many times each activity has taken place
+   * </p>
+   *
+   * @return A mapping specifying how many times each type of activity has been performed
+   */
+  public static Map<String, Integer> scoreCount(List<Day> week) {
+    int sleepCounter = 0;
+    int eatCounter = 0;
+    int studyCounter = 0;
+    int recreationalCounter = 0;
+    Map<String, Integer> activitiesCounter = new HashMap<>();
+    for (Day day : week){
+      //goes through the array list one activity at a time and increments the corresponding counter
+      sleepCounter += day.getNumberOfActivity("Sleep");
+      eatCounter += day.getNumberOfActivity("Eat");
+      studyCounter += day.getNumberOfActivity("Study");
+      recreationalCounter += day.getNumberOfActivity("Recreation");
+    }
+
+    //adds the final counts to the arraylist and returns it
+    activitiesCounter.put("Sleep", sleepCounter);
+    activitiesCounter.put("Eat", eatCounter);
+    activitiesCounter.put("Study", studyCounter);
+    activitiesCounter.put("Recreation", recreationalCounter);
+
+    return activitiesCounter;
   }
 
 

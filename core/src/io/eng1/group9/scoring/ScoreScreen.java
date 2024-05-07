@@ -16,7 +16,7 @@ public class ScoreScreen extends BaseScreen {
    * @param game HustleGame that controls the application
    */
   public ScoreScreen(HustleGame game) {
-    super(new ScoreScreenUi(game), new ScoreScreenInput(game));
+    super(new ScoreScreenUi(), new ScoreScreenInput(game));
   }
 
 }
