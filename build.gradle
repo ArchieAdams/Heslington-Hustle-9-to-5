@@ -16,6 +16,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'checkstyle'
+    id 'jacoco'
 }
 
 allprojects {
@@ -23,6 +24,9 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
     apply plugin: "checkstyle"
+
+
+
 
     repositories {
         mavenLocal()
@@ -43,13 +47,6 @@ allprojects {
         configFile = file("${rootDir}/config/checkstyle/google_checks.xml")
     }
 
-    checkstyleMain {
-        ignoreFailures = false
-    }
-
-    checkstyleTest {
-        ignoreFailures = false
-    }
 
     version = '1.0'
     ext {
@@ -86,18 +83,15 @@ project(":core") {
 
 project(":tests") {
     apply plugin: "java"
+    apply plugin: "jacoco"
 
-    sourceSets {
-        test {
-            java {
-                srcDirs = ["src/"]
-            }
-        }
-    }
+    sourceSets.test.java.srcDirs = ["src/"]
+
 
     dependencies {
-        implementation project(":desktop")
         implementation project(":core")
+        implementation project(":desktop")
+
 
         implementation "junit:junit:$junitVersion"
         implementation "org.mockito:mockito-all:1.9.+"
@@ -112,4 +106,22 @@ project(":tests") {
         testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
+
+    jacocoTestReport {
+        dependsOn test
+        sourceSets project(':core').sourceSets.main
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: ['**/*Tests.*', '**/GdxTestRunner.*'])
+            }))
+        }
+    }
+
+
+    test {
+        finalizedBy jacocoTestReport
+    }
+
+
+
 }
