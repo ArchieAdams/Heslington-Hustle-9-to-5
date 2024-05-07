@@ -16,7 +16,6 @@ public class HustleGame extends Game {
   private Screen startScreen;
   private Screen gameScreen;
   private Screen endScreen;
-  private Screen scoreScreen;
   private GameState gameState;
 
 
@@ -26,7 +25,6 @@ public class HustleGame extends Game {
     startScreen = new StartScreen(this);
     gameScreen = new GameScreen(this);
     endScreen = new EndScreen(this);
-    scoreScreen = new ScoreScreen(this);
 
     setStartScreen();
   }
@@ -56,6 +54,7 @@ public class HustleGame extends Game {
   }
 
   public void setScoreScreen() {
+    Screen scoreScreen = new ScoreScreen(this);
     setScreen(scoreScreen);
   }
 

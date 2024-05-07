@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * A class for managing and saving high scores.
  *
- * @author Tabnine
  */
 public class ScoreManager {
 
@@ -44,7 +43,7 @@ public class ScoreManager {
     scores.sort((p1, p2) -> Integer.compare(p2.score, p1.score));
     // Keep only the top 10 scores
     if (scores.size() > 10) {
-      scores = scores.subList(0, 10);
+      scores = new ArrayList<>(scores.subList(0, 10));
     }
     // Save updated scores
     saveScores(scores);
@@ -94,6 +93,15 @@ public class ScoreManager {
       System.out.println(score.name + ": " + score.score);
     }
   }
+
+  /**
+   * Clears all saved scores from the preferences file.
+   */
+  public void resetScores() {
+    prefs.putString("scoreList", ""); // Clear the score string
+    prefs.flush(); // Make sure the changes are saved to the file
+  }
+
 
   /**
    * A class representing a player's score.
