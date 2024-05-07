@@ -52,7 +52,7 @@ jobs:
       - name: Parse Core Checkstyle Report
         run: |
           # Extract the number of <tr> elements (violations) from the HTML report
-          violations=$(grep -o '<tr>' index.html | wc -l)
+          violations=$(grep -o '<tr>' core/build/reports/checkstyle/main.html | wc -l)
           echo "VIOLATIONS_COUNT=$violations" >> $GITHUB_ENV
 
       - name: Check for Violations
