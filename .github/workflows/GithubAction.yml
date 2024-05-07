@@ -49,6 +49,24 @@ jobs:
       - name: Check main
         run: ./gradlew checkstyleMain
 
+      - name: Parse Checkstyle Report
+        id: parse-checkstyle
+        run: |
+          violations=$(grep -o '<tr>' core/build/reports/checkstyle/main.html | wc -l)
+          echo "::set-output name=violations::$violations"
+
+      - name: Check for Violations
+        id: check-violations
+        run: |
+          violations=${{ steps.parse-checkstyle.outputs.violations }}
+          threshold=4  # Set your desired threshold here
+
+          if [ $violations -gt $threshold ]; then
+            echo "Checkstyle violations found: $violations (exceeds threshold of $threshold)"
+            exit 1
+          fi
+
+
       - name: Check test
         run: ./gradlew checkstyleTest
 

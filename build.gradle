@@ -43,6 +43,14 @@ allprojects {
         configFile = file("${rootDir}/config/checkstyle/google_checks.xml")
     }
 
+    checkstyleMain {
+        ignoreFailures = false
+    }
+
+    checkstyleTest {
+        ignoreFailures = false
+    }
+
     version = '1.0'
     ext {
         appName = "HeslingtonHustle"
