@@ -20,52 +20,23 @@ public class StartScreenUi extends ScreenUi {
   private final ScreenViewport screenViewport;
   private final Stage stage;
 
-  private final Label titleLabel;
-  private final Label instructionLabel;
-  private final Label licenceLabel;
-
   /**
  * Constructor for the StartScreenUi class.
  * Initializes the screen viewport, stage, and skin.
  * Also creates and adds labels to the stage.
  */
   public StartScreenUi() {
-    /**
-     * Initializes a new ScreenViewport with the specified screen coordinates.
-     * @param screenX The x-coordinate of the top-left corner of the screen.
-     * @param screenY The y-coordinate of the top-left corner of the screen.
-     */
     screenViewport = new ScreenViewport();
     screenViewport.setScreenX(10);
     screenViewport.setScreenY(10);
 
-    /**
-     * Initializes a new Stage with the specified viewport.
-     * @param viewport The viewport to use for the stage.
-     */
     stage = new Stage(screenViewport);
 
-    /**
-     * Loads a new Skin from the specified file path.
-     * @param filePath The file path to the JSON file containing the skin data.
-     */
     Skin skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
 
-    /**
-     * Creates a new Label with the specified text, skin, and style.
-     * @param text The text to display in the label.
-     * @param skin The skin to use for the label.
-     * @param style The style to use for the label.
-     */
-    titleLabel = new Label("HESLINGTON HUSTLE", skin, "title");
+    Label titleLabel = new Label("HESLINGTON HUSTLE", skin, "title");
 
-    /**
-     * Creates a new Label with the specified text, skin, and style.
-     * @param text The text to display in the label.
-     * @param skin The skin to use for the label.
-     * @param style The style to use for the label.
-     */
-    instructionLabel = new Label(
+    Label instructionLabel = new Label(
         "INSTRUCTIONS: You need to study for an upcoming exam.\n"
             + "You need to manage time so you also eat,\n"
             + "sleep and relax while getting ready for the exam.\n"
@@ -76,7 +47,7 @@ public class StartScreenUi extends ScreenUi {
     instructionLabel.setAlignment(Align.center);
 
 
-    // Setup the font generator and parameter for licenceLabel
+    // Set up the font generator and parameter for licenceLabel
     FreeTypeFontGenerator generator =
         new FreeTypeFontGenerator(Gdx.files.internal("Yantramanav/Yantramanav-Regular.ttf"));
     FreeTypeFontGenerator.FreeTypeFontParameter parameter =
@@ -87,13 +58,9 @@ public class StartScreenUi extends ScreenUi {
 
     // Create a LabelStyle for licenceLabel
     Label.LabelStyle licenceStyle = new Label.LabelStyle(licenceFont, Color.WHITE);
-    licenceLabel = new Label(
+    Label licenceLabel = new Label(
         "To view licences used: visit https://eng1-group-9-2024.github.io/Heslington-Hustle-Info/",
         licenceStyle);
-    /**
-     * Adds the specified actor to the stage.
-     * @param actor The actor to add to the stage.
-     */
     stage.addActor(titleLabel);
     stage.addActor(instructionLabel);
     stage.addActor(licenceLabel);
@@ -113,8 +80,6 @@ public class StartScreenUi extends ScreenUi {
   public void update() {
     ScreenUtils.clear(0, 0, 0, 1);
     screenViewport.apply();
-
-
     stage.draw();
   }
 
