@@ -15,7 +15,6 @@ import io.eng1.group9.startscreen.StartScreen;
 public class HustleGame extends Game {
   private Screen startScreen;
   private Screen gameScreen;
-  private Screen endScreen;
   private GameState gameState;
 
 
@@ -24,7 +23,6 @@ public class HustleGame extends Game {
     gameState = new GameState();
     startScreen = new StartScreen(this);
     gameScreen = new GameScreen(this);
-    endScreen = new EndScreen(this);
 
     setStartScreen();
   }
@@ -49,6 +47,7 @@ public class HustleGame extends Game {
    * Switch to the end screen.
    */
   public void setEndScreen() {
+    Screen endScreen = new EndScreen(this);
     setScreen(endScreen);
     System.out.println("Switched to end screen");
   }
