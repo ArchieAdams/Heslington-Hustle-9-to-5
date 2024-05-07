@@ -76,15 +76,20 @@ jobs:
             echo "Checkstyle violations found. One or more violations exceed the threshold of $threshold"
             echo "FAIL=true" >> $GITHUB_ENV
           fi
+      - name: Rename Main Checkstyle Reports
+        run: |
+          mv core/build/reports/checkstyle/main.html core/build/reports/checkstyle/core_main.html
+          mv desktop/build/reports/checkstyle/main.html desktop/build/reports/checkstyle/desktop_main.html
+          mv tests/build/reports/checkstyle/main.html tests/build/reports/checkstyle/tests_main.html
 
       - name: Upload Reports
         uses: actions/upload-artifact@v4
         with:
           name: Checkstyle Reports
           path: |
-            core/build/reports/checkstyle/main.html
-            desktop/build/reports/checkstyle/main.html
-            tests/build/reports/checkstyle/main.html
+            core/build/reports/checkstyle/core_main.html
+            desktop/build/reports/checkstyle/desktop_main.html
+            tests/build/reports/checkstyle/tests_main.html
 
       - name: Check If Failed
         run: | 
