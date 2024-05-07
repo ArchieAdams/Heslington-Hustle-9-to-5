@@ -3,7 +3,6 @@ package io.eng1.group9.scoring;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import io.eng1.group9.gamestate.Day;
-import io.eng1.group9.gamestate.activities.Activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map;
 
 /**
  * A class for managing and saving high scores.
- *
  */
 public class ScoreManager {
 
@@ -60,7 +58,7 @@ public class ScoreManager {
       score = Math.min(score, 50);
     }
 
-    if (dayStudiedOnce == 6 && studyCount >= 7){
+    if (dayStudiedOnce == 6 && studyCount >= 7) {
       score = 70;
     }
 
@@ -109,7 +107,7 @@ public class ScoreManager {
     int studyCounter = 0;
     int recreationalCounter = 0;
     Map<String, Integer> activitiesCounter = new HashMap<>();
-    for (Day day : week){
+    for (Day day : week) {
       //goes through the array list one activity at a time and increments the corresponding counter
       sleepCounter += day.getNumberOfActivity("Sleep");
       eatCounter += day.getNumberOfActivity("Eat");
