@@ -52,7 +52,8 @@ jobs:
       - name: Checkstyle
         run: |
           # Run Checkstyle for main, desktop, and test code
-          ./gradlew checkstyleMain checkstyleTest
+          ./gradlew checkstyleMain
+          ./gradlew checkstyleTest
 
       - name: Parse Checkstyle Reports
         run: |
