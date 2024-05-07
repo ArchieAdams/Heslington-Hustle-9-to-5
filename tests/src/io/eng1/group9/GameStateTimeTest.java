@@ -71,6 +71,7 @@ public class GameStateTimeTest {
     }
     boolean gameOver = gameState.isGameOver();
     assertTrue("The game should be over", gameOver);
+    assertEquals("Time should be reset to max", 100, gameState.getTime());
   }
 
   /**
