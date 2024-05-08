@@ -200,8 +200,8 @@ public class GameState {
 
     //if the activity is Eat, study or recreation, then the time and energy is decremented
     //by the desired amount and the activity is recorded in the ArrayList
-    if ((activity.getEnergyConsumption() <= this.energy) &&
-        (activity.getTimeConsumption() <= this.time)) {
+    if ((activity.getEnergyConsumption() <= this.energy)
+        && (activity.getTimeConsumption() <= this.time)) {
 
       currentDay.addActivity(activity);
 
