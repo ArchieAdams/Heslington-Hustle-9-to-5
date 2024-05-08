@@ -17,8 +17,4 @@ public class Eat extends Activity {
     super(time, energy, name);
   }
 
-  @Override
-  public String toString() {
-    return String.format("Eat, %1d time, %2d energy", getTimeConsumption(), getEnergyConsumption());
-  }
 }

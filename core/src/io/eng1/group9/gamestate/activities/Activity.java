@@ -40,13 +40,10 @@ public abstract class Activity {
     return energyConsumption;
   }
 
-  /**
-   * Returns the name of the activity.
-   *
-   * @return the name
-   */
-  public String getName() {
-    return name;
+  @Override
+  public String toString() {
+    return String.format("%1s, %2d time, %3d energy", name, getTimeConsumption(),
+        getEnergyConsumption());
   }
 }
 
