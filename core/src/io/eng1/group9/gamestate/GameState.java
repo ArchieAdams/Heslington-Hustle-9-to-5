@@ -6,7 +6,6 @@ import io.eng1.group9.gamestate.activities.Sleep;
 import io.eng1.group9.scoring.ScoreManager;
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,6 @@ import java.util.Map;
 public class GameState {
   private final int maxEnergy; // the energy the player starts with each a day
   private final int timeInDay; // the total time in each day
-  private final ArrayList<Activity> activityHistory;
   private final MapGraph map;
   private final Player character;
   private final Map<Direction, Vector2> directionOffset =
@@ -34,6 +32,7 @@ public class GameState {
   private boolean gameOver = false;
   private String playerName = "";
   private int score = 0;
+  private Map<String, Integer> activityCount;
 
 
   /**
@@ -52,7 +51,6 @@ public class GameState {
     this.character = player;
     playerPosition = getPlayerPosition();
     this.map = gameMap;
-    this.activityHistory = new ArrayList<>();
 
     if (!map.getFullMap().containsKey(playerPosition)) {
       sendToSpawnPoint();
@@ -171,7 +169,6 @@ public class GameState {
     List<Vector2> tempEdges = tempMap.get(playerPosition);
     //returns true if the tile to move to is a valid path to move to
     return (tempEdges.contains(playerPosition.cpy().add(offsetVector)));
-
   }
 
   /**
@@ -203,11 +200,10 @@ public class GameState {
 
     //if the activity is Eat, study or recreation, then the time and energy is decremented
     //by the desired amount and the activity is recorded in the ArrayList
-    if ((activity.getEnergyConsumption() <= this.energy)
-        && (activity.getTimeConsumption() <= this.time)) {
+    if ((activity.getEnergyConsumption() <= this.energy) &&
+        (activity.getTimeConsumption() <= this.time)) {
 
       currentDay.addActivity(activity);
-      activityHistory.add(activity);
 
       int tempTime = activity.getTimeConsumption();
       int tempEnergy = activity.getEnergyConsumption();
@@ -245,54 +241,6 @@ public class GameState {
     return new ArrayList<>();
   }
 
-
-  /**
-   * Calculate the score.
-   * <p>
-   * Currently, this just counts how many times each activity has taken place
-   * </p>
-   *
-   * @return A mapping specifying how many times each type of activity has been performed
-   */
-  public Map<String, Integer> activityCount() {
-    int sleepCounter = 0;
-    int eatCounter = 0;
-    int studyCounter = 0;
-    int recreationalCounter = 0;
-    Map<String, Integer> activitiesCounter = new HashMap<>();
-
-    //goes through the array list one activity at a time and increments the corresponding counter
-    for (Activity activity : activityHistory) {
-
-      switch (activity.getClass().getSimpleName()) {
-
-        case "Sleep":
-          sleepCounter++;
-          break;
-        case "Eat":
-          eatCounter++;
-          break;
-        case "Study":
-          studyCounter++;
-          break;
-        case "Recreation":
-          recreationalCounter++;
-          break;
-        default:
-          throw new IllegalArgumentException(
-              "Unknown activity type: " + activity.getClass().getSimpleName());
-      }
-    }
-
-    //adds the final counts to the arraylist and returns it
-    activitiesCounter.put("Sleep", sleepCounter);
-    activitiesCounter.put("Eat", eatCounter);
-    activitiesCounter.put("Study", studyCounter);
-    activitiesCounter.put("Recreation", recreationalCounter);
-
-    return activitiesCounter;
-  }
-
   /**
    * Gets name.
    *
@@ -316,6 +264,7 @@ public class GameState {
    */
   public void saveScore() {
     this.score = ScoreManager.calculateScore(week);
+    this.activityCount = ScoreManager.scoreCount(week);
     ScoreManager.addScore(playerName, score);
   }
 
@@ -326,5 +275,14 @@ public class GameState {
    */
   public int getScore() {
     return this.score;
+  }
+
+  /**
+   * Gets score.
+   *
+   * @return the score
+   */
+  public Map<String, Integer> getActivityCount() {
+    return this.activityCount;
   }
 }
