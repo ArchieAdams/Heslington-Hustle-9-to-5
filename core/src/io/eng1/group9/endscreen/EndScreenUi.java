@@ -90,14 +90,14 @@ class EndScreenUi extends ScreenUi {
     int labelSpacing = 30;
     int startY = viewport.getScreenHeight() / 2 - 50;
 
-    if (activitiesCount.containsKey("Eat") && eatCount > 1) {
+    if (activitiesCount.containsKey("Eat") && eatCount > 21) {
       eatLabel = new Label("ACHIEVEMENT: Eat more than 10 times   +10 points", skin);
       eatLabel.setPosition((width - eatLabel.getWidth()) / 2, startY);
       stage.addActor(eatLabel);
       startY -= labelSpacing;
     }
 
-    if (activitiesCount.containsKey("Study") && studyCount > 1) {
+    if (activitiesCount.containsKey("Study") && studyCount > 7) {
       System.out.println("studied");
       studyLabel = new Label("ACHIEVEMENT: Study more than 10 times  +10 points", skin);
       studyLabel.setPosition((width - studyLabel.getWidth()) / 2, startY);
@@ -105,7 +105,7 @@ class EndScreenUi extends ScreenUi {
       startY -= labelSpacing;
     }
 
-    if (activitiesCount.containsKey("Recreation") && recreationCount > 1) {
+    if (activitiesCount.containsKey("Recreation") && recreationCount > 10) {
       recreationLabel = new Label("ACHIEVEMENT: Do more than 10 recreational "
           + "activities  + 10 points", skin);
       recreationLabel.setPosition((width - recreationLabel.getWidth()) / 2, startY);
