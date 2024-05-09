@@ -120,7 +120,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Test Movement
+      - name: Test Everything
         run: ./gradlew test -Dtest.useTestCache=true
 
       - name: Test Report
@@ -132,7 +132,7 @@ jobs:
   Movement-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]
-    if: ${{ needs.Tests.result == 'failure' }}
+    if: ${{ always() && needs.Tests.result == 'failure' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -154,7 +154,7 @@ jobs:
   Activity-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]
-    if: ${{ needs.Tests.result == 'failure' }}
+    if: ${{ always() && needs.Tests.result == 'failure' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -175,7 +175,7 @@ jobs:
   Game-State-Energy-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]
-    if: ${{ needs.Tests.result == 'failure' }}
+    if: ${{ always() && needs.Tests.result == 'failure' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -194,7 +194,7 @@ jobs:
   Game-State-Time-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]
-    if: ${{ needs.Tests.result == 'failure' }}
+    if: ${{ always() && needs.Tests.result == 'failure' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -213,7 +213,7 @@ jobs:
   Score-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]
-    if: ${{ needs.Tests.result == 'failure' }}
+    if: ${{ always() && needs.Tests.result == 'failure' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -232,7 +232,7 @@ jobs:
   Leaderboard-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]
-    if: ${{ needs.Tests.result == 'failure' }}
+    if: ${{ always() && needs.Tests.result == 'failure' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -253,7 +253,7 @@ jobs:
   Asset-Tests:
     runs-on: ubuntu-latest
     needs: [ Tests ]
-    if: ${{ needs.Tests.result == 'failure' }}
+    if: ${{ always() && needs.Tests.result == 'failure' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
