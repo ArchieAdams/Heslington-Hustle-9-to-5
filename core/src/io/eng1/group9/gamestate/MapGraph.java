@@ -129,7 +129,6 @@ public class MapGraph {
    * @return The activity node that maps to that symbol
    */
   private Node getNodeFromSymbol(char symbol) {
-    //TODO turn to hashmap loaded from jason file
     switch (symbol) {
       case 'C':
         return new Node(new Study(25, 25, "Study"));
@@ -142,7 +141,7 @@ public class MapGraph {
       case 'F':
         return new Node(new Recreation(5, 10, "Feed ducks"));
       case 'L':
-        return new Node(new Recreation(5, 10, "Relax at lake"));
+        return new Node(new Recreation(5, 0, "Relax at lake"));
       case 'T':
         return new Node(new Recreation(5, 20, "Head to town"));
       default:
