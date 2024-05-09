@@ -1,54 +1,58 @@
 @startuml
 
 StartScreen -> StartScreen: Wait for input 
-alt Start Game
-	loop Game Loop
-		StartScreen -> GameScreen: Enter Pressed 
-		GameScreen -> GameScreen: Check Movement key pressed
-		GameScreen -> GameState: Move()
-		GameState -> GameState: Can Move()
-		alt #LightGreen Valid
-			GameState -> GameState: Update Player Position
-			GameState --> GameScreen: Success
-			GameScreen -> Sound: Play Valid Sound
-			Sound --> GameScreen
-		else #Pink Invalid
-			GameState --> GameScreen: Fail
-			GameScreen -> Sound: Play Invalid Sound
-			Sound --> GameScreen
-		end
-		GameScreen -> GameState: Perform Activity
-		GameState -> GameState: Check Valid
+loop Game Loop
+	StartScreen -> GameScreen: Enter Pressed 
+	GameScreen -> GameScreen: Check Movement key pressed
+	GameScreen -> GameState: Move()
+	GameState -> GameState: Can Move()
+	alt #LightGreen Valid
+		GameState -> GameState: Update Player Position
+		GameState --> GameScreen: Success	
+		GameScreen -> Sound: Play Valid Sound
+		Sound --> GameScreen
+	else #Pink Invalid
+		GameState --> GameScreen: Fail
+		GameScreen -> Sound: Play Invalid Sound
+		Sound --> GameScreen
+	end
+	GameScreen -> GameState: Perform Activity
+	GameState -> GameState: Check Valid
+	
+	alt #LightGreen Valid
+		GameState -> GameState: Update GameState
+		GameState --> GameScreen: Success
+		GameScreen -> Sound: Play Success Sound
+		Sound --> GameState
+		GameState -> ActivityTracker: Record Activity
+		ActivityTracker --> GameScreen
 		
-		alt #LightGreen Valid
-			GameState -> GameState: Update GameState
-			GameState --> GameScreen: Success
-			GameScreen -> Sound: Play Success Sound
-			Sound --> GameState
-			GameState -> ActivityTracker: Record Activity
-			ActivityTracker --> GameScreen
-		
-		else #Pink Invalid
-			GameState --> GameScreen: Fail
-			GameScreen -> Sound: Play Fail Sound
-			Sound --> GameScreen
-		end
-		
-		alt #LightBlue Check For Achievements
-			GameScreen -> AchievementTracker: Check Achievements
-			AchievementTracker -> ActivityTracker: Check Amount of Activities
-			ActivityTracker --> AchievementTracker: Return Activity Count
-			AchievementTracker --> GameScreen: Return Achievements
-			GameScreen -> GameScreen: Display Achievements
-		end
-		alt #LightBlue Calculate Score
-			GameScreen -> ActivityTracker: Check Activities
-			ActivityTracker -> ActivityTracker: Calculate Score
-			ActivityTracker --> GameScreen: Return Score
-			GameScreen -> GameScreen: DisplayScore
-		end
-
-else View Leaderboard
-	StartScreen -> LeaderboardScreen: Space Pressed
+	else #Pink Invalid
+		GameState --> GameScreen: Fail
+		GameScreen -> Sound: Play Fail Sound
+		Sound --> GameScreen
+	end
+end		
+alt #LightBlue Check For Achievements
+	GameScreen -> AchievementTracker: Check Achievements
+	AchievementTracker -> ActivityTracker: Check Amount of Activities
+	ActivityTracker --> AchievementTracker: Return Activity Count
+	AchievementTracker --> GameScreen: Return Achievements
+	GameScreen -> GameScreen: Display Achievements
 end
+alt #LightBlue Calculate Score
+	GameScreen -> ActivityTracker: Check Activities
+	ActivityTracker -> ActivityTracker: Calculate Score
+	ActivityTracker --> GameScreen: Return Score
+	GameScreen -> GameScreen: DisplayScore
+end
+
+alt Leaderboard
+	StartScreen -> LeaderboardScreen: Space Pressed
+	LeaderboardScreen --> ActivityCount: Request activity count
+	ActivityCount --> LeaderboardScreen: Return activity count
+	LeaderboardScreen -> LeaderboardScreen: Display unlocked achievements
+
+end
+
 @enduml
