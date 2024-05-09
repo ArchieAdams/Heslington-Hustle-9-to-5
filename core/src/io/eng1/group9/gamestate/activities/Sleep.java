@@ -17,9 +17,4 @@ public class Sleep extends Activity {
     super(time, energy, name);
   }
 
-  @Override
-  public String toString() {
-    return String.format("Sleep, %1d time, %2d energy", getTimeConsumption(),
-        getEnergyConsumption());
-  }
 }

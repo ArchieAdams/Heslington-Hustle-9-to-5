@@ -16,9 +16,4 @@ public class Recreation extends Activity {
     super(time, energy, name);
   }
 
-  @Override
-  public String toString() {
-    return String.format(super.getName() + ", %1d time, %2d energy", getTimeConsumption(),
-        getEnergyConsumption());
-  }
 }
