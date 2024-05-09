@@ -22,6 +22,10 @@ public class ScoreManager {
    * The preferences object used to save and load high scores.
    */
   private static final Preferences preferences = Gdx.app.getPreferences(PREFERENCES_KEY);
+  private static final int studyCountBonusThreshold = 10;
+
+  private static final int recCountBonusThreshold = 10;
+  private static final int eatCountBonusThreshold = 21;
 
   /**
    * Calculate the score.
@@ -34,7 +38,6 @@ public class ScoreManager {
     int dayRelaxedOnce = 0;
     int dayEatenCount = 0;
     int maxScore = 100;
-
 
     for (Day day : week) {
       studyCount += day.getNumberOfActivity("Study");
@@ -75,15 +78,15 @@ public class ScoreManager {
     int recreationCount = activities.get("Recreation");
 
     // Add achievement bonuses
-    if (recreationCount > 10) {
+    if (recreationCount > recCountBonusThreshold) {
       score += 10;
     }
 
-    if (eatCount >= 21) {
+    if (eatCount >= eatCountBonusThreshold) {
       score += 10;
     }
 
-    if (studyCount > 7) {
+    if (studyCount > studyCountBonusThreshold) {
       score += 10;
     }
 
@@ -188,6 +191,19 @@ public class ScoreManager {
     preferences.flush(); // Make sure the changes are saved to the file
   }
 
+  public static int getStudyThreshold() {
+    return studyCountBonusThreshold;
+  }
+
+  public static int getEatThreshold() {
+    return eatCountBonusThreshold;
+  }
+
+  public static int getRecThreshold() {
+    System.out.println(recCountBonusThreshold);
+    return recCountBonusThreshold;
+  }
+
 
   /**
    * A class representing a player's score.
@@ -214,5 +230,6 @@ public class ScoreManager {
     public int getScore() {
       return score;
     }
+
   }
 }
