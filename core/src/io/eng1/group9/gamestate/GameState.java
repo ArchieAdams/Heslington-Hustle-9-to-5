@@ -263,7 +263,6 @@ public class GameState {
    */
   public void saveScore() {
     this.score = ScoreManager.calculateScore(week);
-    ScoreManager.addScore(playerName, score);
   }
 
   /**

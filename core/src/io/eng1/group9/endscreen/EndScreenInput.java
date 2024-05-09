@@ -3,6 +3,7 @@ package io.eng1.group9.endscreen;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import io.eng1.group9.HustleGame;
+import io.eng1.group9.scoring.ScoreManager;
 
 /**
  * Input handler for EndScreen.
@@ -39,7 +40,8 @@ class EndScreenInput extends InputAdapter {
         }
         return true;
       case Input.Keys.ENTER:
-        game.getGameState().saveScore();
+        int score = game.getGameState().getScore();
+        ScoreManager.addScore(nameBuffer.toString(), score);
         game.setScoreScreen();
         return true;
       default:
@@ -56,8 +58,8 @@ class EndScreenInput extends InputAdapter {
   @Override
   public boolean keyTyped(char character) {
     if ((Character.isLetterOrDigit(character) || character == ' ') && nameBuffer.length() < 30) {
-      nameBuffer.append(character); // Append the character to the buffer
-      updateName(); // Update the name on the screen
+      nameBuffer.append(character);
+      updateName();
       return true;
     }
     return false;

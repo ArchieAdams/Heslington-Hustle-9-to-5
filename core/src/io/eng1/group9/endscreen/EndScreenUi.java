@@ -26,6 +26,7 @@ class EndScreenUi extends ScreenUi {
   private Label eatLabel;
   private Label studyLabel;
   private Label recreationLabel;
+  private Label penaltyLabel;
   private final Skin skin;
 
   /**
@@ -51,6 +52,7 @@ class EndScreenUi extends ScreenUi {
     eatLabel = null;
     studyLabel = null;
     recreationLabel = null;
+    penaltyLabel = null;
 
     stage.addActor(thanksLabel);
     stage.addActor(scoreLabel);
@@ -103,7 +105,6 @@ class EndScreenUi extends ScreenUi {
 
     int studyThreshold = ScoreManager.getStudyThreshold();
     if (activitiesCount.containsKey("Study") && studyCount > studyThreshold) {
-      System.out.println("studied");
       studyLabel = new Label(
           "ACHIEVEMENT: Study more than " + studyThreshold + " times  +10 points", skin
       );
@@ -121,7 +122,17 @@ class EndScreenUi extends ScreenUi {
       stage.addActor(recreationLabel);
       startY -= labelSpacing;
     }
-    nameLabel.setPosition((width - nameLabel.getWidth()) / 2, (startY - labelSpacing));
+
+    System.out.println("Checking for penalty");
+    if (ScoreManager.isPenaltyApplied()) {
+      System.out.println("Penalty applied");
+      penaltyLabel = new Label(
+          "A score penalty was applied. Make sure to eat, study and relax every day!", skin);
+      penaltyLabel.setPosition((width - penaltyLabel.getWidth()) / 2, startY);
+      stage.addActor(penaltyLabel);
+      startY -= labelSpacing;
+    }
+    nameLabel.setPosition((width - nameLabel.getWidth()) / 2, (startY - (2 * labelSpacing)));
   }
 
   @Override

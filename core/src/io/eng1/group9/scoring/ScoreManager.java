@@ -26,6 +26,7 @@ public class ScoreManager {
 
   private static final int recCountBonusThreshold = 10;
   private static final int eatCountBonusThreshold = 21;
+  private static boolean penaltyApplied = false;
 
   /**
    * Calculate the score.
@@ -33,6 +34,7 @@ public class ScoreManager {
    * @return The score calculated.
    */
   public static int calculateScore(List<Day> week) {
+    System.out.println("check score");
     int studyCount = 0;
     int dayStudiedOnce = 0;
     int dayRelaxedOnce = 0;
@@ -59,6 +61,7 @@ public class ScoreManager {
     if (dayStudiedOnce != 7) {
       score = dayStudiedOnce * 10;
       score = Math.min(score, 50);
+      penaltyApplied = true;
     }
 
     if (dayStudiedOnce == 6 && studyCount >= 7) {
@@ -67,10 +70,12 @@ public class ScoreManager {
 
     if (dayEatenCount < 7) {
       score -= 10; // Penalty for not eating enough
+      penaltyApplied = true;
     }
 
     if (dayRelaxedOnce < 7) {
       score -= 10; // Penalty for not relaxing enough
+      penaltyApplied = true;
     }
 
     Map<String, Integer> activities = scoreCount(week);
@@ -94,6 +99,11 @@ public class ScoreManager {
     score = Math.max(score, 0);
     score = Math.min(score, 100);
     return score;
+  }
+
+  public static boolean isPenaltyApplied() {
+    System.out.println("penalty applied");
+    return penaltyApplied;
   }
 
   /**

@@ -121,6 +121,7 @@ public class GameScreenInput extends InputAdapter {
    * Change to the end screen.
    */
   private void nextScreen() {
+    game.getGameState().saveScore();
     game.setEndScreen();
   }
 
