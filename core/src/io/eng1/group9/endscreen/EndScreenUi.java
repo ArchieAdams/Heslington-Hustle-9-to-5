@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.eng1.group9.HustleGame;
 import io.eng1.group9.ScreenUi;
+import io.eng1.group9.scoring.ScoreManager;
 import java.util.Map;
 
 /**
@@ -90,23 +91,31 @@ class EndScreenUi extends ScreenUi {
     int labelSpacing = 30;
     int startY = viewport.getScreenHeight() / 2 - 50;
 
-    if (activitiesCount.containsKey("Eat") && eatCount > 21) {
-      eatLabel = new Label("ACHIEVEMENT: Eat more than 10 times   +10 points", skin);
+    int eatThreshold = ScoreManager.getEatThreshold();
+    if (activitiesCount.containsKey("Eat") && eatCount > eatThreshold) {
+      eatLabel = new Label(
+          "ACHIEVEMENT: Eat more than " + eatThreshold + " times   +10 points", skin
+      );
       eatLabel.setPosition((width - eatLabel.getWidth()) / 2, startY);
       stage.addActor(eatLabel);
       startY -= labelSpacing;
     }
 
-    if (activitiesCount.containsKey("Study") && studyCount > 7) {
+    int studyThreshold = ScoreManager.getStudyThreshold();
+    if (activitiesCount.containsKey("Study") && studyCount > studyThreshold) {
       System.out.println("studied");
-      studyLabel = new Label("ACHIEVEMENT: Study more than 10 times  +10 points", skin);
+      studyLabel = new Label(
+          "ACHIEVEMENT: Study more than " + studyThreshold + " times  +10 points", skin
+      );
       studyLabel.setPosition((width - studyLabel.getWidth()) / 2, startY);
       stage.addActor(studyLabel);
       startY -= labelSpacing;
     }
 
-    if (activitiesCount.containsKey("Recreation") && recreationCount > 10) {
-      recreationLabel = new Label("ACHIEVEMENT: Do more than 10 recreational "
+    int recThreshold = ScoreManager.getRecThreshold();
+    if (activitiesCount.containsKey("Recreation") && recreationCount > recThreshold) {
+      recreationLabel = new Label(
+          "ACHIEVEMENT: Do more than " + recThreshold + " recreational "
           + "activities  + 10 points", skin);
       recreationLabel.setPosition((width - recreationLabel.getWidth()) / 2, startY);
       stage.addActor(recreationLabel);
