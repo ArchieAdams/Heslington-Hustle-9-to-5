@@ -192,7 +192,7 @@ public class ScoreManager {
   /**
    * A class representing a player's score.
    */
-  static class PlayerScore {
+  public static class PlayerScore {
     String name;
     int score;
 
@@ -205,6 +205,14 @@ public class ScoreManager {
     public PlayerScore(String name, int score) {
       this.name = name;
       this.score = score;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public int getScore() {
+      return score;
     }
   }
 }
