@@ -226,7 +226,7 @@ jobs:
           cache: 'gradle'
 
       - name: Test Movement
-        run: ./gradlew test --tests "GameStateTimeTests" -Dtest.useTestCache=true
+        run: ./gradlew test --tests "ScoreTests" -Dtest.useTestCache=true
 
   Leaderboard-Tests:
     runs-on: ubuntu-latest
