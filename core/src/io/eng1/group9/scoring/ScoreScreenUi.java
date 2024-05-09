@@ -21,10 +21,8 @@ class ScoreScreenUi extends ScreenUi {
   private final Skin skin;
 
 
-
   /**
    * Instantiates a new End screen ui.
-   *
    */
   public ScoreScreenUi() {
     viewport = new ScreenViewport();
