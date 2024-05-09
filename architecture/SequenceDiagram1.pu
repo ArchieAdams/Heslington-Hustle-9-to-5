@@ -1,12 +1,25 @@
 @startuml
+
 GameScreen -> GameScreenUI: update()
-GameScreenUI ->> GameScreenUI: Show Backgrounds()
-GameScreenUI ->> GameScreenUI: Show map()
-GameScreenUI ->> GameState: Check Player Position
-GameState -->> GameScreenUI: Return Player Position
-GameScreenUI ->> GameScreenUI: Show Player Position
-GameScreenUI ->> GameState: Check Energy, Time, Day, Activity
-GameState -->> GameScreenUI: Return Energy, Time, Day, Activity
-GameScreenUI ->> GameScreenUI: Show Energy, Time, Day, Activity
+GameScreenUI -> GameScreenUI: ShowBackgrounds()
+GameScreenUI -> GameScreenUI: ShowMap()
+GameScreenUI -> GameState: Check Player Position
+GameState --> GameScreenUI: Return Player Position
+GameScreenUI -> GameScreenUI: Show Player Position
+alt get statistics
+	GameScreenUI -> GameState: Check energy
+	GameState --> GameScreenUI: Return energy
+	GameScreenUI -> GameScreenUI: Show energy
+	GameScreenUI -> GameState: Check time
+	GameState --> GameScreenUI: Return time
+	GameScreenUI -> GameScreenUI: Show time
+	GameScreenUI -> GameState: Check day
+	GameState --> GameScreenUI: Return day
+	GameScreenUI -> GameScreenUI: Show day
+	GameScreenUI -> GameState: Check activity
+	GameState --> GameScreenUI: Return activity
+	GameScreenUI -> GameScreenUI: Show activity
+end
 GameScreenUI -> GameScreen
+
 @enduml
