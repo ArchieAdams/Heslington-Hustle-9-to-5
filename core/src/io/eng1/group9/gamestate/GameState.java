@@ -32,7 +32,6 @@ public class GameState {
   private boolean gameOver = false;
   private String playerName = "";
   private int score = 0;
-  private Map<String, Integer> activityCount;
 
 
   /**
@@ -264,7 +263,6 @@ public class GameState {
    */
   public void saveScore() {
     this.score = ScoreManager.calculateScore(week);
-    this.activityCount = ScoreManager.scoreCount(week);
     ScoreManager.addScore(playerName, score);
   }
 
@@ -283,6 +281,8 @@ public class GameState {
    * @return the score
    */
   public Map<String, Integer> getActivityCount() {
-    return this.activityCount;
+    List<Day> tempWeek = new ArrayList<>(week);
+    tempWeek.add(currentDay);
+    return ScoreManager.scoreCount(tempWeek);
   }
 }

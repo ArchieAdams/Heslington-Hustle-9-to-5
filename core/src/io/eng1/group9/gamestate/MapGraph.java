@@ -131,16 +131,14 @@ public class MapGraph {
   private Node getNodeFromSymbol(char symbol) {
     //TODO turn to hashmap loaded from jason file
     switch (symbol) {
-      case 'X':
-        return new Node();
       case 'C':
-        return new Node(new Study(25, 25, "Study in the CS building"));
+        return new Node(new Study(25, 25, "Study"));
       case 'S':
-        return new Node(new Sleep(0, 0, "Sleep in Goodricke College"));
+        return new Node(new Sleep(0, 0, "Sleep"));
       case 'G':
-        return new Node(new Recreation(10, 25, "Exercise in the gym"));
+        return new Node(new Recreation(10, 25, "Exercise"));
       case 'E':
-        return new Node(new Eat(5, 0, "Eat at Greggs"));
+        return new Node(new Eat(5, 0, "Eat"));
       case 'F':
         return new Node(new Recreation(5, 10, "Feed ducks"));
       case 'L':
