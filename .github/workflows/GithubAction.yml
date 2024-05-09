@@ -187,7 +187,7 @@ jobs:
           architecture: x64
           cache: 'gradle'
 
-      - name: Test Movement
+      - name: Test Game State Energy
         run: ./gradlew test --tests "GameStateEnergyTests" -Dtest.useTestCache=true
 
   Game-State-Time-Tests:
@@ -206,7 +206,7 @@ jobs:
           architecture: x64
           cache: 'gradle'
 
-      - name: Test Movement
+      - name: Test Game State Time
         run: ./gradlew test --tests "GameStateTimeTests" -Dtest.useTestCache=true
 
   Score-Tests:
@@ -225,7 +225,7 @@ jobs:
           architecture: x64
           cache: 'gradle'
 
-      - name: Test Movement
+      - name: Test Score
         run: ./gradlew test --tests "ScoreTests" -Dtest.useTestCache=true
 
   Leaderboard-Tests:
@@ -246,7 +246,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Test Assets
+      - name: Test Leaderboard
         run: ./gradlew test --tests "LeaderboardTests" -Dtest.useTestCache=true
 
   Asset-Tests:
