@@ -189,13 +189,15 @@ public class ScoreTests {
   public void testBonusMarksStudy() {
     Day day = createDayWithOneStudySession();
     List<Day> week = new ArrayList<>();
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 2; i++) {
       week.add(day);
     }
     day = createDayWithTwoStudySessions();
-    week.add(day);
+    for (int i = 0; i < 5; i++) {
+      week.add(day);
+    }
 
-    Assert.assertEquals("The score should be 90", 90, ScoreManager.calculateScore(week));
+    Assert.assertEquals("The score should be 100", 100, ScoreManager.calculateScore(week));
   }
 
   /**
