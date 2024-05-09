@@ -34,7 +34,7 @@ public class StartScreenUi extends ScreenUi {
 
     Skin skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
 
-    Label titleLabel = new Label("HESLINGTON HUSTLE", skin, "title");
+    final Label titleLabel = new Label("HESLINGTON HUSTLE", skin, "title");
 
     Label instructionLabel = new Label(
         "INSTRUCTIONS: You need to study for an upcoming exam.\n"
@@ -74,7 +74,7 @@ public class StartScreenUi extends ScreenUi {
       height -= (int) (label.getHeight() + 100);
     }
     licenceLabel.setY(40);
-}
+  }
 
   @Override
   public void update() {

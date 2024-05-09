@@ -37,10 +37,11 @@ class ScoreScreenUi extends ScreenUi {
     int width = viewport.getScreenWidth();
     int height = viewport.getScreenHeight();
     int y = height / 2 + 320; // Starting y position for the first label
-    Label titleLabel = new Label("High Scores:", skin);
+    final Label titleLabel = new Label("High Scores:", skin);
     titleLabel.setPosition((float) width / 2, y, Align.center);
     y -= 80;
     stage.addActor(titleLabel);
+
 
     List<ScoreManager.PlayerScore> scores = ScoreManager.getScores();
     for (ScoreManager.PlayerScore score : scores) {
