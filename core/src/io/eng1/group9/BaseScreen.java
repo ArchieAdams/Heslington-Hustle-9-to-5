@@ -62,4 +62,9 @@ public abstract class BaseScreen implements Screen {
   public void updateUi() {
     ui.update();
   }
+
+  public ScreenUi getUi() {
+    return ui;
+  }
+
 }

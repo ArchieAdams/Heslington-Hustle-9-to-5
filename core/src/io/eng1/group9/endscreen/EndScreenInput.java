@@ -68,12 +68,17 @@ class EndScreenInput extends InputAdapter {
     return false;
   }
 
-  /**
+  /**h
    * Sets name in gamestate.
    *
    */
   public void updateName() {
     game.getGameState().setName(nameBuffer.toString());
+    System.out.println(nameBuffer);
+    if (game.getEndScreen() != null) {
+      System.out.println("running");
+      EndScreenUi endScreenUi = game.getEndScreen().getEndScreenUi();
+      endScreenUi.updateNameLabel();
+    }
   }
-
 }

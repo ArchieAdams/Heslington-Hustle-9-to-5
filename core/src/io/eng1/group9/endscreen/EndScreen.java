@@ -17,4 +17,8 @@ public class EndScreen extends BaseScreen {
     super(new EndScreenUi(game), new EndScreenInput(game));
   }
 
+  public EndScreenUi getEndScreenUi() {
+    return (EndScreenUi) getUi();
+  }
+
 }

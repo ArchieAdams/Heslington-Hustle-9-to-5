@@ -16,6 +16,8 @@ public class HustleGame extends Game {
   private Screen startScreen;
   private Screen gameScreen;
   private GameState gameState;
+  private Screen currentScreen;
+
 
 
   @Override
@@ -25,6 +27,12 @@ public class HustleGame extends Game {
     gameScreen = new GameScreen(this);
 
     setStartScreen();
+  }
+
+  @Override
+  public void setScreen(Screen screen) {
+    super.setScreen(screen);
+    this.currentScreen = screen;
   }
 
   /**
@@ -43,6 +51,7 @@ public class HustleGame extends Game {
     System.out.println("Switched to game screen");
   }
 
+
   /**
    * Switch to the end screen.
    */
@@ -50,6 +59,18 @@ public class HustleGame extends Game {
     Screen endScreen = new EndScreen(this);
     setScreen(endScreen);
     System.out.println("Switched to end screen");
+  }
+
+  /**
+   * Gets the EndScreen instance if it exists, otherwise returns null.
+   *
+   * @return the EndScreen instance if it exists, otherwise returns null.
+   */
+  public EndScreen getEndScreen() {
+    if (currentScreen != null) {
+      return (EndScreen) currentScreen;
+    }
+    return null;
   }
 
   public void setScoreScreen() {

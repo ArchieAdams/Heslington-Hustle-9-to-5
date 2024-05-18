@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -12,138 +13,131 @@ import io.eng1.group9.ScreenUi;
 import io.eng1.group9.scoring.ScoreManager;
 import java.util.Map;
 
-/**
- * UI handler for EndScreen.
- */
 class EndScreenUi extends ScreenUi {
-
   private final HustleGame game;
-  private final ScreenViewport viewport;
   private final Stage stage;
-  private final Label thanksLabel;
-  private final Label scoreLabel;
-  private final Label nameLabel;
-  private Label eatLabel;
-  private Label studyLabel;
-  private Label recreationLabel;
-  private Label penaltyLabel;
   private final Skin skin;
+  private Label nameLabel;
+  private Table table;
 
-  /**
-   * Instantiates a new End screen ui.
-   *
-   * @param game HustleGame object that controls the application
-   */
   public EndScreenUi(HustleGame game) {
     this.game = game;
-    viewport = new ScreenViewport();
-    viewport.apply();
-    stage = new Stage(viewport);
+    stage = new Stage(new ScreenViewport());
     skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
-
-    thanksLabel = new Label("Thank you for playing Heslington Hustle", skin);
-    scoreLabel = new Label("", skin);
-    nameLabel = new Label("Enter name: " + game.getGameState().getName(), skin);
-
-    thanksLabel.setAlignment(Align.center);
-    scoreLabel.setAlignment(Align.center);
-    nameLabel.setAlignment(Align.center);
-
-    eatLabel = null;
-    studyLabel = null;
-    recreationLabel = null;
-    penaltyLabel = null;
-
-    stage.addActor(thanksLabel);
-    stage.addActor(scoreLabel);
-    stage.addActor(nameLabel);
-
-    initializeScreenLayout();
+    setupUi();
   }
 
-  private void initializeScreenLayout() {
-    Map<String, Integer> activitiesCount = game.getGameState().getActivityCount();
+  private void setupUi() {
+    table = new Table();
+    table.setFillParent(true);
+    stage.addActor(table);
+    table.setDebug(true);
 
+    // Thank you label
+    Label thanksLabel = new Label("Thank you for playing Heslington Hustle", skin);
+    thanksLabel.setAlignment(Align.center);
+    table.add(thanksLabel).center().padBottom(60);
+    table.row();
+
+    // Score labels, detailed per day
+    updateScoreLabels(table);
+
+    // Achievement labels
+    addAchievementLabels(table);
+  }
+
+  public void updateNameLabel() {
+    nameLabel.setText("Enter name: " + game.getGameState().getName());
+    table.invalidate(); // Forces the table to re-layout its children
+  }
+
+  private void updateScoreLabels(Table table) {
+
+
+    Map<String, Integer> activitiesCount = game.getGameState().getActivityCount();
     int studyCount = activitiesCount.get("Study");
     int eatCount = activitiesCount.get("Eat");
     int recreationCount = activitiesCount.get("Recreation");
 
-    scoreLabel.setText(
-        String.format("On average per day you:\nStudied: %1d\nAte: %2d\nRelaxed: %3d\nScore: %4d",
-            Math.round(studyCount / 7f), Math.round(eatCount / 7f),
-            Math.round(recreationCount / 7f), game.getGameState().getScore()));
+    table.row();
+    Label dailyAverageLabel = new Label("On average per day you:", skin);
+    dailyAverageLabel.setAlignment(Align.center);
+    table.add(dailyAverageLabel).center();
 
-    positionTopLabels();
-    positionBottomLabels(activitiesCount, studyCount, eatCount, recreationCount);
+    table.row();
+    Label studiedLabel = new Label(String.format("Studied %d times", Math.round(studyCount / 7f)), skin);
+    studiedLabel.setAlignment(Align.center);
+    table.add(studiedLabel).center();
+
+    table.row();
+    Label ateLabel = new Label(String.format("Ate: %d times", Math.round(eatCount / 7f)), skin);
+    ateLabel.setAlignment(Align.center);
+    table.add(ateLabel).center();
+
+    table.row();
+    Label relaxedLabel = new Label(String.format("Relaxed: %d times", Math.round(recreationCount / 7f)), skin);
+    relaxedLabel.setAlignment(Align.center);
+    table.add(relaxedLabel).center().padBottom(60);
+
+    table.row();
+    Label scoreLabel = new Label(String.format("Score: %d", game.getGameState().getScore()), skin);
+    scoreLabel.setAlignment(Align.center);
+    table.add(scoreLabel).center().padBottom(60);
   }
 
-  private void positionTopLabels() {
-    int width = viewport.getScreenWidth();
-    float height = viewport.getScreenHeight();
-
-    thanksLabel.setPosition((width - thanksLabel.getWidth()) / 2, height / 2 + 250);
-    scoreLabel.setPosition((width - scoreLabel.getWidth()) / 2, height / 2 + 110);
-  }
-
-  private void positionBottomLabels(Map<String, Integer> activitiesCount,
-                                    int studyCount,
-                                    int eatCount,
-                                    int recreationCount) {
-    int width = viewport.getScreenWidth();
-    int labelSpacing = 30;
-    int startY = viewport.getScreenHeight() / 2 - 50;
-
+  private void addAchievementLabels(Table table) {
+    Map<String, Integer> activitiesCount = game.getGameState().getActivityCount();
+    int defaultEatCount = activitiesCount.getOrDefault("Eat", 0);
     int eatThreshold = ScoreManager.getEatThreshold();
-    if (activitiesCount.containsKey("Eat") && eatCount > eatThreshold) {
-      eatLabel = new Label(
-          "ACHIEVEMENT: Eat more than " + eatThreshold + " times   +10 points", skin
-      );
-      eatLabel.setPosition((width - eatLabel.getWidth()) / 2, startY);
-      stage.addActor(eatLabel);
-      startY -= labelSpacing;
-    }
+    addLabelIfThresholdExceeded(table, "Eat", defaultEatCount, eatThreshold);
 
+    int defaultStudyCount = activitiesCount.getOrDefault("Study", 0);
     int studyThreshold = ScoreManager.getStudyThreshold();
-    if (activitiesCount.containsKey("Study") && studyCount > studyThreshold) {
-      studyLabel = new Label(
-          "ACHIEVEMENT: Study more than " + studyThreshold + " times  +10 points", skin
-      );
-      studyLabel.setPosition((width - studyLabel.getWidth()) / 2, startY);
-      stage.addActor(studyLabel);
-      startY -= labelSpacing;
-    }
+    addLabelIfThresholdExceeded(table, "Study", defaultStudyCount, studyThreshold);
 
-    int recThreshold = ScoreManager.getRecThreshold();
-    if (activitiesCount.containsKey("Recreation") && recreationCount > recThreshold) {
-      recreationLabel = new Label(
-          "ACHIEVEMENT: Do more than " + recThreshold + " recreational "
-          + "activities  + 10 points", skin);
-      recreationLabel.setPosition((width - recreationLabel.getWidth()) / 2, startY);
-      stage.addActor(recreationLabel);
-      startY -= labelSpacing;
-    }
+    int defaultRecreationCount = activitiesCount.getOrDefault("Recreation", 0);
+    int recreationThreshold = ScoreManager.getRecThreshold();
+    addLabelIfThresholdExceeded(table, "Recreation", defaultRecreationCount, recreationThreshold);
 
-    System.out.println("Checking for penalty");
+
     if (ScoreManager.isPenaltyApplied()) {
-      System.out.println("Penalty applied");
-      penaltyLabel = new Label(
-          "A score penalty was applied. Make sure to eat, study and relax every day!", skin);
-      penaltyLabel.setPosition((width - penaltyLabel.getWidth()) / 2, startY);
-      stage.addActor(penaltyLabel);
-      startY -= labelSpacing;
+      table.row();
+      Label penaltyLabel = new Label(
+          "A score penalty was applied. Make sure to eat, study and relax every day!", skin
+          );
+      penaltyLabel.setAlignment(Align.center);
+      table.add(penaltyLabel).center().padTop(60);
     }
-    nameLabel.setPosition((width - nameLabel.getWidth()) / 2, (startY - (2 * labelSpacing)));
+
+    // Name label
+    table.row();
+    nameLabel = new Label("Enter name: " + game.getGameState().getName(), skin);
+    nameLabel.setAlignment(Align.center);
+    table.add(nameLabel).center().padTop(60);
+
+  }
+
+  private void addLabelIfThresholdExceeded(Table table, String activity, int count, int threshold) {
+    table.row();
+    if (count > threshold) {
+      Label label = new Label(String.format(
+          "ACHIEVEMENT: %s more than %d times +10 points", activity, threshold), skin
+          );
+      label.setAlignment(Align.center);
+      table.add(label).center();
+      table.row();
+    }
   }
 
   @Override
   public void update() {
     ScreenUtils.clear(0, 0, 0, 255);
-    nameLabel.setText("Enter name: " + game.getGameState().getName());
+    stage.act(Gdx.graphics.getDeltaTime());
     stage.draw();
   }
 
   @Override
   public void resize(int width, int height) {
-    viewport.update(width, height, true);
+    stage.getViewport().update(width, height, true);
   }
 }
