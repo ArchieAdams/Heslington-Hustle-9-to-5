@@ -13,13 +13,21 @@ import io.eng1.group9.ScreenUi;
 import io.eng1.group9.scoring.ScoreManager;
 import java.util.Map;
 
-class EndScreenUi extends ScreenUi {
+/**
+ * This class represents the UI for the Start Screen of the game.
+ */
+public class EndScreenUi extends ScreenUi {
   private final HustleGame game;
   private final Stage stage;
   private final Skin skin;
   private Label nameLabel;
   private Table table;
 
+  /**
+   * Constructs a new instance of the EndScreenUi class.
+   *
+   * @param game The game instance that this UI is associated with.
+   */
   public EndScreenUi(HustleGame game) {
     this.game = game;
     stage = new Stage(new ScreenViewport());
@@ -31,7 +39,6 @@ class EndScreenUi extends ScreenUi {
     table = new Table();
     table.setFillParent(true);
     stage.addActor(table);
-    table.setDebug(true);
 
     // Thank you label
     Label thanksLabel = new Label("Thank you for playing Heslington Hustle", skin);
@@ -52,12 +59,7 @@ class EndScreenUi extends ScreenUi {
   }
 
   private void updateScoreLabels(Table table) {
-
-
     Map<String, Integer> activitiesCount = game.getGameState().getActivityCount();
-    int studyCount = activitiesCount.get("Study");
-    int eatCount = activitiesCount.get("Eat");
-    int recreationCount = activitiesCount.get("Recreation");
 
     table.row();
     Label dailyAverageLabel = new Label("On average per day you:", skin);
@@ -65,22 +67,29 @@ class EndScreenUi extends ScreenUi {
     table.add(dailyAverageLabel).center();
 
     table.row();
-    Label studiedLabel = new Label(String.format("Studied %d times", Math.round(studyCount / 7f)), skin);
+    int studyCount = activitiesCount.get("Study");
+    int studyAverage = Math.round(studyCount / 7f);
+    Label studiedLabel = new Label(String.format("Studied %d times", studyAverage), skin);
     studiedLabel.setAlignment(Align.center);
     table.add(studiedLabel).center();
 
     table.row();
-    Label ateLabel = new Label(String.format("Ate: %d times", Math.round(eatCount / 7f)), skin);
+    int eatCount = activitiesCount.get("Eat");
+    int eatAverage = Math.round(eatCount / 7f);
+    Label ateLabel = new Label(String.format("Ate: %d times", eatAverage), skin);
     ateLabel.setAlignment(Align.center);
     table.add(ateLabel).center();
 
     table.row();
-    Label relaxedLabel = new Label(String.format("Relaxed: %d times", Math.round(recreationCount / 7f)), skin);
+    int recreationCount = activitiesCount.get("Recreation");
+    int recreationAverage = Math.round(recreationCount / 7f);
+    Label relaxedLabel = new Label(String.format("Relaxed: %d times", recreationAverage), skin);
     relaxedLabel.setAlignment(Align.center);
     table.add(relaxedLabel).center().padBottom(60);
 
     table.row();
-    Label scoreLabel = new Label(String.format("Score: %d", game.getGameState().getScore()), skin);
+    int finalScore = game.getGameState().getScore();
+    Label scoreLabel = new Label(String.format("Score: %d", finalScore), skin);
     scoreLabel.setAlignment(Align.center);
     table.add(scoreLabel).center().padBottom(60);
   }
@@ -97,7 +106,7 @@ class EndScreenUi extends ScreenUi {
 
     int defaultRecreationCount = activitiesCount.getOrDefault("Recreation", 0);
     int recreationThreshold = ScoreManager.getRecThreshold();
-    addLabelIfThresholdExceeded(table, "Recreation", defaultRecreationCount, recreationThreshold);
+    addLabelIfThresholdExceeded(table, "Relax", defaultRecreationCount, recreationThreshold);
 
 
     if (ScoreManager.isPenaltyApplied()) {

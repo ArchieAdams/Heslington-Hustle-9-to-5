@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -55,7 +56,7 @@ public class StartScreenUi extends ScreenUi {
     FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
             Gdx.files.internal("Yantramanav/Yantramanav-Regular.ttf")
             );
-    FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    FreeTypeFontParameter parameter = new FreeTypeFontParameter();
     parameter.size = 15;
     BitmapFont licenceFont = generator.generateFont(parameter);
     generator.dispose();
