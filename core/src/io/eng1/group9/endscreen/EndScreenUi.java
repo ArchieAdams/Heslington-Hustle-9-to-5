@@ -59,12 +59,13 @@ public class EndScreenUi extends ScreenUi {
   }
 
   private void updateScoreLabels(Table table) {
-    Map<String, Integer> activitiesCount = game.getGameState().getActivityCount();
 
     table.row();
     Label dailyAverageLabel = new Label("On average per day you:", skin);
     dailyAverageLabel.setAlignment(Align.center);
     table.add(dailyAverageLabel).center();
+
+    Map<String, Integer> activitiesCount = game.getGameState().getActivityCount();
 
     table.row();
     int studyCount = activitiesCount.get("Study");
