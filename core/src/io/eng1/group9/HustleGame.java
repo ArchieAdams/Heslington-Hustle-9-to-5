@@ -48,7 +48,6 @@ public class HustleGame extends Game {
    */
   public void setGameScreen() {
     setScreen(gameScreen);
-    System.out.println("Switched to game screen");
   }
 
 
@@ -58,7 +57,6 @@ public class HustleGame extends Game {
   public void setEndScreen() {
     Screen endScreen = new EndScreen(this);
     setScreen(endScreen);
-    System.out.println("Switched to end screen");
   }
 
   /**

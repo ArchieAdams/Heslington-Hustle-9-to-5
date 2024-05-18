@@ -29,10 +29,12 @@ public abstract class BaseScreen implements Screen {
   }
 
   @Override
-  public void render(float v) {
-    //updateInput();
+  public void render(float delta) {
+    update(delta);
     updateUi();
   }
+
+  public abstract void update(float delta);
 
   @Override
   public void resize(int width, int height) {
@@ -65,6 +67,10 @@ public abstract class BaseScreen implements Screen {
 
   public ScreenUi getUi() {
     return ui;
+  }
+
+  public InputAdapter getInput() {
+    return input;
   }
 
 }

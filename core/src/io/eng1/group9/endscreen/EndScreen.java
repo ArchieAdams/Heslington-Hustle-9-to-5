@@ -21,4 +21,8 @@ public class EndScreen extends BaseScreen {
     return (EndScreenUi) getUi();
   }
 
+  @Override
+  public void update(float delta) {
+
+  }
 }

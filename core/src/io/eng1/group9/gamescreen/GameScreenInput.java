@@ -13,6 +13,13 @@ import java.util.ArrayList;
 public class GameScreenInput extends InputAdapter {
 
   private final HustleGame game;
+  private boolean upPressed = false;
+  private boolean downPressed = false;
+  private boolean leftPressed = false;
+  private boolean rightPressed = false;
+  private final float moveCooldown = 0.2f;
+  private float moveTimer = moveCooldown;
+
 
   /**
    * Instantiates a new Game screen input.
@@ -29,92 +36,133 @@ public class GameScreenInput extends InputAdapter {
    * @param keycode the key pressed
    * @return true if handled, false otherwise
    */
+
   @Override
   public boolean keyDown(int keycode) {
-    boolean valid = false;
-
     switch (keycode) {
       case Input.Keys.W:
       case Input.Keys.UP:
-        valid = moveUp();
+        upPressed = true;
         break;
       case Input.Keys.A:
       case Input.Keys.LEFT:
-        valid = moveLeft();
+        leftPressed = true;
         break;
       case Input.Keys.S:
       case Input.Keys.DOWN:
-        valid = moveDown();
+        downPressed = true;
         break;
       case Input.Keys.D:
       case Input.Keys.RIGHT:
-        valid = moveRight();
+        rightPressed = true;
         break;
       case Input.Keys.K:
       case Input.Keys.ENTER:
-        valid = performGameActivity();
+
+        performGameActivity();
         break;
       default:
-        break;
+        return false;
     }
-    return valid;
+    return true;
   }
+
+  @Override
+  public boolean keyUp(int keycode) {
+    switch (keycode) {
+      case Input.Keys.W:
+      case Input.Keys.UP:
+        upPressed = false;
+        break;
+      case Input.Keys.A:
+      case Input.Keys.LEFT:
+        leftPressed = false;
+        break;
+      case Input.Keys.S:
+      case Input.Keys.DOWN:
+        downPressed = false;
+        break;
+      case Input.Keys.D:
+      case Input.Keys.RIGHT:
+        rightPressed = false;
+        break;
+      default:
+        return false;
+    }
+    return true;
+  }
+
+  /**
+   * Updates the input state and attempts to move the player based on the current input.
+   *
+   * @param delta The time in seconds since the last update.
+   */
+  public void update(float delta) {
+    moveTimer += delta;
+
+    if (moveTimer >= moveCooldown) {
+      if (upPressed) {
+        moveUp();
+        moveTimer = 0;
+      }
+      if (downPressed) {
+        moveDown();
+        moveTimer = 0;
+      }
+      if (leftPressed) {
+        moveLeft();
+        moveTimer = 0;
+      }
+      if (rightPressed) {
+        moveRight();
+        moveTimer = 0;
+      }
+    }
+  }
+
 
   /**
    * Attempt to move the player up.
    *
-   * @return true if successful, false otherwise
    */
-  public boolean moveUp() {
-    System.out.println("Move up");
-    return game.getGameState().move(Direction.UP);
+  public void moveUp() {
+    game.getGameState().move(Direction.UP);
   }
 
   /**
    * Attempt to move the player left.
    *
-   * @return true if successful, false otherwise
    */
-  public boolean moveLeft() {
-    System.out.println("Move left");
-    return game.getGameState().move(Direction.LEFT);
+  public void moveLeft() {
+    game.getGameState().move(Direction.LEFT);
   }
 
   /**
    * Attempt to move the player down.
    *
-   * @return true if successful, false otherwise
    */
-  public boolean moveDown() {
-    System.out.println("Move down");
-    return game.getGameState().move(Direction.DOWN);
+  public void moveDown() {
+    game.getGameState().move(Direction.DOWN);
   }
 
   /**
    * Attempt to move the player right.
-   *
-   * @return true if successful, false otherwise
    */
-  public boolean moveRight() {
-    System.out.println("Move right");
-    return game.getGameState().move(Direction.RIGHT);
+  public void moveRight() {
+    game.getGameState().move(Direction.RIGHT);
   }
 
   /**
    * Attempt to move perform an activity.
-   *
-   * @return true if successful, false otherwise
    */
-  public boolean performGameActivity() {
+  public void performGameActivity() {
     ArrayList<Activity> tempList = game.getGameState().getActivities();
     if (!tempList.isEmpty()) {
-      boolean success = game.getGameState().performActivity(tempList.get(0));
+      //boolean success = game.getGameState().performActivity(tempList.get(0));
       if (game.getGameState().isGameOver()) {
         nextScreen();
       }
-      return success;
     }
-    return false;
   }
 
   /**

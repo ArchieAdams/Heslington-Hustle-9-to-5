@@ -16,4 +16,8 @@ public class StartScreen extends BaseScreen {
   public StartScreen(HustleGame game) {
     super(new StartScreenUi(), new StartScreenInput(game));
   }
+
+  @Override
+  public void update(float delta) {
+  }
 }

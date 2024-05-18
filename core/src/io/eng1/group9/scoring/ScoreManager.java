@@ -34,7 +34,6 @@ public class ScoreManager {
    * @return The score calculated.
    */
   public static int calculateScore(List<Day> week) {
-    System.out.println("check score");
     int studyCount = 0;
     int dayStudiedOnce = 0;
     int dayRelaxedOnce = 0;
@@ -209,7 +208,6 @@ public class ScoreManager {
   }
 
   public static int getRecThreshold() {
-    System.out.println(recCountBonusThreshold);
     return recCountBonusThreshold;
   }
 

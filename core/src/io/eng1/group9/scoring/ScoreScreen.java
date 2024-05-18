@@ -19,4 +19,8 @@ public class ScoreScreen extends BaseScreen {
     super(new ScoreScreenUi(), new ScoreScreenInput(game));
   }
 
+  @Override
+  public void update(float delta) {
+  }
+
 }
