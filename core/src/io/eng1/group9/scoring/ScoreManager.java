@@ -49,7 +49,7 @@ public class ScoreManager {
       if (day.getNumberOfActivity("Eat") >= 2) {
         dayEatenCount++;
       }
-      if (day.getNumberOfActivity("Recreation") > 0) {
+      if (day.getNumberOfActivity("Recreation") > 2) {
         dayRelaxedOnce++;
       }
     }
