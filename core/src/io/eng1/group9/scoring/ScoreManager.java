@@ -102,7 +102,6 @@ public class ScoreManager {
   }
 
   public static boolean isPenaltyApplied() {
-    System.out.println("penalty applied");
     return penaltyApplied;
   }
 

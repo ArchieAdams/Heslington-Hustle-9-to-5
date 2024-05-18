@@ -40,14 +40,17 @@ class EndScreenInput extends InputAdapter {
         }
         return true;
       case Input.Keys.ENTER:
-        int score = game.getGameState().getScore();
-        ScoreManager.addScore(nameBuffer.toString(), score);
-        game.setScoreScreen();
+        if (nameBuffer.length() > 0) {
+          int score = game.getGameState().getScore();
+          ScoreManager.addScore(nameBuffer.toString(), score);
+          game.setScoreScreen();
+        }
         return true;
       default:
         return false;
     }
   }
+
 
   /**
    * Handle user keyboard input when characters are typed.
