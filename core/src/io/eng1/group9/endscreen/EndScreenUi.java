@@ -22,6 +22,9 @@ public class EndScreenUi extends ScreenUi {
   private final Skin skin;
   private Label nameLabel;
   private Table table;
+  private Label cursorLabel;
+  private float blinkTime = 0.5f;
+  private float timer = 0;
 
   /**
    * Constructs a new instance of the EndScreenUi class.
@@ -29,6 +32,7 @@ public class EndScreenUi extends ScreenUi {
    * @param game The game instance that this UI is associated with.
    */
   public EndScreenUi(HustleGame game) {
+
     this.game = game;
     stage = new Stage(new ScreenViewport());
     skin = new Skin(Gdx.files.internal("Pixthulhu_UI_Skin/pixthulhuui/pixthulhu-ui.json"));
@@ -123,8 +127,17 @@ public class EndScreenUi extends ScreenUi {
     table.row();
     nameLabel = new Label("Enter name: " + game.getGameState().getName(), skin);
     nameLabel.setAlignment(Align.center);
-    table.add(nameLabel).center().padTop(60);
 
+    cursorLabel = new Label("|", skin);
+    cursorLabel.setAlignment(Align.left);
+
+    table.row();
+    Table nameTable = new Table();
+    nameTable.add(nameLabel).left();
+    nameTable.add(cursorLabel).width(10).left();
+
+    cursorLabel.setColor(1, 1, 1, 0);
+    table.add(nameTable).center().padTop(60);
   }
 
   private void addLabelIfThresholdExceeded(Table table, String activity, int count, int threshold) {
@@ -141,9 +154,22 @@ public class EndScreenUi extends ScreenUi {
 
   @Override
   public void update() {
+
     ScreenUtils.clear(0, 0, 0, 255);
     stage.act(Gdx.graphics.getDeltaTime());
     stage.draw();
+
+    float delta = Gdx.graphics.getDeltaTime();
+
+    timer += delta;
+    if (timer >= blinkTime) {
+      cursorLabel.setColor(
+          cursorLabel.getColor().r,
+          cursorLabel.getColor().g,
+          cursorLabel.getColor().b,
+          1 - cursorLabel.getColor().a);
+      timer = 0;
+    }
   }
 
   @Override
