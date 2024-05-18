@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -34,27 +35,26 @@ class ScoreScreenUi extends ScreenUi {
   }
 
   private void initScoreLabels() {
-    int width = viewport.getScreenWidth();
-    int height = viewport.getScreenHeight();
-    int y = height / 2 + 320; // Starting y position for the first label
+    Table table = new Table();
+    table.setFillParent(true);
+    stage.addActor(table);
+
+    // Title Label
     final Label titleLabel = new Label("High Scores:", skin);
-    titleLabel.setPosition((float) width / 2, y, Align.center);
-    y -= 80;
-    stage.addActor(titleLabel);
+    table.add(titleLabel).padTop(20).padBottom(40).center().row();
 
-
+    // Score Labels
     List<ScoreManager.PlayerScore> scores = ScoreManager.getScores();
     for (ScoreManager.PlayerScore score : scores) {
       Label scoreLabel = new Label(score.name + ": " + score.score, skin);
-      scoreLabel.setPosition((float) width / 2, y, Align.center);
-      y -= 50; // Move next label down
-      stage.addActor(scoreLabel);
+      table.add(scoreLabel).center().padBottom(10).row();
     }
-    y -= 30;
+
+    // Instruction Label
     Label instructionLabel = new Label("Press q to quit or enter to play again", skin);
-    stage.addActor(instructionLabel);
-    instructionLabel.setPosition((float) width / 2, y, Align.center);
+    table.add(instructionLabel).padTop(40).center();
   }
+
 
   @Override
   public void update() {
