@@ -23,7 +23,6 @@ public class EndScreenUi extends ScreenUi {
   private Label nameLabel;
   private Table table;
   private Label cursorLabel;
-  private float blinkTime = 0.5f;
   private float timer = 0;
 
   /**
@@ -162,6 +161,7 @@ public class EndScreenUi extends ScreenUi {
     float delta = Gdx.graphics.getDeltaTime();
 
     timer += delta;
+    float blinkTime = 0.5f;
     if (timer >= blinkTime) {
       cursorLabel.setColor(
           cursorLabel.getColor().r,
