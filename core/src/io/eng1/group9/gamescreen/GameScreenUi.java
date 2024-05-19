@@ -68,7 +68,7 @@ public class GameScreenUi extends ScreenUi {
     screenViewport = new ScreenViewport();
     screenViewport.setScreenX(10);
     screenViewport.setScreenY(10);
-    playerTexture = new Texture(Gdx.files.internal("player.png"));
+    playerTexture = new Texture(Gdx.files.internal("player2.png"));
     mapTexture = new Texture(Gdx.files.internal("fullmap.png"));
 
     // Set up font
@@ -142,8 +142,8 @@ public class GameScreenUi extends ScreenUi {
    */
   private void showPlayer() {
     batch.begin();
-    float rowOffset = 1.25f;
-    float columnOffset = 1.25f;
+    float rowOffset = 0.90f;
+    float columnOffset = 0.85f;
     Vector2 playerPosition = game.getGameState().getPlayerPosition();
     Vector3 targetPosition =
         new Vector3(rowOffset + playerPosition.x,
