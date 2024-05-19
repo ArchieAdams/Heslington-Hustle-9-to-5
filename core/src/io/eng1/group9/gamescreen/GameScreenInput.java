@@ -56,9 +56,7 @@ public class GameScreenInput extends InputAdapter {
       case Input.Keys.RIGHT:
         rightPressed = true;
         break;
-      case Input.Keys.K:
       case Input.Keys.ENTER:
-
         performGameActivity();
         break;
       default:
@@ -158,7 +156,7 @@ public class GameScreenInput extends InputAdapter {
   public void performGameActivity() {
     ArrayList<Activity> tempList = game.getGameState().getActivities();
     if (!tempList.isEmpty()) {
-      //boolean success = game.getGameState().performActivity(tempList.get(0));
+      game.getGameState().performActivity(tempList.get(0));
       if (game.getGameState().isGameOver()) {
         nextScreen();
       }
