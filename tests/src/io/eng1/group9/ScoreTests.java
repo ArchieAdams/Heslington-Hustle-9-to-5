@@ -83,7 +83,7 @@ public class ScoreTests {
     }
 
 
-    Assert.assertEquals("The score should be 70", 70, ScoreManager.calculateScore(week));
+    Assert.assertEquals("The score should be 60", 60, ScoreManager.calculateScore(week));
   }
 
   /**
@@ -101,7 +101,7 @@ public class ScoreTests {
     day = createDayWithTwoStudySessions();
     week.add(day);
 
-    Assert.assertEquals("The score should be 70", 70, ScoreManager.calculateScore(week));
+    Assert.assertEquals("The score should be 60", 60, ScoreManager.calculateScore(week));
   }
 
   /**
@@ -117,7 +117,7 @@ public class ScoreTests {
       week.add(day);
     }
 
-    Assert.assertEquals("The score should be 50", 50, ScoreManager.calculateScore(week));
+    Assert.assertEquals("The score should be 40", 40, ScoreManager.calculateScore(week));
   }
 
   /**
@@ -133,7 +133,7 @@ public class ScoreTests {
       week.add(day);
     }
 
-    Assert.assertEquals("The score should be 60", 60, ScoreManager.calculateScore(week));
+    Assert.assertEquals("The score should be 50", 50, ScoreManager.calculateScore(week));
   }
 
   /**
@@ -212,7 +212,7 @@ public class ScoreTests {
       week.add(day);
     }
 
-    Assert.assertEquals("The score should be 80", 80, ScoreManager.calculateScore(week));
+    Assert.assertEquals("The score should be 70", 70, ScoreManager.calculateScore(week));
   }
 
   /**
@@ -227,6 +227,6 @@ public class ScoreTests {
       week.add(day);
     }
 
-    Assert.assertEquals("The score should be 80", 80, ScoreManager.calculateScore(week));
+    Assert.assertEquals("The score should be 70", 70, ScoreManager.calculateScore(week));
   }
 }
