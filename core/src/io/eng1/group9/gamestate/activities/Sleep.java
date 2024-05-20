@@ -17,4 +17,9 @@ public class Sleep extends Activity {
     super(time, energy, name);
   }
 
+  @Override
+  public String toString() {
+    return "Sleep, Skips to next day, 0 energy";
+  }
+
 }
