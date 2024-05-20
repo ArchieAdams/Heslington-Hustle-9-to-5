@@ -59,6 +59,9 @@ public class GameScreenInput extends InputAdapter {
       case Input.Keys.ENTER:
         performGameActivity();
         break;
+      case Input.Keys.ESCAPE:
+        game.restartGame();
+        break;
       default:
         return false;
     }

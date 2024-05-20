@@ -45,6 +45,7 @@ public class GameScreenUi extends ScreenUi {
   private final Label energyLabel;
   private final Label dayLabel;
   private final Label scoreLabel;
+  private final Label restartLabel;
   private final TextButton activityButton;
   private final List<String> days;
   private final Vector3 previousPos;
@@ -86,8 +87,9 @@ public class GameScreenUi extends ScreenUi {
     timeLabel = new Label("00:00", skin);
     dayLabel = new Label("Monday", skin);
     energyBar = new ProgressBar(0, 100, 1, true, skin);
-    energyLabel = new Label("100/100", skin);
+    energyLabel = new Label("Energy: 100/100", skin);
     scoreLabel = new Label("", skin);
+    restartLabel = new Label("Press Esc to restart and head to main menu", skin);
     activityButton = new TextButton("Perform Activity", skin);
     activityButton.setWidth(1000);
     dayLabel.setFontScale(1.2f);
@@ -98,6 +100,7 @@ public class GameScreenUi extends ScreenUi {
     stage.addActor(timeLabel);
     stage.addActor(energyBar);
     stage.addActor(energyLabel);
+    stage.addActor(restartLabel);
     stage.addActor(activityButton);
     stage.addActor(scoreLabel);
   }
@@ -167,6 +170,9 @@ public class GameScreenUi extends ScreenUi {
     dayLabel.setX(10);
     dayLabel.setY(height - dayLabel.getHeight() - 10);
     dayLabel.setText(days.get(game.getGameState().getDayCount()));
+
+    restartLabel.setX(width / 2f - restartLabel.getWidth() / 2f);
+    restartLabel.setY(height - restartLabel.getHeight() - 10);
 
     timeLabel.setX(width - timeLabel.getWidth() - 10);
     timeLabel.setY(height - timeLabel.getHeight() - 10);

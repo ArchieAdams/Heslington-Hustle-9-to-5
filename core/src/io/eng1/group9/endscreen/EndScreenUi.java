@@ -93,7 +93,7 @@ public class EndScreenUi extends ScreenUi {
 
     table.row();
     int finalScore = game.getGameState().getScore();
-    Label scoreLabel = new Label(String.format("Score: %d", finalScore), skin);
+    Label scoreLabel = new Label(String.format("Score: %d / 100", finalScore), skin);
     scoreLabel.setAlignment(Align.center);
     table.add(scoreLabel).center().padBottom(60);
   }
